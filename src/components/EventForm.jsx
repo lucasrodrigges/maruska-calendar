@@ -4,13 +4,22 @@ import setToLS from '../services/localStorage';
 
 export default function EventForm() {
   const [showBandForm, setShowBandForm] = useState(false);
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState({
+    name: '',
+    date: '',
+    time: '',
+  });
+  const [isDisabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    setToLS('event', {});
-  }, []);
+    const { name, date, time } = event;
+
+    if ([name, date, time].every((el) => el.length)) {
+      setDisabled(false);
+    } else setDisabled(true);
+  }, [event]);
 
   function handleChange({ target: { name, value } }) {
     setEvent({
@@ -31,17 +40,17 @@ export default function EventForm() {
       <form action="form" onSubmit={handleSubmit}>
         <label htmlFor="eventName">
           Nome:
-          <input name="eventName" id="eventName" type="text" onChange={handleChange} />
+          <input name="name" id="eventName" type="text" onChange={handleChange} />
         </label>
         <label htmlFor="eventDate">
           Data:
-          <input type="date" name="eventDate" id="eventDate" onChange={handleChange} />
+          <input type="date" name="date" id="eventDate" onChange={handleChange} />
         </label>
         <label htmlFor="eventTime">
           Hora:
-          <input type="time" name="eventTime" id="eventTime" onChange={handleChange} />
+          <input type="time" name="time" id="eventTime" onChange={handleChange} />
         </label>
-        <button type="submit">Marcar show</button>
+        <button type="submit" disabled={isDisabled}>Marcar show</button>
       </form>
       {showBandForm && (
       <form>
@@ -55,7 +64,6 @@ export default function EventForm() {
           }}
         >
           Sim
-
         </button>
       </form>
       )}

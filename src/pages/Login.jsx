@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../services/firebase';
@@ -13,6 +13,10 @@ export default function Login() {
 
   const auth = getAuth(app);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setToLS('session', { userId: '' });
+  }, []);
 
   function handleChange({ target: { name, value } }) {
     setUser({

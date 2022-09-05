@@ -74,7 +74,7 @@ export default function BandForm() {
                   Instrumento:
                   <select name="instrument" id={`integrante${num}`} onChange={handleChange}>
                     {instruments.map((item) => (
-                      <option key={item} value="">{item}</option>
+                      <option key={item} value={item}>{item}</option>
                     ))}
                   </select>
                 </label>
