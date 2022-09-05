@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import app from '../services/firebase';
+import { useNavigate } from 'react-router-dom';
+import { app } from '../services/firebase';
 import setToLS, { getFromLS } from '../services/localStorage';
 import CalendarCards from '../components/CalendarCards';
 import './Calendar.css';
@@ -32,7 +32,6 @@ export default function Calendar() {
       {!isLogged ? (
         <div>
           <p>Usuário não logado</p>
-          <Link to="/">Login</Link>
         </div>
       ) : (
         <div>
