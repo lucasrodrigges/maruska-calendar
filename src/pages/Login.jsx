@@ -42,7 +42,7 @@ export default function Login() {
       <h2>Login</h2>
       <label htmlFor="email">
         Email:
-        <input type="text" name="email" id="email" onChange={handleChange} />
+        <input type="email" name="email" id="email" onChange={handleChange} />
       </label>
 
       <label htmlFor="pass">

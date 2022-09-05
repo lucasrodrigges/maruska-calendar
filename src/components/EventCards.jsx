@@ -20,6 +20,7 @@ export default function EventCards() {
 
   return (
     <div>
+      <h2>Shows marcados</h2>
       {events.length > 0 ? events.map(({
         id, event: {
           name, date, time, members,
@@ -38,7 +39,7 @@ export default function EventCards() {
             </thead>
             <tbody>
               {Object.keys(members).map((el) => (
-                <tr>
+                <tr key={members[el].name}>
                   <td>{members[el].name}</td>
                   <td>{members[el].instrument}</td>
                 </tr>

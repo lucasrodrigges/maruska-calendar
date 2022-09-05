@@ -62,9 +62,21 @@ export default function Calendar() {
     dispatch(setMonth(currMonth));
   }, [currMonth]);
 
+  function changeMonth({ target: { value } }) {
+    setCurrMonth(value);
+  }
+
   return (
     <div>
       <Header />
+      <label htmlFor="month">
+        Meses:
+        <select name="currMonth" id="month" value={currMonth} onChange={changeMonth}>
+          {months.map(({ name, month }) => (
+            <option key={name} value={month}>{month}</option>
+          ))}
+        </select>
+      </label>
       {!isLogged ? (
         <div>
           <p>Usuário não logado</p>

@@ -37,6 +37,7 @@ export default function EventForm() {
 
   return (
     <div>
+      <h2>Marcar evento</h2>
       <form action="form" onSubmit={handleSubmit}>
         <label htmlFor="eventName">
           Nome:
