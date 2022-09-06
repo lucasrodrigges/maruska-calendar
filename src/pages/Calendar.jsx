@@ -84,7 +84,7 @@ export default function Calendar() {
       ) : (
         <div>
           <EventForm />
-          <EventCards />
+          <EventCards months={months} />
         </div>
       )}
     </div>
