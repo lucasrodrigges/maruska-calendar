@@ -8,32 +8,10 @@ import Header from '../components/Header';
 import { setMonth } from '../redux/actions';
 import EventForm from '../components/EventForm';
 import EventCards from '../components/EventCards';
+import { months } from '../helpers/data';
 
 export default function Calendar() {
   const [isLogged, setIsLogged] = useState(false);
-  const months = [
-    { name: 'Jan', month: 'Janeiro' },
-    { name: 'Feb', month: 'Fevereiro' },
-    { name: 'Mar', month: 'Março' },
-    { name: 'Apr', month: 'Abril' },
-    { name: 'May', month: 'Maio' },
-    { name: 'June', month: 'Junho' },
-    { name: 'July', month: 'Julho' },
-    { name: 'Aug', month: 'Agosto' },
-    { name: 'Sept', month: 'Setembro' },
-    { name: 'Oct', month: 'Outubro' },
-    { name: 'Nov', month: 'Novembro' },
-    { name: 'Dec', month: 'Dezembro' },
-  ];
-  // const weekDays = [
-  //   { name: 'Sun', day: 'Domingo' },
-  //   { name: 'Mon', day: 'Segunda' },
-  //   { name: 'Tue', day: 'Terça' },
-  //   { name: 'Wed', day: 'Quarta' },
-  //   { name: 'Thu', day: 'Quinta' },
-  //   { name: 'Fri', day: 'Sexta' },
-  //   { name: 'Sat', day: 'Sábado' },
-  // ];
 
   const [currMonth, setCurrMonth] = useState('');
   // const [currDay, setCurrDay] = useState('');
@@ -55,7 +33,6 @@ export default function Calendar() {
     const date = new Date();
 
     setCurrMonth(months[date.getMonth()].month);
-    // setCurrDay(weekDays[date.getDay()].day);
   }, []);
 
   useEffect(() => {
@@ -84,7 +61,7 @@ export default function Calendar() {
       ) : (
         <div>
           <EventForm />
-          <EventCards months={months} />
+          <EventCards />
         </div>
       )}
     </div>

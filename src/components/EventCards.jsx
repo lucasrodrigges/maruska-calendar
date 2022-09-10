@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-  collection, query, getDocs,
+  collection, query, getDocs, deleteDoc, doc,
 } from 'firebase/firestore';
-import PropTypes from 'prop-types';
 import { db } from '../services/firebase';
+import convertDateAndTime from '../helpers/convertDateAndTime';
+import { months } from '../helpers/data';
 
-export default function EventCards(props) {
+export default function EventCards() {
   const [events, setEvents] = useState([]);
+  const [hasClickDel, setOnDelClick] = useState(false);
 
   const q = query(collection(db, 'events'));
 
@@ -14,9 +16,9 @@ export default function EventCards(props) {
     const eventArr = [];
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
-      const { id } = doc;
-      const event = doc.data();
+    querySnapshot.forEach((currDoc) => {
+      const { id } = currDoc;
+      const event = currDoc.data();
 
       eventArr.push({ event, id });
     });
@@ -26,21 +28,11 @@ export default function EventCards(props) {
     ));
 
     setEvents(orderedEvents);
-  }, []);
+  }, [hasClickDel]);
 
-  function translateDate(date, time) {
-    const { months } = props;
-    const dateSplit = date.split('-');
-    const timeSplit = time.split(':');
-
-    const { month } = months[Number(dateSplit[1]) - 1];
-    const day = dateSplit[2];
-    // -1 because the array starts at 0 // 0 === 'jan'
-
-    const hour = timeSplit[0];
-    const min = timeSplit[1];
-
-    return `Dia ${day} de ${month} às ${hour}h${min}min`;
+  async function handleDelete({ target: { id } }) {
+    await deleteDoc(doc(db, 'events', id));
+    setOnDelClick(!hasClickDel); // forces useEffect runs
   }
 
   return (
@@ -53,7 +45,7 @@ export default function EventCards(props) {
       }) => (
         <div key={id}>
           <h2>{name}</h2>
-          <p>{translateDate(date, time)}</p>
+          <p>{`Dia ${convertDateAndTime(date, time, months)}`}</p>
           <table>
             <thead>
               <tr>
@@ -70,13 +62,9 @@ export default function EventCards(props) {
               ))}
             </tbody>
           </table>
-          <button type="button">Excluir</button>
+          <button type="button" id={id} onClick={handleDelete}>Excluir</button>
         </div>
       )) : <p>Nenhum show marcado</p>}
     </div>
   );
 }
-
-EventCards.propTypes = {
-  months: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-};

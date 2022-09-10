@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "dotenv": "^16.0.2",
     "eslint-config-airbnb": "^19.0.4",
     "firebase": "^9.9.4",
     "moment": "^2.29.4",
+    "node-fetch": "^2.6.7",
     "prop-types": "^15.8.1",
+    "qrcode-terminal": "^0.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
@@ -25,7 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "wpp": "node ./src/services/wppBot.js"
   },
   "eslintConfig": {
     "extends": [

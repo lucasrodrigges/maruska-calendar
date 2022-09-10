@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addDoc, collection } from 'firebase/firestore';
+import {
+  addDoc, collection, query, getDocs,
+} from 'firebase/firestore';
 import setToLS, { getFromLS } from '../services/localStorage';
 import { db } from '../services/firebase';
+import sendTelegramMessage from '../services/telegramBot';
+import convertDateAndTime from '../helpers/convertDateAndTime';
 
 export default function BandForm() {
   const [numOfMembers, setNumOfMembers] = useState(0);
-  const [members, setMembers] = useState({});
+  const [members, setMembers] = useState([]);
   const [inputArr, setInputArr] = useState([]);
   const [hasNumber, setNumber] = useState(false);
+  const [musicians, setMusicians] = useState([]);
+  const [hasNewUser, setNewUser] = useState(false);
 
   const instruments = ['Selecione', 'Violão/Guitarra', 'Teclado/Piano', 'Contrabaixo', 'Bateria', 'Percussão'];
 
+  const q = query(collection(db, 'musicians'));
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const initialMembers = inputArr.reduce((acc, curr) => {
-      acc[`integrante${curr}`] = {
-        name: 'Integrante',
-        instrument: '',
-      };
-      return acc;
-    }, {});
-    setMembers(initialMembers);
-  }, [inputArr]);
+  useEffect(() => async () => {
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((currDoc) => {
+      const response = currDoc.data();
+      const { musicians: musiciansArr } = response;
+      setMusicians(musiciansArr);
+    });
+  }, []);
 
   function handleConfirm() {
     const arr = Object.keys(new Array(numOfMembers + 1).fill(null)).map(Number);
@@ -32,21 +39,41 @@ export default function BandForm() {
     setNumber(true);
   }
 
-  function handleChange({ target: { id, name, value } }) {
-    setMembers({
-      ...members,
-      [id]: {
-        ...members[id],
-        [name]: value,
-      },
-    });
+  function handleChange({ target: { value } }) {
+    setMembers([...members, value]);
+  }
+
+  async function addMusician() {
+    setNewUser(true);
   }
 
   async function handleAddEvent() {
     const event = getFromLS('event');
+    const musiciansArr = [];
 
-    await addDoc(collection(db, 'events'), { ...event, members });
-    setToLS('event', { ...event, members });
+    members.forEach(async (member) => {
+      const newMember = musicians.find(({ name }) => name === member);
+      const { id } = newMember;
+      const { date, time } = event;
+      const msg = `Olá ${newMember.name}, tudo bem?
+
+Vai ficar melhor agora porque tem cachê!  💁‍♀️💸
+Um show da Maruska abou de ser marcado contigo!
+Até lá, e aguardo para matarmos a saudade ❤
+
+Data:  Dia ${convertDateAndTime(date, time)}!
+Localização:  
+
+Para mais informações acesse o link.`;
+
+      musiciansArr.push(newMember);
+      if (id) {
+        await sendTelegramMessage(id, msg);
+      }
+    });
+
+    await addDoc(collection(db, 'events'), { ...event, members: musiciansArr });
+    setToLS('event', { ...event, musiciansArr });
     navigate('/calendario');
   }
 
@@ -65,26 +92,29 @@ export default function BandForm() {
           <div>
             {inputArr.length && inputArr.map((num) => (
               <div key={num}>
-                <h2>{ Object.keys(members).length && members[`integrante${num}`].name}</h2>
                 <label htmlFor="name">
                   Nome:
-                  <input name="name" id={`integrante${num}`} type="text" onChange={handleChange} />
-                </label>
-                <label htmlFor="instrument">
-                  Instrumento:
-                  <select name="instrument" id={`integrante${num}`} onChange={handleChange}>
-                    {instruments.map((item) => (
-                      <option key={item} value={item}>{item}</option>
+                  <select name="name" id={`integrante${num}`} onChange={handleChange}>
+                    <option value="">Selecione</option>
+                    {musicians.length && musicians.map(({ name }) => (
+                      <option key={name} value={name}>{name}</option>
                     ))}
                   </select>
                 </label>
-                <label htmlFor="email">
-                  Se possível, email:
-                  <input type="email" name="email" id={`integrante${num}`} onChange={handleChange} />
-                </label>
+                {hasNewUser && (
+                  <label htmlFor="instrument">
+                    Instrumento:
+                    <select name="instrument" id={`integrante${num}`} onChange={handleChange}>
+                      {instruments.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </label>
+                )}
               </div>
             ))}
-            <button type="button" onClick={handleAddEvent}>Confirmar</button>
+            <button type="button" onClick={addMusician}>Adicionar músico que não está na lista</button>
+            <button type="button" onClick={handleAddEvent}>Finalizar</button>
           </div>
         )}
       </form>

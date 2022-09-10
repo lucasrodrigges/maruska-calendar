@@ -34,7 +34,7 @@ export default function Login() {
         setToLS('session', { userId: currUser.user.uid });
         navigate('/calendario');
       })
-      .catch(() => setLoginError('Campo de email e/ou senha inválidos'));
+      .catch(() => setLoginError('Usuário não cadastrado ou campo de email e/ou senha incorretos.'));
   }
 
   return (
