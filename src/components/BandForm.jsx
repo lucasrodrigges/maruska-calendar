@@ -64,6 +64,7 @@ export default function BandForm() {
 
   return (
     <div>
+      <h2>Adicione Músicos</h2>
       <form action="" onSubmit={handleAddEvent}>
         <label htmlFor="musician">
           Músico:
