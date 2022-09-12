@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
   collection, query, getDocs, deleteDoc, doc,
 } from 'firebase/firestore';
-import { db } from '../services/firebase';
+import { getAuth } from 'firebase/auth';
+import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import { months } from '../helpers/data';
 
@@ -10,11 +11,11 @@ export default function EventCards() {
   const [events, setEvents] = useState([]);
   const [hasClickDel, setOnDelClick] = useState(false);
 
-  const q = query(collection(db, 'events'));
-
   useEffect(() => async () => {
+    const auth = getAuth(app);
+    const q = query(collection(db, 'events'));
     const eventArr = [];
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q, auth);
 
     querySnapshot.forEach((currDoc) => {
       const { id } = currDoc;

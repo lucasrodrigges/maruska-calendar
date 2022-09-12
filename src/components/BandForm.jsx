@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import {
   addDoc, collection, query, getDocs,
 } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import setToLS, { getFromLS } from '../services/localStorage';
-import { db } from '../services/firebase';
+import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import sendWppMessage from '../services/wppBot';
 
@@ -13,12 +14,12 @@ export default function BandForm() {
   const [musicians, setMusicians] = useState([{ name: 'Selecione' }]);
   const [inputArr, setInputArr] = useState([]);
 
-  const q = query(collection(db, 'musicians'));
-
   const navigate = useNavigate();
 
   useEffect(() => async () => {
-    const querySnapshot = await getDocs(q);
+    const auth = getAuth(app);
+    const q = query(collection(db, 'musicians'));
+    const querySnapshot = await getDocs(q, auth);
 
     querySnapshot.forEach((currDoc) => {
       const response = currDoc.data();
