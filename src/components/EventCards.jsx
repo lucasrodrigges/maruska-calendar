@@ -40,11 +40,11 @@ export default function EventCards() {
       <h2>Shows marcados</h2>
       {events.length > 0 ? events.map(({
         id, event: {
-          name, date, time, members,
+          location, date, time, members,
         },
       }) => (
         <div key={id}>
-          <h2>{name}</h2>
+          <h2>{location}</h2>
           <p>{`Dia ${convertDateAndTime(date, time, months)}`}</p>
           <table>
             <thead>

@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import setToLS from '../services/localStorage';
 
 export default function EventForm() {
-  const [showBandForm, setShowBandForm] = useState(false);
   const [event, setEvent] = useState({
-    name: '',
+    location: '',
     date: '',
     time: '',
   });
@@ -14,9 +13,9 @@ export default function EventForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const { name, date, time } = event;
+    const { location, date, time } = event;
 
-    if ([name, date, time].every((el) => el.length)) {
+    if ([location, date, time].every((el) => el.length)) {
       setDisabled(false);
     } else setDisabled(true);
   }, [event]);
@@ -30,18 +29,17 @@ export default function EventForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setShowBandForm(true);
+    setToLS('event', event);
+    navigate('/banda');
   }
-
-  function createEvent() {}
 
   return (
     <div>
       <h2>Marcar evento</h2>
       <form action="form" onSubmit={handleSubmit}>
-        <label htmlFor="eventName">
-          Nome:
-          <input name="name" id="eventName" type="text" onChange={handleChange} />
+        <label htmlFor="eventLocation">
+          Onde:
+          <input name="location" id="eventLocation" type="text" onChange={handleChange} />
         </label>
         <label htmlFor="eventDate">
           Data:
@@ -53,21 +51,6 @@ export default function EventForm() {
         </label>
         <button type="submit" disabled={isDisabled}>Marcar show</button>
       </form>
-      {showBandForm && (
-      <form>
-        É com banda?
-        <button type="button" onClick={createEvent}>Não</button>
-        <button
-          type="button"
-          onClick={() => {
-            navigate('/banda');
-            setToLS('event', { ...event, hasBand: true });
-          }}
-        >
-          Sim
-        </button>
-      </form>
-      )}
     </div>
   );
 }
