@@ -15,9 +15,9 @@ export default function BandForm() {
   const [inputArr, setInputArr] = useState([]);
 
   const navigate = useNavigate();
+  const auth = getAuth(app);
 
   useEffect(() => async () => {
-    const auth = getAuth(app);
     const q = query(collection(db, 'musicians'));
     const querySnapshot = await getDocs(q, auth);
 
@@ -58,7 +58,7 @@ export default function BandForm() {
       navigate('/calendario');
     });
 
-    await addDoc(collection(db, 'events'), { ...event, members: musiciansArr });
+    await addDoc(collection(db, 'events'), { ...event, members: musiciansArr }, auth);
     setToLS('event', { ...event, musiciansArr });
     navigate('/calendario');
   }

@@ -11,8 +11,9 @@ export default function EventCards() {
   const [events, setEvents] = useState([]);
   const [hasClickDel, setOnDelClick] = useState(false);
 
+  const auth = getAuth(app);
+
   useEffect(() => async () => {
-    const auth = getAuth(app);
     const q = query(collection(db, 'events'));
     const eventArr = [];
     const querySnapshot = await getDocs(q, auth);
