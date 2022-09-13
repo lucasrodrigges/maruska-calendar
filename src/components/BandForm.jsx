@@ -15,18 +15,18 @@ export default function BandForm() {
   const [inputArr, setInputArr] = useState([]);
 
   const navigate = useNavigate();
-
   const auth = getAuth(app);
-  const q = query(collection(db, 'musicians'));
 
   useEffect(() => async () => {
+    const q = query(collection(db, 'musicians'));
     const querySnapshot = await getDocs(q, auth);
+
     querySnapshot.forEach((currDoc) => {
       const response = currDoc.data();
       const { musicians: musiciansArr } = response;
       setMusicians([...musicians, ...musiciansArr]);
     });
-  }, [q]);
+  }, []);
 
   function handleChange({ target: { value } }) {
     setMembers([...members, value]);
