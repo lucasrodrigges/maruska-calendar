@@ -4,11 +4,11 @@ import {
   addDoc, collection,
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import axios from 'axios';
 import setToLS, { getFromLS } from '../services/localStorage';
 import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import sendWppMessage from '../services/wppBot';
-import { getMus } from '../services/fetchs';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
@@ -19,7 +19,8 @@ export default function BandForm() {
   const auth = getAuth(app);
 
   useEffect(() => async () => {
-    const musiciansFromAPI = await getMus();
+    const res = await axios.get('/api/getMus');
+    const { data: { db: musiciansFromAPI } } = res;
     setMusicians([...musicians, ...musiciansFromAPI]);
   }, []);
 
