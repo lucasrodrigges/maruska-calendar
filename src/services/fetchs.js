@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 const fetch = require('node-fetch');
-// require('dotenv').config();
 
 export async function addMus(name, phoneNumber, instrument) {
   const URL = `http://18.231.68.157:3000/addMus/${process.env.REACT_APP_API_TOKEN}`;
+
   const body = {
     name, phoneNumber, instrument,
   };
+
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -21,7 +22,9 @@ export async function addMus(name, phoneNumber, instrument) {
 
 export async function getMus() {
   const URL = 'http://18.231.68.157:3000/getMus';
+
   const data = await fetch(URL);
   const response = await data.json();
+
   return response;
 }
