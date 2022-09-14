@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 // require('dotenv').config();
 
 export async function addMus(name, phoneNumber, instrument) {
