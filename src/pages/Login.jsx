@@ -15,7 +15,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setToLS('session', { userId: '' });
+    setToLS('session', { accessToken: '' });
   }, []);
 
   function handleChange({ target: { name, value } }) {
