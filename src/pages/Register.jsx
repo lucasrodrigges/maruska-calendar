@@ -29,7 +29,7 @@ export default function Register() {
     if (pass === confPass) {
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
-          setToLS('session', { userId: userCredential.user.uid });
+          setToLS('session', { accessToke: userCredential.user.accessToken });
           navigate('/calendario');
         })
         .catch((error) => {
