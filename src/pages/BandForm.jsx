@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  addDoc, collection,
+  addDoc, collection, getDocs,
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import setToLS, { getFromLS } from '../services/localStorage';
 import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import sendWppMessage from '../services/wppBot';
-import getMus from '../services/fetchers/getMus.';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
@@ -19,8 +18,14 @@ export default function BandForm() {
   const auth = getAuth(app);
 
   useEffect(() => async () => {
-    const musiciansFromAPI = await getMus();
-    setMusicians([...musicians, ...musiciansFromAPI]);
+    const musiciansArr = [];
+    const querySnapshot = await getDocs(collection(db, 'musicians'));
+    querySnapshot.forEach((doc) => {
+      const { id } = doc;
+      const musician = doc.data();
+      musiciansArr.push({ ...musician, id });
+    });
+    setMusicians([...musicians, ...musiciansArr]);
   }, []);
 
   function handleChange({ target: { value } }) {
@@ -86,6 +91,7 @@ export default function BandForm() {
         ))}
         <button type="submit">Finalizar</button>
       </form>
+      <button type="button" onClick={() => navigate('/novo-musico')}>Adicionar um novo músico</button>
     </div>
   );
 }
