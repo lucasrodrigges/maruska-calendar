@@ -36,7 +36,6 @@ export default function Register() {
           if (error.code === 'auth/email-already-in-use') {
             setCreateError('Este e-mail já existe em nossa base, você esqueceu a sua senha?');
           }
-          console.log(error.code);
         });
     } else {
       setCreateError('As senhas estão diferentes, favor verifique.');

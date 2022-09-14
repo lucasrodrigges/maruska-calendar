@@ -31,7 +31,7 @@ export default function Login() {
 
     signInWithEmailAndPassword(auth, email, pass)
       .then((currUser) => {
-        setToLS('session', { userId: currUser.user.uid });
+        setToLS('session', { accessToken: currUser.user.accessToken });
         navigate('/calendario');
       })
       .catch(() => setLoginError('Usuário não cadastrado ou campo de email e/ou senha incorretos.'));
