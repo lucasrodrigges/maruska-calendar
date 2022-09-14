@@ -8,7 +8,7 @@ import setToLS, { getFromLS } from '../services/localStorage';
 import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import sendWppMessage from '../services/wppBot';
-import { getMus } from '../services/fetchs';
+import getMus from '../services/fetchers/getMus.';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
