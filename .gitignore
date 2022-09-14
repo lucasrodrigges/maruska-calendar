@@ -12,6 +12,7 @@
 /build
 
 # misc
+./maruska-calendar-firebase-adminsdk-d6wj5-728d1af28d
 .env
 .DS_Store
 .env.local
