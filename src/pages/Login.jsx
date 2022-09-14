@@ -15,7 +15,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setToLS('session', { userId: '' });
+    setToLS('session', { accessToken: '' });
   }, []);
 
   function handleChange({ target: { name, value } }) {
@@ -31,10 +31,14 @@ export default function Login() {
 
     signInWithEmailAndPassword(auth, email, pass)
       .then((currUser) => {
-        setToLS('session', { userId: currUser.user.uid });
+        setToLS('session', { accessToken: currUser.user.accessToken });
         navigate('/calendario');
       })
       .catch(() => setLoginError('Usuário não cadastrado ou campo de email e/ou senha incorretos.'));
+  }
+
+  function goToAccountCreate() {
+    navigate('/novo-usuario');
   }
 
   return (
@@ -51,6 +55,7 @@ export default function Login() {
       </label>
       {loginError && <p>{loginError}</p>}
       <button type="submit">Entrar</button>
+      <button type="button" onClick={goToAccountCreate}>Não possui um conta?</button>
     </form>
   );
 }
