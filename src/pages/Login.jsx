@@ -37,6 +37,10 @@ export default function Login() {
       .catch(() => setLoginError('Usuário não cadastrado ou campo de email e/ou senha incorretos.'));
   }
 
+  function goToAccountCreate() {
+    navigate('/novo-usuario');
+  }
+
   return (
     <form action="login" onSubmit={handleSubmit}>
       <h2>Login</h2>
@@ -51,6 +55,7 @@ export default function Login() {
       </label>
       {loginError && <p>{loginError}</p>}
       <button type="submit">Entrar</button>
+      <button type="button" onClick={goToAccountCreate}>Não possui um conta?</button>
     </form>
   );
 }
