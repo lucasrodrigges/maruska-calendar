@@ -19,9 +19,13 @@ export default function BandForm() {
   const auth = getAuth(app);
 
   useEffect(() => async () => {
-    const res = await axios.get('/api/getMus');
-    const { data: { db: musiciansFromAPI } } = res;
-    setMusicians([...musicians, ...musiciansFromAPI]);
+    try {
+      const res = await axios.get('/api/getMus');
+      const { data: { db: musiciansFromAPI } } = res;
+      setMusicians([...musicians, ...musiciansFromAPI]);
+    } catch {
+      console.log('fodeu');
+    }
   }, []);
 
   function handleChange({ target: { value } }) {
