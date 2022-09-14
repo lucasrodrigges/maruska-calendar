@@ -52,12 +52,12 @@ export default function Register() {
 
       <label htmlFor="pass">
         Sua Senha:
-        <input type="text" name="pass" id="pass" onChange={handleChange} />
+        <input type="password" name="pass" id="pass" onChange={handleChange} />
       </label>
 
       <label htmlFor="confPass">
         Confirme a Senha:
-        <input type="text" name="confPass" id="confPass" onChange={handleChange} />
+        <input type="password" name="confPass" id="confPass" onChange={handleChange} />
       </label>
       {userError && <p>{userError}</p>}
       <button type="submit">Criar</button>
