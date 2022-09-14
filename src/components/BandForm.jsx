@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  addDoc, collection,
+  addDoc, collection, query, getDocs,
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import setToLS, { getFromLS } from '../services/localStorage';
 import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import sendWppMessage from '../services/wppBot';
-import { getMus } from '../services/fetchs';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
@@ -19,8 +18,14 @@ export default function BandForm() {
   const auth = getAuth(app);
 
   useEffect(() => async () => {
-    const musiciansFromAPI = await getMus();
-    setMusicians([...musicians, ...musiciansFromAPI]);
+    const q = query(collection(db, 'musicians'));
+    const querySnapshot = await getDocs(q, auth);
+
+    querySnapshot.forEach((currDoc) => {
+      const response = currDoc.data();
+      const { musicians: musiciansArr } = response;
+      setMusicians([...musicians, ...musiciansArr]);
+    });
   }, []);
 
   function handleChange({ target: { value } }) {
