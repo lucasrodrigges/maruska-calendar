@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-// const fetch = require('node-fetch');
-require('dotenv').config();
+const fetch = require('node-fetch');
+// require('dotenv').config();
 
 export async function addMus(name, phoneNumber, instrument) {
   const URL = `http://18.231.68.157:3000/addMus/${process.env.REACT_APP_API_TOKEN}`;
