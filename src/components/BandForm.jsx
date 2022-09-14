@@ -23,6 +23,7 @@ export default function BandForm() {
       const res = await axios.get('/api/getMus');
       const { data: { db: musiciansFromAPI } } = res;
       setMusicians([...musicians, ...musiciansFromAPI]);
+      console.log(musiciansFromAPI);
     } catch {
       console.log('fodeu');
     }
