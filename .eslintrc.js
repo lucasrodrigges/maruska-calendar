@@ -19,6 +19,6 @@ module.exports = {
     'react',
   ],
   rules: {
-    'linebreak-style': ['warning', 'unix'],
+    'linebreak-style': [1, 'unix'],
   },
 };
