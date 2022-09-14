@@ -2,7 +2,7 @@
   "name": "maruska-calendar",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://lucasrodrigges.github.io/maruska-calendar",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
@@ -25,6 +25,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "next dev",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -52,6 +54,7 @@
   "devDependencies": {
     "eslint": "^8.23.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-react": "^7.31.5"
+    "eslint-plugin-react": "^7.31.5",
+    "gh-pages": "^4.0.0"
   }
 }

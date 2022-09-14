@@ -8,9 +8,9 @@ import Login from './pages/Login';
 export default function App() {
   return (
     <Routes>
-      <Route path="" element={<Login />} />
-      <Route path="calendario" element={<Calendar />} />
-      <Route path="banda" element={<BandForm />} />
+      <Route path="./maruska-calendar/" element={<Login />} />
+      <Route path="./maruska-calendar/calendario" element={<Calendar />} />
+      <Route path="./maruska-calendar/banda" element={<BandForm />} />
     </Routes>
   );
 }

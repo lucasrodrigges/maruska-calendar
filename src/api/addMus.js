@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import fetch from 'node-fetch';
 
-export async function addMus(name, phoneNumber, instrument) {
+export default async function addMus(name, phoneNumber, instrument) {
   const URL = `http://18.231.68.157:3000/addMus/${process.env.REACT_APP_API_TOKEN}`;
 
   const body = {
@@ -18,13 +18,4 @@ export async function addMus(name, phoneNumber, instrument) {
     .then((response) => response.json())
     .then((response) => console.log(response))
     .catch((err) => console.error(err));
-}
-
-export async function getMus() {
-  const URL = 'http://18.231.68.157:3000/getMus';
-
-  const data = await fetch(URL);
-  const response = await data.json();
-
-  return response;
 }

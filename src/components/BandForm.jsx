@@ -8,7 +8,7 @@ import setToLS, { getFromLS } from '../services/localStorage';
 import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import sendWppMessage from '../services/wppBot';
-import handler from '../api/getMus';
+import getMus from '../api/getMus';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
@@ -19,7 +19,7 @@ export default function BandForm() {
   const auth = getAuth(app);
 
   useEffect(() => async () => {
-    const musiciansFromAPI = await handler();
+    const musiciansFromAPI = await getMus();
     setMusicians([...musicians, ...musiciansFromAPI]);
   }, []);
 
