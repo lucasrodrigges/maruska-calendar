@@ -86,6 +86,7 @@ export default function BandForm() {
         ))}
         <button type="submit">Finalizar</button>
       </form>
+      <button type="button" onClick={() => navigate('/novo-musico')}>Adicionar um novo músico</button>
     </div>
   );
 }
