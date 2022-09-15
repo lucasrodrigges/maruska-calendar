@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../services/firebase';
-import Header from '../components/Header';
+import { db } from '../../services/firebase';
+import Header from '../../components/Header';
 
 export default function MusRegister() {
   const [musician, setMusician] = useState({

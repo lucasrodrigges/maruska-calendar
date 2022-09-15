@@ -1,11 +1,11 @@
 /* eslint-disable require-jsdoc */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import BandForm from './pages/BandForm';
-import Calendar from './pages/Calendar';
-import Login from './pages/Login';
-import MusicianRegister from './pages/MusRegister';
-import Register from './pages/Register';
+import BandForm from './pages/BandForm/BandForm';
+import Calendar from './pages/Calendar/Calendar';
+import Login from './pages/Login/Login';
+import MusicianRegister from './pages/MusRegister/MusRegister';
+import Register from './pages/Register/Register';
 
 export default function App() {
   return (

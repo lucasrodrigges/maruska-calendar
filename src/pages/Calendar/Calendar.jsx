@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../services/firebase';
-import { getFromLS } from '../services/localStorage';
+import { app } from '../../services/firebase';
+import { getFromLS } from '../../services/localStorage';
 import './Calendar.css';
-import Header from '../components/Header';
-import { setMonth } from '../redux/actions';
-import EventForm from '../components/EventForm';
-import EventCards from '../components/EventCards';
-import { months } from '../helpers/data';
+import { setMonth } from '../../redux/actions';
+import EventForm from '../../components/EventForm';
+import EventCards from '../../components/EventCards';
+import { months } from '../../helpers/data';
+import Header from '../../components/Header';
 
 export default function Calendar() {
   const [isLogged, setIsLogged] = useState(false);

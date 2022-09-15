@@ -7,6 +7,7 @@ export default function EventForm() {
     location: '',
     date: '',
     time: '',
+    description: '',
   });
   const [isDisabled, setDisabled] = useState(true);
 
@@ -49,7 +50,11 @@ export default function EventForm() {
           Hora:
           <input type="time" name="time" id="eventTime" onChange={handleChange} />
         </label>
-        <button type="submit" disabled={isDisabled}>Marcar show</button>
+        <label htmlFor="description">
+          Descrição (opcional):
+          <textarea name="description" id="description" cols="30" rows="10" onChange={handleChange} />
+        </label>
+        <button type="submit" disabled={isDisabled}>Continuar</button>
       </form>
     </div>
   );
