@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../services/firebase';
-import setToLS from '../services/localStorage';
+import { app } from '../../services/firebase';
+import setToLS from '../../services/localStorage';
 
 export default function Login() {
   const [user, setUser] = useState({

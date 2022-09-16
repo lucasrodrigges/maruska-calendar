@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import {
   addDoc, collection, getDocs,
 } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import setToLS, { getFromLS } from '../services/localStorage';
-import { app, db } from '../services/firebase';
-import convertDateAndTime from '../helpers/convertDateAndTime';
-import sendWppMessage from '../services/wppBot';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import setToLS, { getFromLS } from '../../services/localStorage';
+import { app, db } from '../../services/firebase';
+import convertDateAndTime from '../../helpers/convertDateAndTime';
+import sendWppMessage from '../../services/wppBot';
+import Header from '../../components/Header';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
@@ -15,7 +16,16 @@ export default function BandForm() {
   const [inputArr, setInputArr] = useState([]);
 
   const navigate = useNavigate();
+
   const auth = getAuth(app);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, ({ accessToken }) => {
+      const currAccessToken = getFromLS('session').accessToken;
+
+      if (accessToken !== currAccessToken) navigate('/');
+    });
+  }, []);
 
   useEffect(() => async () => {
     const musiciansArr = [];
@@ -32,8 +42,16 @@ export default function BandForm() {
     setMembers([...members, value]);
   }
 
-  function addMusician() {
-    setInputArr([...inputArr, inputArr.length + 1]);
+  function changeNumberOfInputs({ target: { id } }) {
+    if (id === '-') {
+      const newInputArr = Array(inputArr.length - 1).fill(null);
+      setInputArr(newInputArr);
+
+      // eslint-disable-next-line max-len
+      // TODO fix the error at browser console: Warning: Each child in a list should have a unique "key" prop.
+    } else {
+      setInputArr([...inputArr, inputArr.length + 1]);
+    }
   }
 
   async function handleAddEvent(e) {
@@ -65,6 +83,7 @@ export default function BandForm() {
 
   return (
     <div>
+      <Header />
       <h2>Adicione Músicos</h2>
       <form action="" onSubmit={handleAddEvent}>
         <label htmlFor="musician">
@@ -75,18 +94,21 @@ export default function BandForm() {
             ))}
           </select>
         </label>
-        <button type="button" onClick={addMusician}>+</button>
+        <button type="button" onClick={changeNumberOfInputs}>+</button>
         {inputArr.map(() => (
           <div>
             <label htmlFor="musician">
               Músico
               <select name="musician" id="musician" onChange={handleChange}>
                 {musicians.length && musicians.map(({ name }) => (
+
                   <option key={name} value={name}>{name}</option>
+
                 ))}
               </select>
             </label>
-            <button type="button" onClick={addMusician}>+</button>
+            <button type="button" id="-" onClick={changeNumberOfInputs}>-</button>
+            <button type="button" id="+" onClick={changeNumberOfInputs}>+</button>
           </div>
         ))}
         <button type="submit">Finalizar</button>

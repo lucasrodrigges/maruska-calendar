@@ -7,11 +7,10 @@ export default function Header() {
 
   return (
     <div>
-      <h1>{currMonth}</h1>
+      <h1>Maruska Calendar</h1>
+      <h2>{currMonth}</h2>
       <Link to="/calendario">Home</Link>
       <Link to="/">Sair</Link>
     </div>
   );
 }
-
-// TODO CRIAR LÓGICA DE REDUX PARA MOSTRAR MÊS NO HEADER
