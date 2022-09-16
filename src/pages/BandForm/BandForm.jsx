@@ -14,6 +14,7 @@ export default function BandForm() {
   const [members, setMembers] = useState([]);
   const [musicians, setMusicians] = useState([{ name: 'Selecione' }]);
   const [inputArr, setInputArr] = useState([]);
+  const [errorMessage, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -38,14 +39,25 @@ export default function BandForm() {
     setMusicians([...musicians, ...musiciansArr]);
   }, []);
 
-  function handleChange({ target: { value } }) {
-    setMembers([...members, value]);
+  function handleChange({ target: { value, id } }) {
+    const alreadyHasMember = members.some((name) => name === value);
+    members.splice(+id);
+
+    if (alreadyHasMember) setError('Músico já selecionado');
+    else {
+      // setMembers(members.filter((name) => name !== value));
+      setMembers([...members, value]);
+      setError('');
+    }
   }
 
-  function changeNumberOfInputs({ target: { id } }) {
-    if (id === '-') {
+  function changeNumberOfInputs({ target: { name, id } }) {
+    if (name === '-') {
       const newInputArr = Array(inputArr.length - 1).fill(null);
       setInputArr(newInputArr);
+
+      members.splice(+id);
+      setMembers([...members]);
 
       // eslint-disable-next-line max-len
       // TODO fix the error at browser console: Warning: Each child in a list should have a unique "key" prop.
@@ -62,13 +74,13 @@ export default function BandForm() {
 
     members.forEach(async (member) => {
       const newMember = musicians.find(({ name }) => name === member);
-      const { number } = newMember;
+      const { phoneNum } = newMember;
       const { date, time, location } = event;
 
       musiciansArr.push(newMember);
-      if (number) {
+      if (phoneNum) {
         const msgObj = {
-          number, musician: member, date: convertDateAndTime(date, time), location,
+          phoneNum, musician: member, date: convertDateAndTime(date, time), location,
         };
 
         await sendWppMessage(msgObj);
@@ -88,30 +100,30 @@ export default function BandForm() {
       <form action="" onSubmit={handleAddEvent}>
         <label htmlFor="musician">
           Músico:
-          <select name="musician" id="musician" onChange={handleChange}>
+          <select name="musician" id="0" onChange={handleChange}>
             {musicians.length && musicians.map(({ name }) => (
               <option key={name} value={name}>{name}</option>
             ))}
           </select>
         </label>
         <button type="button" onClick={changeNumberOfInputs}>+</button>
-        {inputArr.map(() => (
+        {inputArr.map((index) => (
           <div>
             <label htmlFor="musician">
               Músico
-              <select name="musician" id="musician" onChange={handleChange}>
+              <select name="musician" id={index} onChange={handleChange}>
                 {musicians.length && musicians.map(({ name }) => (
-
                   <option key={name} value={name}>{name}</option>
-
                 ))}
               </select>
+              {errorMessage && <p>{errorMessage}</p>}
+              <button type="button" id={index} name="-" onClick={changeNumberOfInputs}>-</button>
+              <button type="button" name="+" onClick={changeNumberOfInputs}>+</button>
             </label>
-            <button type="button" id="-" onClick={changeNumberOfInputs}>-</button>
-            <button type="button" id="+" onClick={changeNumberOfInputs}>+</button>
+
           </div>
         ))}
-        <button type="submit">Finalizar</button>
+        <button type="submit" disabled={errorMessage}>Finalizar</button>
       </form>
       <button type="button" onClick={() => navigate('/novo-musico')}>Adicionar um novo músico</button>
     </div>
