@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  addDoc, collection, getDocs,
+  collection, getDocs,
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import setToLS, { getFromLS } from '../../services/localStorage';
+import { getFromLS } from '../../services/localStorage';
 import { app, db } from '../../services/firebase';
-import convertDateAndTime from '../../helpers/convertDateAndTime';
-import sendWppMessage from '../../services/wppBot';
 import Header from '../../components/Header';
+import EventReview from '../../components/EventReview';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
   const [musicians, setMusicians] = useState([{ name: 'Selecione' }]);
   const [inputArr, setInputArr] = useState([]);
   const [errorMessage, setError] = useState('');
+  const [showReview, setReview] = useState(false);
 
   const navigate = useNavigate();
 
@@ -66,38 +66,16 @@ export default function BandForm() {
     }
   }
 
-  async function handleAddEvent(e) {
+  async function sendToConfirm(e) {
     e.preventDefault();
-
-    const event = getFromLS('event');
-    const musiciansArr = [];
-
-    members.forEach(async (member) => {
-      const newMember = musicians.find(({ name }) => name === member);
-      const { phoneNum } = newMember;
-      const { date, time, location } = event;
-
-      musiciansArr.push(newMember);
-      if (phoneNum) {
-        const msgObj = {
-          phoneNum, musician: member, date: convertDateAndTime(date, time), location,
-        };
-
-        await sendWppMessage(msgObj);
-      }
-      navigate('/calendario');
-    });
-
-    await addDoc(collection(db, 'events'), { ...event, members: musiciansArr }, auth);
-    setToLS('event', { ...event, musiciansArr });
-    navigate('/calendario');
+    setReview(true);
   }
 
   return (
     <div>
       <Header />
       <h2>Adicione Músicos</h2>
-      <form action="" onSubmit={handleAddEvent}>
+      <form action="" onSubmit={sendToConfirm}>
         <label htmlFor="musician">
           Músico:
           <select name="musician" id="0" onChange={handleChange}>
@@ -126,6 +104,7 @@ export default function BandForm() {
         <button type="submit" disabled={errorMessage}>Finalizar</button>
       </form>
       <button type="button" onClick={() => navigate('/novo-musico')}>Adicionar um novo músico</button>
+      {showReview && <EventReview members={members} musicians={musicians} />}
     </div>
   );
 }

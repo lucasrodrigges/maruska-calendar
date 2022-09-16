@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../services/firebase';
-import { getFromLS } from '../../services/localStorage';
+import setToLS, { getFromLS } from '../../services/localStorage';
 import { setMonth } from '../../redux/actions';
 import EventCards from '../../components/EventCards';
 import { months } from '../../helpers/data';
@@ -20,17 +20,18 @@ export default function Calendar() {
 
   const auth = getAuth(app);
 
-  useEffect(() => {
+  useEffect(() => async () => {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (accessToken !== currAccessToken) navigate('/');
+      if (!currAccessToken || accessToken !== currAccessToken) navigate('/');
     });
 
     const date = new Date();
 
     setCurrMonth(months[date.getMonth()].month);
     setLoading(false);
+    setToLS('event', {});
   }, []);
 
   useEffect(() => {
