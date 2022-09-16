@@ -43,7 +43,7 @@ export default function MusicianRegister() {
     } else {
       try {
         await addDoc(collection(db, 'musicians'), musician);
-        navigate('/banda');
+        navigate(-1);
       } catch (err) {
         setError('Não foi possível adicionar músico ao banco de dados. Estamos tentando resolver o problema o mais rápido possível. Tente novamente mais tarde!');
       }

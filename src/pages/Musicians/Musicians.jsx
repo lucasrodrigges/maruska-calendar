@@ -51,6 +51,7 @@ export default function Musicians() {
           ) : <p>Não há músicos cadastrados</p>}
         </div>
       )}
+      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar Músico</button>
     </div>
   );
 }
