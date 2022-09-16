@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../services/firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { app, db } from '../../services/firebase';
 import Header from '../../components/Header';
+import { getFromLS } from '../../services/localStorage';
 
-export default function MusRegister() {
+export default function MusicianRegister() {
   const [musician, setMusician] = useState({
     name: '',
     instrument: '',
@@ -13,6 +15,16 @@ export default function MusRegister() {
   const [errorMessage, setError] = useState('');
 
   const navigate = useNavigate();
+
+  const auth = getAuth(app);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, ({ accessToken }) => {
+      const currAccessToken = getFromLS('session').accessToken;
+
+      if (accessToken !== currAccessToken) navigate('/');
+    });
+  }, []);
 
   function handleChange({ target: { name, value } }) {
     setMusician({
@@ -57,7 +69,7 @@ export default function MusRegister() {
         {errorMessage && <p>{errorMessage}</p>}
         <button type="submit">Adicionar</button>
       </form>
-      <button type="button" onClick={() => navigate('/banda')}>Voltar</button>
+      <button type="button" onClick={() => navigate(-1)}>Voltar</button>
     </div>
   );
 }

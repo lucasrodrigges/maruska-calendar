@@ -1,8 +1,11 @@
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import setToLS from '../services/localStorage';
+import Header from '../../components/Header';
+import { app } from '../../services/firebase';
+import setToLS, { getFromLS } from '../../services/localStorage';
 
-export default function EventForm() {
+export default function EventRegister() {
   const [event, setEvent] = useState({
     location: '',
     date: '',
@@ -13,7 +16,15 @@ export default function EventForm() {
 
   const navigate = useNavigate();
 
+  const auth = getAuth(app);
+
   useEffect(() => {
+    onAuthStateChanged(auth, ({ accessToken }) => {
+      const currAccessToken = getFromLS('session').accessToken;
+
+      if (accessToken !== currAccessToken) navigate('/');
+    });
+
     const { location, date, time } = event;
 
     if ([location, date, time].every((el) => el.length)) {
@@ -36,6 +47,7 @@ export default function EventForm() {
 
   return (
     <div>
+      <Header />
       <h2>Marcar evento</h2>
       <form action="form" onSubmit={handleSubmit}>
         <label htmlFor="eventLocation">
@@ -54,6 +66,7 @@ export default function EventForm() {
           Descrição (opcional):
           <textarea name="description" id="description" cols="30" rows="10" onChange={handleChange} />
         </label>
+        <button type="button" onClick={() => navigate(-1)}>Voltar</button>
         <button type="submit" disabled={isDisabled}>Continuar</button>
       </form>
     </div>

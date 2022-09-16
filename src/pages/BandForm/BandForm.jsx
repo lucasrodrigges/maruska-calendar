@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   addDoc, collection, getDocs,
 } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import setToLS, { getFromLS } from '../../services/localStorage';
 import { app, db } from '../../services/firebase';
 import convertDateAndTime from '../../helpers/convertDateAndTime';
@@ -16,7 +16,16 @@ export default function BandForm() {
   const [inputArr, setInputArr] = useState([]);
 
   const navigate = useNavigate();
+
   const auth = getAuth(app);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, ({ accessToken }) => {
+      const currAccessToken = getFromLS('session').accessToken;
+
+      if (accessToken !== currAccessToken) navigate('/');
+    });
+  }, []);
 
   useEffect(() => async () => {
     const musiciansArr = [];

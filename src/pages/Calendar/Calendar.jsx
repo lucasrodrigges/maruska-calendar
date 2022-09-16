@@ -4,17 +4,16 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../services/firebase';
 import { getFromLS } from '../../services/localStorage';
-import './Calendar.css';
 import { setMonth } from '../../redux/actions';
-import EventForm from '../../components/EventForm';
 import EventCards from '../../components/EventCards';
 import { months } from '../../helpers/data';
 import Header from '../../components/Header';
+import Loading from '../../components/Loading';
 
 export default function Calendar() {
-  const [isLogged, setIsLogged] = useState(false);
-
+  const [isLoading, setLoading] = useState(true);
   const [currMonth, setCurrMonth] = useState('');
+  const [showActions, setShowActions] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,15 +24,13 @@ export default function Calendar() {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (accessToken === currAccessToken) setIsLogged(true);
-      else navigate('/');
+      if (accessToken !== currAccessToken) navigate('/');
     });
-  }, []);
 
-  useEffect(() => {
     const date = new Date();
 
     setCurrMonth(months[date.getMonth()].month);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -46,23 +43,29 @@ export default function Calendar() {
 
   return (
     <div>
-      <Header />
-      <label htmlFor="month">
-        Meses:
-        <select name="currMonth" id="month" value={currMonth} onChange={changeMonth}>
-          {months.map(({ name, month }) => (
-            <option key={name} value={month}>{month}</option>
-          ))}
-        </select>
-      </label>
-      {!isLogged ? (
+      {isLoading ? <Loading /> : (
+
         <div>
-          <p>Usuário não logado</p>
-        </div>
-      ) : (
-        <div>
-          <EventForm />
-          <EventCards />
+          <Header />
+          <label htmlFor="month">
+            Meses:
+            <select name="currMonth" id="month" value={currMonth} onChange={changeMonth}>
+              {months.map(({ name, month }) => (
+                <option key={name} value={month}>{month}</option>
+              ))}
+            </select>
+          </label>
+          <div>
+            <EventCards />
+            <button type="button" onClick={() => setShowActions(!showActions)}>+</button>
+            {showActions && (
+              <>
+                <button type="button" onClick={() => navigate('/novo-show')}>Adicionar Evento</button>
+                <button type="button">Shows Realizados</button>
+                <button type="button" onClick={() => navigate('/musicos')}>Ver Músicos Cadastrados</button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>
