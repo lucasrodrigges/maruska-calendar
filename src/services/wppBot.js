@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 export default async function sendWppMessage(obj) {
-  const URL = `https://graph.facebook.com/v14.0/${process.env.REACT_APP_PHONE_ID}/messages/`;
   const {
     phoneNum, musician, date, location,
   } = obj;
@@ -28,6 +27,7 @@ export default async function sendWppMessage(obj) {
     },
   };
 
+  const URL = `https://graph.facebook.com/v14.0/${process.env.REACT_APP_PHONE_ID}/messages/`;
   const options = {
     method: 'POST',
     headers: {
