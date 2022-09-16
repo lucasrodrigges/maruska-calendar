@@ -55,7 +55,8 @@ export default function EventReview(props) {
           <li>{member}</li>
         ))}
       </ul>
-      <button type="submit" onClick={handleAddEvent}>Confirmar</button>
+      <button type="button" onClick={() => navigate('/novo-show')}>Editar</button>
+      <button type="button" onClick={handleAddEvent}>Confirmar</button>
     </div>
   );
 }

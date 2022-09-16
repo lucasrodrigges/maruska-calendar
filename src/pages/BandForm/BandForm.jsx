@@ -66,7 +66,7 @@ export default function BandForm() {
     }
   }
 
-  async function sendToConfirm(e) {
+  async function handleAddEvent(e) {
     e.preventDefault();
     setReview(true);
   }
@@ -75,7 +75,7 @@ export default function BandForm() {
     <div>
       <Header />
       <h2>Adicione Músicos</h2>
-      <form action="" onSubmit={sendToConfirm}>
+      <form action="" onSubmit={handleAddEvent}>
         <label htmlFor="musician">
           Músico:
           <select name="musician" id="0" onChange={handleChange}>
