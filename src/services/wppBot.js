@@ -37,8 +37,9 @@ export default async function sendWppMessage(obj) {
     body: JSON.stringify(body),
   };
 
-  fetch(URL, options)
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err));
+  try {
+    await fetch(URL, options);
+  } catch (err) {
+    throw new Error(err.message);
+  }
 }
