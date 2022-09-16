@@ -101,7 +101,7 @@ export default function BandForm() {
 
           </div>
         ))}
-        <button type="submit" disabled={errorMessage}>Finalizar</button>
+        <button type="submit" disabled={errorMessage}>Revisar</button>
       </form>
       <button type="button" onClick={() => navigate('/novo-musico')}>Adicionar um novo músico</button>
       {showReview && <EventReview members={members} musicians={musicians} />}
