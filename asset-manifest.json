@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/maruska-calendar/static/js/main.c27723c9.js",
+    "main.js": "/maruska-calendar/static/js/main.c41c30ba.js",
     "static/js/787.d228d21d.chunk.js": "/maruska-calendar/static/js/787.d228d21d.chunk.js",
     "index.html": "/maruska-calendar/index.html",
-    "main.c27723c9.js.map": "/maruska-calendar/static/js/main.c27723c9.js.map",
+    "main.c41c30ba.js.map": "/maruska-calendar/static/js/main.c41c30ba.js.map",
     "787.d228d21d.chunk.js.map": "/maruska-calendar/static/js/787.d228d21d.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.c27723c9.js"
+    "static/js/main.c41c30ba.js"
   ]
 }
