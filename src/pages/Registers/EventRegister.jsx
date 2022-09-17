@@ -22,7 +22,7 @@ export default function EventRegister() {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (accessToken !== currAccessToken) navigate('/');
+      if (accessToken !== currAccessToken) navigate('/maruska-calendar');
     });
 
     const { location, date, time } = event;
@@ -42,7 +42,7 @@ export default function EventRegister() {
   function handleSubmit(e) {
     e.preventDefault();
     setToLS('event', event);
-    navigate('/banda');
+    navigate('/maruska-calendar/banda');
   }
 
   return (

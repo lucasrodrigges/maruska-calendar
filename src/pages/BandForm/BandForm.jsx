@@ -24,7 +24,7 @@ export default function BandForm() {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (accessToken !== currAccessToken) navigate('/');
+      if (accessToken !== currAccessToken) navigate('/maruska-calendar');
     });
   }, []);
 
@@ -103,7 +103,7 @@ export default function BandForm() {
         ))}
         <button type="submit" disabled={errorMessage}>Revisar</button>
       </form>
-      <button type="button" onClick={() => navigate('/novo-musico')}>Adicionar um novo músico</button>
+      <button type="button" onClick={() => navigate('/maruska-calendar/novo-musico')}>Adicionar um novo músico</button>
       {showReview && <EventReview members={members} musicians={musicians} />}
     </div>
   );

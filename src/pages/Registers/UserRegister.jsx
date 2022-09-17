@@ -30,7 +30,7 @@ export default function UserRegister() {
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           setToLS('session', { accessToke: userCredential.user.accessToken });
-          navigate('/calendario');
+          navigate('/maruska-calendar/calendario');
         })
         .catch((error) => {
           if (error.code === 'auth/email-already-in-use') {
@@ -61,7 +61,7 @@ export default function UserRegister() {
       </label>
       {userError && <p>{userError}</p>}
       <button type="submit">Criar</button>
-      <button type="button" onClick={() => navigate('/')}>Voltar</button>
+      <button type="button" onClick={() => navigate('/maruska-calendar')}>Voltar</button>
     </form>
   );
 }
