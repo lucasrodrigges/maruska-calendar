@@ -57,7 +57,7 @@ export default function BandForm() {
         members.splice(+index, 1);
         setMembers([...members]);
       }
-      const i = inputArr.indexOf(+index);
+      const i = inputArr.indexOf(0);
       inputArr.splice(i, 1);
       setInputArr([...inputArr]);
     }
