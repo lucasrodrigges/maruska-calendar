@@ -38,12 +38,12 @@ export default function EventReview(props) {
       //   await sendWppMessage(msgObj);
       // }
       // TODO UNCOMMENT JUST IN DEPLOY PRODUCTION
-      navigate('/maruska-calendar/calendario');
+      navigate('calendario');
     });
 
     await addDoc(collection(db, 'events'), { ...event, members: musiciansArr }, auth);
     setToLS('event', { ...event, musiciansArr });
-    navigate('/maruska-calendar/calendario');
+    navigate('calendario');
   }
   return (
     <div>
@@ -55,7 +55,7 @@ export default function EventReview(props) {
           <li>{member}</li>
         ))}
       </ul>
-      <button type="button" onClick={() => navigate('/maruska-calendar/novo-show')}>Editar</button>
+      <button type="button" onClick={() => navigate('novo-show')}>Editar</button>
       <button type="button" onClick={handleAddEvent}>Confirmar</button>
     </div>
   );

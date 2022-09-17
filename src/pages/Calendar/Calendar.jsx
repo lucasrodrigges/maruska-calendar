@@ -24,7 +24,7 @@ export default function Calendar() {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (!currAccessToken || accessToken !== currAccessToken) navigate('/maruska-calendar');
+      if (!currAccessToken || accessToken !== currAccessToken) navigate('/');
     });
 
     const date = new Date();
@@ -61,9 +61,9 @@ export default function Calendar() {
             <button type="button" onClick={() => setShowActions(!showActions)}>+</button>
             {showActions && (
               <>
-                <button type="button" onClick={() => navigate('/maruska-calendar/novo-show')}>Adicionar Evento</button>
+                <button type="button" onClick={() => navigate('/novo-show')}>Adicionar Evento</button>
                 <button type="button">Shows Realizados</button>
-                <button type="button" onClick={() => navigate('/maruska-calendar/musicos')}>Ver Músicos Cadastrados</button>
+                <button type="button" onClick={() => navigate('/musicos')}>Ver Músicos Cadastrados</button>
               </>
             )}
           </div>

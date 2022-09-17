@@ -12,13 +12,13 @@ import Musicians from './pages/Musicians/Musicians';
 export default function App() {
   return (
     <Routes>
-      <Route path="/maruska-calendar" element={<Login />} />
-      <Route path="/maruska-calendar/novo-usuario" element={<UserRegister />} />
-      <Route path="/maruska-calendar/calendario" element={<Calendar />} />
-      <Route path="/maruska-calendar/novo-show" element={<EventRegister />} />
-      <Route path="/maruska-calendar/banda" element={<BandForm />} />
-      <Route path="/maruska-calendar/novo-musico" element={<MusicianRegister />} />
-      <Route path="/maruska-calendar/musicos" element={<Musicians />} />
+      <Route path="" element={<Login />} />
+      <Route path="novo-usuario" element={<UserRegister />} />
+      <Route path="calendario" element={<Calendar />} />
+      <Route path="novo-show" element={<EventRegister />} />
+      <Route path="banda" element={<BandForm />} />
+      <Route path="novo-musico" element={<MusicianRegister />} />
+      <Route path="musicos" element={<Musicians />} />
     </Routes>
   );
 }
