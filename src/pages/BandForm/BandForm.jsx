@@ -24,7 +24,7 @@ export default function BandForm() {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (accessToken !== currAccessToken) navigate('/maruska-calendar');
+      if (accessToken !== currAccessToken) navigate('/');
     });
   }, []);
 
