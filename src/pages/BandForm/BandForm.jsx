@@ -45,7 +45,6 @@ export default function BandForm() {
 
     if (alreadyHasMember) setError('Músico já selecionado');
     else {
-      // setMembers(members.filter((name) => name !== value));
       setMembers([...members, value]);
       setError('');
     }
