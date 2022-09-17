@@ -12,7 +12,7 @@ import Musicians from './pages/Musicians/Musicians';
 export default function App() {
   return (
     <Routes>
-      <Route path="" element={<Login />} />
+      <Route path="/maruska-calendar" element={<Login />} />
       <Route path="novo-usuario" element={<UserRegister />} />
       <Route path="calendario" element={<Calendar />} />
       <Route path="novo-show" element={<EventRegister />} />
