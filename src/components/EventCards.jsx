@@ -34,7 +34,7 @@ export default function EventCards() {
 
   async function handleDelete({ target: { id } }) {
     await deleteDoc(doc(db, 'events', id));
-    setOnDelClick(!hasClickDel); // forces useEffect runs
+    setOnDelClick(!hasClickDel);
   }
 
   return (

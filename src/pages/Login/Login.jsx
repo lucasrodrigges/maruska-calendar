@@ -32,13 +32,13 @@ export default function Login() {
     signInWithEmailAndPassword(auth, email, pass)
       .then((currUser) => {
         setToLS('session', { accessToken: currUser.user.accessToken });
-        navigate('/calendario');
+        navigate('/maruska-calendar/calendario');
       })
       .catch(() => setLoginError('Usuário não cadastrado ou campo de email e/ou senha incorretos.'));
   }
 
   function goToAccountCreate() {
-    navigate('/novo-usuario');
+    navigate('/maruska-calendar/novo-usuario');
   }
 
   return (

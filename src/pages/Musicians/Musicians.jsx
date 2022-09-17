@@ -19,7 +19,7 @@ export default function Musicians() {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (accessToken !== currAccessToken) navigate('/');
+      if (accessToken !== currAccessToken) navigate('/maruska-calendar');
     });
   }, []);
 
@@ -52,7 +52,7 @@ export default function Musicians() {
         </div>
       )}
       <button type="button" onClick={() => navigate(-1)}>Voltar</button>
-      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar Músico</button>
+      <button type="button" onClick={() => navigate('/maruska-calendar/novo-musico')}>Cadastrar Músico</button>
     </div>
   );
 }

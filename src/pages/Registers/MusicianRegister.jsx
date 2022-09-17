@@ -22,7 +22,7 @@ export default function MusicianRegister() {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
-      if (accessToken !== currAccessToken) navigate('/');
+      if (accessToken !== currAccessToken) navigate('/maruska-calendar');
     });
   }, []);
 
