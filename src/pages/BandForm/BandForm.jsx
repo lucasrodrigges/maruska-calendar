@@ -11,8 +11,8 @@ import EventReview from '../../components/EventReview';
 
 export default function BandForm() {
   const [members, setMembers] = useState([]);
-  const [musicians, setMusicians] = useState([{ name: 'Selecione' }]);
-  const [inputArr, setInputArr] = useState([]);
+  const [musicians, setMusicians] = useState([]);
+  const [inputArr, setInputArr] = useState([0]);
   const [errorMessage, setError] = useState('');
   const [showReview, setReview] = useState(false);
 
@@ -39,71 +39,62 @@ export default function BandForm() {
     setMusicians([...musicians, ...musiciansArr]);
   }, []);
 
-  function handleChange({ target: { value, id } }) {
+  function handleChange({ target: { value } }) {
     const alreadyHasMember = members.some((name) => name === value);
-    members.splice(+id);
 
     if (alreadyHasMember) setError('Músico já selecionado');
     else {
-      // setMembers(members.filter((name) => name !== value));
       setMembers([...members, value]);
       setError('');
     }
   }
 
-  function changeNumberOfInputs({ target: { name, id } }) {
-    if (name === '-') {
-      const newInputArr = Array(inputArr.length - 1).fill(null);
-      setInputArr(newInputArr);
-
-      members.splice(+id);
-      setMembers([...members]);
-
-      // eslint-disable-next-line max-len
-      // TODO fix the error at browser console: Warning: Each child in a list should have a unique "key" prop.
-    } else {
-      setInputArr([...inputArr, inputArr.length + 1]);
+  function changeNumberOfInputs({ target: { name, id: index } }) {
+    if (name === '+') {
+      setInputArr([...inputArr, inputArr.length]);
+    } else if (inputArr.length > 1) {
+      if (+index > 0) {
+        members.splice(+index, 1);
+        setMembers([...members]);
+      }
+      const i = inputArr.indexOf(+index);
+      inputArr.splice(i, 1);
+      setInputArr([...inputArr]);
     }
   }
 
-  async function handleAddEvent(e) {
+  async function handleReview(e) {
     e.preventDefault();
     setReview(true);
   }
+
+  console.log(members);
+  console.log(inputArr);
 
   return (
     <div>
       <Header />
       <h2>Adicione Músicos</h2>
-      <form action="" onSubmit={handleAddEvent}>
-        <label htmlFor="musician">
-          Músico:
-          <select name="musician" id="0" onChange={handleChange}>
-            {musicians.length && musicians.map(({ name }) => (
-              <option key={name} value={name}>{name}</option>
-            ))}
-          </select>
-        </label>
-        <button type="button" onClick={changeNumberOfInputs}>+</button>
-        {inputArr.map((index) => (
+      <form action="" onSubmit={handleReview}>
+        {inputArr.map((value, index) => (
           <div>
             <label htmlFor="musician">
               Músico
               <select name="musician" id={index} onChange={handleChange}>
+                <option value="">Selecione</option>
                 {musicians.length && musicians.map(({ name }) => (
                   <option key={name} value={name}>{name}</option>
                 ))}
               </select>
               {errorMessage && <p>{errorMessage}</p>}
-              <button type="button" id={index} name="-" onClick={changeNumberOfInputs}>-</button>
               <button type="button" name="+" onClick={changeNumberOfInputs}>+</button>
+              <button type="button" name="-" id={value} onClick={changeNumberOfInputs}>-</button>
             </label>
-
           </div>
         ))}
         <button type="submit" disabled={errorMessage}>Revisar</button>
       </form>
-      <button type="button" onClick={() => navigate('/novo-musico')}>Adicionar um novo músico</button>
+      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar um novo músico</button>
       {showReview && <EventReview members={members} musicians={musicians} />}
     </div>
   );
