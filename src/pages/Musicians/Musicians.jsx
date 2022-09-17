@@ -52,7 +52,7 @@ export default function Musicians() {
         </div>
       )}
       <button type="button" onClick={() => navigate(-1)}>Voltar</button>
-      <button type="button" onClick={() => navigate('novo-musico')}>Cadastrar Músico</button>
+      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar Músico</button>
     </div>
   );
 }

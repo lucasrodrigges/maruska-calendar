@@ -30,7 +30,7 @@ export default function UserRegister() {
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           setToLS('session', { accessToke: userCredential.user.accessToken });
-          navigate('calendario');
+          navigate('/calendario');
         })
         .catch((error) => {
           if (error.code === 'auth/email-already-in-use') {

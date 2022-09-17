@@ -42,7 +42,7 @@ export default function EventRegister() {
   function handleSubmit(e) {
     e.preventDefault();
     setToLS('event', event);
-    navigate('banda');
+    navigate('/banda');
   }
 
   return (

@@ -43,7 +43,7 @@ export default function EventReview(props) {
 
     await addDoc(collection(db, 'events'), { ...event, members: musiciansArr }, auth);
     setToLS('event', { ...event, musiciansArr });
-    navigate('calendario');
+    navigate('/calendario');
   }
   return (
     <div>
@@ -55,7 +55,7 @@ export default function EventReview(props) {
           <li>{member}</li>
         ))}
       </ul>
-      <button type="button" onClick={() => navigate('novo-show')}>Editar</button>
+      <button type="button" onClick={() => navigate('/novo-show')}>Editar</button>
       <button type="button" onClick={handleAddEvent}>Confirmar</button>
     </div>
   );
