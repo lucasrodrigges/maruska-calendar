@@ -1,4 +1,4 @@
-export default function setToLS(key, obj) {
+export function setToLS(key, obj) {
   localStorage.setItem(key, JSON.stringify(obj));
 }
 

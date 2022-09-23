@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../services/firebase';
-import setToLS from '../../services/localStorage';
+import { setToLS } from '../../services/localStorage';
 
 export default function UserRegister() {
   const [user, setUser] = useState({

@@ -25,9 +25,13 @@ export default function EventCards() {
       eventArr.push({ event, id });
     });
 
-    const orderedEvents = eventArr.sort((a, b) => (
-      new Date(a.event.date).getTime() - new Date(b.event.date).getTime()
-    ));
+    const orderedEvents = eventArr
+      .sort(({ event: { date: dateA, time: timeA } }, { event: { date: dateB, time: timeB } }) => {
+        if (dateA === dateB) {
+          return +timeA.split(':').join('') - +timeB.split(':').join('');
+        }
+        return new Date(dateA).getTime() - new Date(dateB).getTime();
+      });
 
     setEvents(orderedEvents);
   }, [hasClickDel]);

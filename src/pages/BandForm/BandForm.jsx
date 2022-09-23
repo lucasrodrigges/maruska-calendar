@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   collection, getDocs,
@@ -8,10 +8,15 @@ import { getFromLS } from '../../services/localStorage';
 import { app, db } from '../../services/firebase';
 import Header from '../../components/Header';
 import EventReview from '../../components/EventReview';
+import { EventContext } from '../../context/EventProvider';
 
 export default function BandForm() {
+  const {
+    members,
+    setMembers,
+  } = useContext(EventContext);
+
   const [thisMusician, setThisMusician] = useState('');
-  const [members, setMembers] = useState([]);
   const [musicians, setMusicians] = useState([]);
   const [cloneMusicians, setCloneMusicians] = useState([]);
   const [errorMessage, setError] = useState('');
@@ -58,6 +63,7 @@ export default function BandForm() {
 
   function addMusician(e) {
     e.preventDefault();
+
     if (thisMusician === '') {
       setError('Selecione um músico');
       return;
@@ -69,11 +75,6 @@ export default function BandForm() {
       return;
     }
     setMembers([...members, thisMusician]);
-  }
-
-  async function handleReview(e) {
-    e.preventDefault();
-    setReview(true);
   }
 
   function createMusicianList(array) {
@@ -100,7 +101,7 @@ export default function BandForm() {
     <div>
       <Header />
       <h2>Adicione Músicos</h2>
-      <form action="" onSubmit={handleReview}>
+      <form action="" onSubmit={() => setReview(true)}>
         <div>
           <label htmlFor="musician">
             Músico
