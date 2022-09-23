@@ -51,7 +51,7 @@ export default function EventRegister() {
       <h2>Marcar evento</h2>
       <form action="form" onSubmit={handleSubmit}>
         <label htmlFor="eventLocation">
-          Onde:
+          Local:
           <input name="location" id="eventLocation" type="text" onChange={handleChange} />
         </label>
         <label htmlFor="eventDate">

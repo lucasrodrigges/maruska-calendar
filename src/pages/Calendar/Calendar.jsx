@@ -61,9 +61,9 @@ export default function Calendar() {
             <button type="button" onClick={() => setShowActions(!showActions)}>+</button>
             {showActions && (
               <>
-                <button type="button" onClick={() => navigate('/novo-show')}>Adicionar Evento</button>
+                <button type="button" onClick={() => navigate('/novo-show')}>Agendar Show</button>
                 <button type="button">Shows Realizados</button>
-                <button type="button" onClick={() => navigate('/musicos')}>Ver Músicos Cadastrados</button>
+                <button type="button" onClick={() => navigate('/musicos')}>Músicos Cadastrados</button>
               </>
             )}
           </div>

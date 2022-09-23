@@ -1,67 +1,43 @@
-import { getAuth } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import Proptypes from 'prop-types';
+import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { app, db } from '../services/firebase';
-import setToLS, { getFromLS } from '../services/localStorage';
-// import sendWppMessage from '../services/wppBot';
 import convertDateAndTime from '../helpers/convertDateAndTime';
+import { getFromLS } from '../services/localStorage';
+import { db } from '../services/firebase';
 
-export default function EventReview(props) {
-  const { members, musicians } = props;
-  const [event, setEvent] = useState('');
-  const { location, date, time } = event;
+export default function EventReview({ members }) {
+  const event = getFromLS('event');
 
   const navigate = useNavigate();
 
-  const auth = getAuth(app);
+  async function handleConfirm() {
+    const eventToSubmit = {
+      ...event,
+      members,
+    };
 
-  useEffect(() => {
-    const currEvent = getFromLS('event');
-    setEvent(currEvent);
-  }, []);
-
-  async function handleAddEvent() {
-    const musiciansArr = [];
-
-    members.forEach(async (member) => {
-      const newMember = musicians.find(({ name }) => name === member);
-      // const { phoneNum } = newMember;
-
-      musiciansArr.push(newMember);
-      // if (phoneNum) {
-      //   const msgObj = {
-      //     phoneNum, musician: member, date: convertDateAndTime(date, time), location,
-      //   };
-
-      //   await sendWppMessage(msgObj);
-      // }
-      // TODO UNCOMMENT JUST IN DEPLOY PRODUCTION
-      navigate('calendario');
-    });
-
-    await addDoc(collection(db, 'events'), { ...event, members: musiciansArr }, auth);
-    setToLS('event', { ...event, musiciansArr });
+    await addDoc(collection(db, 'events'), eventToSubmit);
     navigate('/calendario');
   }
+
   return (
     <div>
-      <h3>{location}</h3>
-      {date && <p>{`Data e Hora: ${convertDateAndTime(date, time)}` }</p>}
-      <p>Banda:</p>
+      <h3>{event.location}</h3>
+      <p>{convertDateAndTime(event.date, event.time)}</p>
       <ul>
-        {members.map((member) => (
-          <li>{member}</li>
+        Banda:
+        {members.map(({ name }) => (
+          <li key={name}>{name}</li>
         ))}
       </ul>
-      <button type="button" onClick={() => navigate('/novo-show')}>Editar</button>
-      <button type="button" onClick={handleAddEvent}>Confirmar</button>
+      <button type="button" onClick={() => navigate(-1)}>Editar</button>
+      <button type="button" onClick={handleConfirm}>Confirmar</button>
     </div>
   );
 }
 
 EventReview.propTypes = {
-  members: PropTypes.arrayOf(PropTypes.string).isRequired,
-  musicians: PropTypes.instanceOf(Object).isRequired,
-};
+  members: Proptypes.instanceOf(Object),
+  // cloneMusicians: Proptypes.instanceOf(Object),
+}.isRequired;
