@@ -13,6 +13,7 @@ export default function BandForm() {
   const [thisMusician, setThisMusician] = useState('');
   const [members, setMembers] = useState([]);
   const [musicians, setMusicians] = useState([]);
+  const [cloneMusicians, setCloneMusicians] = useState([]);
   const [errorMessage, setError] = useState('');
   const [showReview, setReview] = useState(false);
 
@@ -37,6 +38,7 @@ export default function BandForm() {
       musiciansArr.push({ ...musician, id });
     });
     setMusicians([...musicians, ...musiciansArr]);
+    setCloneMusicians([...musicians, ...musiciansArr]);
   }, []);
 
   function handleChange({ target: { value } }) {
@@ -50,10 +52,8 @@ export default function BandForm() {
   }
 
   function deleteMusician(name) {
-    const indexDelete = members.findIndex((each) => each.name === name);
-    const newMemberList = [...members];
-    newMemberList.splice(indexDelete, 1);
-    setMembers([...newMemberList]);
+    setMembers(members.filter((each) => each.name !== name));
+    setMusicians([...musicians, cloneMusicians.find((musician) => musician.name === name)]);
   }
 
   function addMusician(e) {
@@ -62,6 +62,7 @@ export default function BandForm() {
       setError('Selecione um músico');
       return;
     }
+    setMusicians(musicians.filter(({ name }) => name !== thisMusician.name));
     const includes = members.some(({ name }) => name === thisMusician.name);
     if (includes) {
       setError('Músico já cadastrado');
@@ -77,13 +78,12 @@ export default function BandForm() {
 
   function createMusicianList(array) {
     if (members.length === 0) {
-      return (<span>Nenhum músico cadastrado</span>);
+      return (<span>Você ainda não selecionou nenhum músico...</span>);
     }
-    const musicianList = array.map((each) => (
-      <div key={each.name}>
-        <span>{each.name}</span>
-        <span>{each.instrument}</span>
-        <button type="button" onClick={() => deleteMusician(each.name)}>Excluir</button>
+    const musicianList = array.map(({ name, instrument }) => (
+      <div key={name}>
+        <span>{`${name} (${instrument})`}</span>
+        <button type="button" onClick={() => deleteMusician(name)}>Excluir</button>
       </div>
     ));
     return musicianList;
@@ -113,12 +113,12 @@ export default function BandForm() {
           {errorMessage && <p>{errorMessage}</p>}
         </div>
       </form>
-      <button type="button" disabled={errorMessage}>Revisar</button>
-      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar um novo músico</button>
-      {showReview && <EventReview members={members} musicians={musicians} />}
       <div>
         {createMusicianList(members)}
       </div>
+      <button type="button" disabled={errorMessage} onClick={() => setReview(true)}>Revisar</button>
+      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar um novo músico</button>
+      {showReview && <EventReview members={members} cloneMusicians={cloneMusicians} />}
     </div>
   );
 }
