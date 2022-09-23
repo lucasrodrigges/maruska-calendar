@@ -10,9 +10,9 @@ import Header from '../../components/Header';
 import EventReview from '../../components/EventReview';
 
 export default function BandForm() {
+  const [thisMusician, setThisMusician] = useState('');
   const [members, setMembers] = useState([]);
   const [musicians, setMusicians] = useState([]);
-  const [inputArr, setInputArr] = useState([0]);
   const [errorMessage, setError] = useState('');
   const [showReview, setReview] = useState(false);
 
@@ -40,27 +40,34 @@ export default function BandForm() {
   }, []);
 
   function handleChange({ target: { value } }) {
-    const alreadyHasMember = members.some((name) => name === value);
-
-    if (alreadyHasMember) setError('Músico já selecionado');
-    else {
-      setMembers([...members, value]);
-      setError('');
+    if (value === '') {
+      setThisMusician('');
+      return;
     }
+    const findMusician = musicians.find((each) => (each.name === value));
+    setThisMusician(findMusician);
+    setError('');
   }
 
-  function changeNumberOfInputs({ target: { name, id: index } }) {
-    if (name === '+') {
-      setInputArr([...inputArr, inputArr.length]);
-    } else if (inputArr.length > 1) {
-      if (+index > 0) {
-        members.splice(+index, 1);
-        setMembers([...members]);
-      }
-      const i = inputArr.indexOf(0);
-      inputArr.splice(i, 1);
-      setInputArr([...inputArr]);
+  function deleteMusician(name) {
+    const indexDelete = members.findIndex((each) => each.name === name);
+    const newMemberList = [...members];
+    newMemberList.splice(indexDelete, 1);
+    setMembers([...newMemberList]);
+  }
+
+  function addMusician(e) {
+    e.preventDefault();
+    if (thisMusician === '') {
+      setError('Selecione um músico');
+      return;
     }
+    const includes = members.some(({ name }) => name === thisMusician.name);
+    if (includes) {
+      setError('Músico já cadastrado');
+      return;
+    }
+    setMembers([...members, thisMusician]);
   }
 
   async function handleReview(e) {
@@ -68,34 +75,50 @@ export default function BandForm() {
     setReview(true);
   }
 
-  console.log(members);
-  console.log(inputArr);
+  function createMusicianList(array) {
+    if (members.length === 0) {
+      return (<span>Nenhum músico cadastrado</span>);
+    }
+    const musicianList = array.map((each) => (
+      <div key={each.name}>
+        <span>{each.name}</span>
+        <span>{each.instrument}</span>
+        <button type="button" onClick={() => deleteMusician(each.name)}>Excluir</button>
+      </div>
+    ));
+    return musicianList;
+  }
+
+  function createSelects() {
+    if (!musicians.length) {
+      return (<option value="">Carregando...</option>);
+    }
+    return musicians.map(({ name }) => (<option key={name} value={name}>{name}</option>));
+  }
 
   return (
     <div>
       <Header />
       <h2>Adicione Músicos</h2>
       <form action="" onSubmit={handleReview}>
-        {inputArr.map((value, index) => (
-          <div>
-            <label htmlFor="musician">
-              Músico
-              <select name="musician" id={index} onChange={handleChange}>
-                <option value="">Selecione</option>
-                {musicians.length && musicians.map(({ name }) => (
-                  <option key={name} value={name}>{name}</option>
-                ))}
-              </select>
-              {errorMessage && <p>{errorMessage}</p>}
-              <button type="button" name="+" onClick={changeNumberOfInputs}>+</button>
-              <button type="button" name="-" id={value} onClick={changeNumberOfInputs}>-</button>
-            </label>
-          </div>
-        ))}
-        <button type="submit" disabled={errorMessage}>Revisar</button>
+        <div>
+          <label htmlFor="musician">
+            Músico
+            <select name="musician" onChange={handleChange}>
+              <option value="">Selecione</option>
+              {createSelects()}
+            </select>
+            <button type="submit" onClick={addMusician}>Adicionar Músico</button>
+          </label>
+          {errorMessage && <p>{errorMessage}</p>}
+        </div>
       </form>
+      <button type="button" disabled={errorMessage}>Revisar</button>
       <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar um novo músico</button>
       {showReview && <EventReview members={members} musicians={musicians} />}
+      <div>
+        {createMusicianList(members)}
+      </div>
     </div>
   );
 }
