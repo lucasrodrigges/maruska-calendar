@@ -8,7 +8,7 @@ Application developed in todo list style for scheduling shows and notifying regi
 - [x] React Router
 - [x] Firebase (Firestore and Auth)
 
-## Review
+## Introduction
 
 With the application the user is able to:
 
