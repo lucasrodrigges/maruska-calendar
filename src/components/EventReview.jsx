@@ -1,13 +1,12 @@
-import React from 'react';
-import Proptypes from 'prop-types';
+import React, { useContext } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import convertDateAndTime from '../helpers/convertDateAndTime';
-import { getFromLS } from '../services/localStorage';
 import { db } from '../services/firebase';
+import { EventContext } from '../context/EventProvider';
 
-export default function EventReview({ members }) {
-  const event = getFromLS('event');
+export default function EventReview() {
+  const { event, members } = useContext(EventContext);
 
   const navigate = useNavigate();
 
@@ -36,8 +35,3 @@ export default function EventReview({ members }) {
     </div>
   );
 }
-
-EventReview.propTypes = {
-  members: Proptypes.instanceOf(Object),
-  // cloneMusicians: Proptypes.instanceOf(Object),
-}.isRequired;

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../services/firebase';
-import setToLS, { getFromLS } from '../../services/localStorage';
+import { getFromLS } from '../../services/localStorage';
 import { setMonth } from '../../redux/actions';
 import EventCards from '../../components/EventCards';
 import { months } from '../../helpers/data';
@@ -31,7 +31,6 @@ export default function Calendar() {
 
     setCurrMonth(months[date.getMonth()].month);
     setLoading(false);
-    setToLS('event', {});
   }, []);
 
   useEffect(() => {

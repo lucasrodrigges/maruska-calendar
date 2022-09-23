@@ -1,17 +1,17 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
+import { EventContext } from '../../context/EventProvider';
 import { app } from '../../services/firebase';
-import setToLS, { getFromLS } from '../../services/localStorage';
+import { getFromLS } from '../../services/localStorage';
 
 export default function EventRegister() {
-  const [event, setEvent] = useState({
-    location: '',
-    date: '',
-    time: '',
-    description: '',
-  });
+  const {
+    event,
+    setEvent,
+  } = useContext(EventContext);
+
   const [isDisabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
@@ -39,17 +39,11 @@ export default function EventRegister() {
     });
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setToLS('event', event);
-    navigate('/banda');
-  }
-
   return (
     <div>
       <Header />
       <h2>Marcar evento</h2>
-      <form action="form" onSubmit={handleSubmit}>
+      <form action="form" onSubmit={() => navigate('/banda')}>
         <label htmlFor="eventLocation">
           Local:
           <input name="location" id="eventLocation" type="text" onChange={handleChange} />
