@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { CalendarContext } from '../context/CalendarProvider';
 
 export default function Header() {
-  const currMonth = useSelector((state) => state.calendar.currMonth);
+  const { currMonth } = useContext(CalendarContext);
 
   return (
     <div>
