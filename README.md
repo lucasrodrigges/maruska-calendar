@@ -9,7 +9,9 @@ Application developed in todo list style for scheduling shows and notifying regi
 - [x] Firebase (Firestore and Auth)
 
 ## Review
+
 With the application the user is able to:
+
 - login and create a new account, with authentication provided by firebase
 - register musicians in the firestore database
 - schedule and delete events
