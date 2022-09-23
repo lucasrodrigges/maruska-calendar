@@ -64,7 +64,12 @@ export default function EventCards() {
               ))}
             </tbody>
           </table>
-          <button type="button" id={id} onClick={handleDelete}>Excluir</button>
+          <button type="button" id={id} onClick={handleDelete}>
+            <i className="fa-solid fa-trash" id={id} />
+          </button>
+          <button type="button">
+            <i className="fa-solid fa-check-to-slot" />
+          </button>
         </div>
       )) : <p>Nenhum show marcado</p>}
     </div>
