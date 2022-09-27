@@ -1,6 +1,6 @@
 # Maruska Calendar
 
-Application developed in todo list style for scheduling shows and notifying registered musicians.
+Application developed in todo list style for scheduling events and notifying registered musicians.
 
 ## Frameworks and libraries:
 
