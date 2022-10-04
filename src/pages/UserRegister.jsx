@@ -62,7 +62,6 @@ export default function UserRegister() {
         placeholder="Seu email"
         onChange={handleChange}
       />
-
       <input
         className="input-1"
         type="password"
