@@ -41,7 +41,11 @@ export default function Login() {
 
   return (
     <form className="login-form" action="login" onSubmit={handleSubmit}>
-      <img id="login-img" src={maruskaLogo} alt="Maruka Logo" />
+      <img
+        id="login-img"
+        src={maruskaLogo}
+        alt="Maruka Logo"
+      />
       <input
         className="input-1"
         type="email"

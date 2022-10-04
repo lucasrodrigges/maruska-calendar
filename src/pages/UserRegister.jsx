@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { app } from '../services/firebase';
 import { setToLS } from '../services/localStorage';
 import '../style/UserRegister.css';
+import maruskaLogo from '../images/maruska-logo.png';
 
 export default function UserRegister() {
   const [user, setUser] = useState({
@@ -49,11 +50,11 @@ export default function UserRegister() {
       action="login"
       onSubmit={handleSubmit}
     >
-      <h1
-        id="user-register-form-title"
-      >
-        Crie sua conta
-      </h1>
+      <img
+        id="login-img"
+        src={maruskaLogo}
+        alt="Maruka Logo"
+      />
       <input
         className="input-1"
         type="email"
@@ -70,7 +71,6 @@ export default function UserRegister() {
         placeholder="Crie uma senha"
         onChange={handleChange}
       />
-
       <input
         className="input-1"
         type="password"
