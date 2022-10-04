@@ -33,3 +33,17 @@ a {
   color: white;
   margin: 10px 0;
 }
+
+.icons {
+  color: rgb(130 200 211);
+}
+
+.button-2 {
+  width: 225px;
+  border: none;
+  border-radius: 25px;
+  padding: 15px;
+  background-color: rgb(130 200 211);
+  color: white;
+  margin: 10px 0;
+}
