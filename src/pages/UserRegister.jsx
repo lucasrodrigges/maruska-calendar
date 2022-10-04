@@ -76,7 +76,7 @@ export default function UserRegister() {
         type="password"
         name="confPass"
         id="confPass"
-        placeholder="Confirme a senha"
+        placeholder="Confirme sua senha"
         onChange={handleChange}
       />
       {userError && <p className="login-error">{userError}</p>}
