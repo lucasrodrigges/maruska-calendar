@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../../services/firebase';
-import { setToLS } from '../../services/localStorage';
+import { app } from '../services/firebase';
+import { setToLS } from '../services/localStorage';
+import '../style/UserRegister.css';
 
 export default function UserRegister() {
   const [user, setUser] = useState({
@@ -43,25 +44,56 @@ export default function UserRegister() {
   }
 
   return (
-    <form action="login" onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <label htmlFor="email">
-        Seu Email:
-        <input type="email" name="email" id="email" onChange={handleChange} />
-      </label>
+    <form
+      className="login-form"
+      action="login"
+      onSubmit={handleSubmit}
+    >
+      <h1
+        id="user-register-form-title"
+      >
+        Crie sua conta
+      </h1>
+      <input
+        className="input-1"
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Seu email"
+        onChange={handleChange}
+      />
 
-      <label htmlFor="pass">
-        Sua Senha:
-        <input type="password" name="pass" id="pass" onChange={handleChange} />
-      </label>
+      <input
+        className="input-1"
+        type="password"
+        name="pass"
+        id="pass"
+        placeholder="Crie uma senha"
+        onChange={handleChange}
+      />
 
-      <label htmlFor="confPass">
-        Confirme a Senha:
-        <input type="password" name="confPass" id="confPass" onChange={handleChange} />
-      </label>
-      {userError && <p>{userError}</p>}
-      <button type="submit">Criar</button>
-      <button type="button" onClick={() => navigate('/')}>Voltar</button>
+      <input
+        className="input-1"
+        type="password"
+        name="confPass"
+        id="confPass"
+        placeholder="Confirme a senha"
+        onChange={handleChange}
+      />
+      {userError && <p className="login-error">{userError}</p>}
+      <button
+        className="button-1"
+        type="submit"
+      >
+        Criar
+      </button>
+      <button
+        className="button-1"
+        type="button"
+        onClick={() => navigate('/')}
+      >
+        Voltar
+      </button>
     </form>
   );
 }

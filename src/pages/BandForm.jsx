@@ -4,11 +4,11 @@ import {
   collection, getDocs,
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFromLS } from '../../services/localStorage';
-import { app, db } from '../../services/firebase';
-import Header from '../../components/Header';
-import EventReview from '../../components/EventReview';
-import { EventContext } from '../../context/EventProvider';
+import { getFromLS } from '../services/localStorage';
+import { app, db } from '../services/firebase';
+import Header from '../components/Header';
+import EventReview from '../components/EventReview';
+import { EventContext } from '../context/EventProvider';
 
 export default function BandForm() {
   const {

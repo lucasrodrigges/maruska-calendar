@@ -1,10 +1,10 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../../components/Header';
-import { EventContext } from '../../context/EventProvider';
-import { app } from '../../services/firebase';
-import { getFromLS } from '../../services/localStorage';
+import Header from '../components/Header';
+import { EventContext } from '../context/EventProvider';
+import { app } from '../services/firebase';
+import { getFromLS } from '../services/localStorage';
 
 export default function EventRegister() {
   const {

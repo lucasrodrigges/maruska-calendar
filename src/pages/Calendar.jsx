@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../../services/firebase';
-import { getFromLS } from '../../services/localStorage';
-import EventCards from '../../components/EventCards';
-import { months } from '../../helpers/data';
-import Header from '../../components/Header';
-import Loading from '../../components/Loading';
-import { CalendarContext } from '../../context/CalendarProvider';
+import { app } from '../services/firebase';
+import { getFromLS } from '../services/localStorage';
+import EventCards from '../components/EventCards';
+import { months } from '../helpers/data';
+import Header from '../components/Header';
+import Loading from '../components/Loading';
+import { CalendarContext } from '../context/CalendarProvider';
 
 export default function Calendar() {
   const {
