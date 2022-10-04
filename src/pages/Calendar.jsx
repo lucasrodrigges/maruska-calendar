@@ -18,7 +18,6 @@ export default function Calendar() {
   } = useContext(CalendarContext);
 
   const [isLoading, setLoading] = useState(true);
-  const { showActions } = useContext(CalendarContext);
 
   const navigate = useNavigate();
 
@@ -57,30 +56,6 @@ export default function Calendar() {
           </label> */}
           <div className="event-cards-container">
             <EventCards />
-            {showActions && (
-              <div className="buttons-container">
-                <button
-                  className="button-2"
-                  type="button"
-                  onClick={() => navigate('/novo-show')}
-                >
-                  Agendar Show
-                </button>
-                <button
-                  className="button-2"
-                  type="button"
-                >
-                  Shows Realizados
-                </button>
-                <button
-                  className="button-2"
-                  type="button"
-                  onClick={() => navigate('/musicos')}
-                >
-                  Músicos Cadastrados
-                </button>
-              </div>
-            )}
 
           </div>
           <Footer />

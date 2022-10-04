@@ -1,20 +1,10 @@
 .event-cards-container {
-  /* position: absolute; */
   height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
-
-.buttons-container {
-  position: fixed;
-  bottom: 20vh;
-  left: 20vh;
-
-}
-
-
 
 .reset-button {
   border: none;
