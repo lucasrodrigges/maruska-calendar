@@ -18,7 +18,7 @@ export default function Calendar() {
   } = useContext(CalendarContext);
 
   const [isLoading, setLoading] = useState(true);
-  const [showActions, setShowActions] = useState(false);
+  const { showActions } = useContext(CalendarContext);
 
   const navigate = useNavigate();
 
@@ -81,13 +81,7 @@ export default function Calendar() {
                 </button>
               </div>
             )}
-            <button
-              className="reset-button plus-button"
-              type="button"
-              onClick={() => setShowActions(!showActions)}
-            >
-              <i className="fa-solid fa-circle-plus icons" />
-            </button>
+
           </div>
           <Footer />
         </div>
