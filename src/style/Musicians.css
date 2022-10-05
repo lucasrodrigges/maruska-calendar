@@ -1,6 +1,6 @@
 .registered-musicians {
-  margin-top: 40px;
-  height: 70vh;
+  /* margin-top: 10px; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,12 +1,11 @@
 .event-cards-container {
-  height: 70vh;
+  /* height: 70vh; */
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
-
 
 /* .event-cards-title {
   display: flex;
@@ -24,6 +23,9 @@
 } */
 
 .event-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-bottom: 20px;
   height: 220px;
   width: 320px;
@@ -65,7 +67,6 @@
   outline: none;
   background-color: rgb(237, 216, 216);
 }
-
 
 .nothing-here {
   font-size: 1.5em;
