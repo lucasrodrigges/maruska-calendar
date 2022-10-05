@@ -24,17 +24,18 @@ export default function Musicians() {
     });
   }, []);
 
-  useEffect(() => async () => {
+  useEffect(() => {
     const musiciansArr = [];
-    const querySnapshot = await getDocs(collection(db, 'musicians'));
-
-    querySnapshot.forEach((doc) => {
-      const { id } = doc;
-      const musician = doc.data();
-      musiciansArr.push({ ...musician, id });
-    });
-    setMusicians([...musicians, ...musiciansArr]);
-    setLoading(false);
+    getDocs(collection(db, 'musicians'))
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const { id } = doc;
+          const musician = doc.data();
+          musiciansArr.push({ ...musician, id });
+        });
+        setMusicians([...musicians, ...musiciansArr]);
+        setLoading(false);
+      });
   }, []);
 
   return (

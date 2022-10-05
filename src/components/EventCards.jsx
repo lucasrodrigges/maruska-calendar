@@ -13,20 +13,24 @@ export default function EventCards() {
   const [hasClickDel, setOnDelClick] = useState(false);
 
   const auth = getAuth(app);
+  const q = query(collection(db, 'events'));
 
-  useEffect(() => async () => {
-    const q = query(collection(db, 'events'));
+  useEffect(() => {
     const eventArr = [];
-    const querySnapshot = await getDocs(q, auth);
+    getDocs(q, auth)
+      .then((querySnapshot) => {
+        querySnapshot.forEach((currDoc) => {
+          const { id } = currDoc;
+          const event = currDoc.data();
 
-    querySnapshot.forEach((currDoc) => {
-      const { id } = currDoc;
-      const event = currDoc.data();
+          eventArr.push({ event, id });
+        });
+        setEvents(eventArr);
+      });
+  }, [hasClickDel]);
 
-      eventArr.push({ event, id });
-    });
-
-    const orderedEvents = eventArr
+  useEffect(() => {
+    const orderedEvents = events
       .sort(({ event: { date: dateA, time: timeA } }, { event: { date: dateB, time: timeB } }) => {
         if (dateA === dateB) {
           return +timeA.split(':').join('') - +timeB.split(':').join('');
@@ -35,7 +39,7 @@ export default function EventCards() {
       });
 
     setEvents(orderedEvents);
-  }, [hasClickDel]);
+  }, [events]);
 
   async function handleDelete({ target: { id } }) {
     await deleteDoc(doc(db, 'events', id));

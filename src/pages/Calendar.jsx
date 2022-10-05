@@ -26,7 +26,7 @@ export default function Calendar() {
 
   const auth = getAuth(app);
 
-  useEffect(() => async () => {
+  useEffect(() => {
     onAuthStateChanged(auth, ({ accessToken }) => {
       const currAccessToken = getFromLS('session').accessToken;
 
