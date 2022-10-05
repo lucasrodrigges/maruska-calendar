@@ -54,6 +54,7 @@ export default function BandForm() {
       .then((res) => res.json())
       .then((data) => {
         setMusicians(data);
+
         setCloneMusicians(data);
       });
   }, []);
