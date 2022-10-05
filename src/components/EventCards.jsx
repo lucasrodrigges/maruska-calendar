@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 import { app, db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import { months } from '../helpers/data';
+import sadUnicorny from '../images/sadUnicorny.png';
 
 export default function EventCards() {
   const [events, setEvents] = useState([]);
@@ -69,7 +70,16 @@ export default function EventCards() {
             <i className="fa-solid fa-check-to-slot" />
           </button>
         </div>
-      )) : <p>Nenhum show marcado</p>}
+      )) : (
+        <div>
+          <img
+            src={sadUnicorny}
+            alt="Unicónio Triste"
+            width="300px"
+          />
+          <h2 className="nothing-here">Nenhum show agendado ;(</h2>
+        </div>
+      )}
     </div>
   );
 }

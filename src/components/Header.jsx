@@ -9,7 +9,6 @@ export default function Header() {
     <div className="header">
       <h1>Maruska Calendar</h1>
       <h2>{currMonth}</h2>
-
     </div>
   );
 }

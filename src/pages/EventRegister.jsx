@@ -1,10 +1,12 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { EventContext } from '../context/EventProvider';
 import { app } from '../services/firebase';
 import { getFromLS } from '../services/localStorage';
+import '../style/EventRegister.css';
 
 export default function EventRegister() {
   const {
@@ -42,27 +44,55 @@ export default function EventRegister() {
   return (
     <div>
       <Header />
-      <h2>Marcar evento</h2>
-      <form action="form" onSubmit={() => navigate('/banda')}>
-        <label htmlFor="eventLocation">
-          Local:
-          <input name="location" id="eventLocation" type="text" onChange={handleChange} />
-        </label>
-        <label htmlFor="eventDate">
-          Data:
-          <input type="date" name="date" id="eventDate" onChange={handleChange} />
-        </label>
-        <label htmlFor="eventTime">
-          Hora:
-          <input type="time" name="time" id="eventTime" onChange={handleChange} />
-        </label>
-        <label htmlFor="description">
-          Descrição (opcional):
-          <textarea name="description" id="description" cols="30" rows="10" onChange={handleChange} />
-        </label>
-        <button type="button" onClick={() => navigate(-1)}>Voltar</button>
-        <button type="submit" disabled={isDisabled}>Continuar</button>
-      </form>
+      <div className="event-register-container">
+        <h2 className="event-register-title">Detalhes do evento</h2>
+        <form
+          className="event-form"
+          action="form"
+          onSubmit={() => navigate('/banda')}
+        >
+          <input
+            className="input-1"
+            name="location"
+            id="eventLocation"
+            type="text"
+            placeholder="Nome do bar ou evento"
+            onChange={handleChange}
+          />
+          <input
+            className="input-1"
+            type="date"
+            name="date"
+            id="eventDate"
+            onChange={handleChange}
+          />
+          <input
+            className="input-1"
+            type="time"
+            name="time"
+            id="eventTime"
+            onChange={handleChange}
+          />
+          <textarea
+            className="text-area-1"
+            name="description"
+            id="description"
+            cols="30"
+            rows="8"
+            placeholder="Observações (opcional)"
+            onChange={handleChange}
+          />
+          <button
+            className="button-1"
+            type="submit"
+            disabled={isDisabled}
+          >
+            Continuar
+
+          </button>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 }

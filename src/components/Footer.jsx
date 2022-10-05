@@ -45,7 +45,7 @@ export default function Footer() {
           <i className="fa-solid fa-house icons footer-icons" />
         </Link>
         <button
-          className="plus-footer-button fa-solid fa-circle-plus icons plus-button footer-icons footer-icons"
+          className="plus-footer-button fa-solid fa-circle-plus icons plus-button footer-icons"
           type="button"
           onClick={() => setShowActions(!showActions)}
         >

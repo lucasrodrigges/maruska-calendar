@@ -10,12 +10,15 @@ import Loading from '../components/Loading';
 import { CalendarContext } from '../context/CalendarProvider';
 import Footer from '../components/Footer';
 import '../style/Calendar.css';
+import { EventContext } from '../context/EventProvider';
 
 export default function Calendar() {
   const {
     currMonth,
     setCurrMonth,
   } = useContext(CalendarContext);
+
+  const { setMembers } = useContext(EventContext);
 
   const [isLoading, setLoading] = useState(true);
 
@@ -35,6 +38,8 @@ export default function Calendar() {
     setCurrMonth(months[date.getMonth()].month);
     setLoading(false);
   }, []);
+
+  useEffect(() => setMembers([]), []);
 
   // function changeMonth({ target: { value } }) {
   //   setCurrMonth(value);
