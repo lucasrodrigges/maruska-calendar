@@ -10,8 +10,8 @@ import '../style/EventRegister.css';
 
 export default function EventRegister() {
   const {
-    event,
-    setEvent,
+    currEvent,
+    setCurrEvent,
   } = useContext(EventContext);
 
   const [isDisabled, setDisabled] = useState(true);
@@ -27,16 +27,16 @@ export default function EventRegister() {
       if (accessToken !== currAccessToken) navigate('/');
     });
 
-    const { location, date, time } = event;
+    const { location, date, time } = currEvent;
 
     if ([location, date, time].every((el) => el.length)) {
       setDisabled(false);
     } else setDisabled(true);
-  }, [event]);
+  }, [currEvent]);
 
   function handleChange({ target: { name, value } }) {
-    setEvent({
-      ...event,
+    setCurrEvent({
+      ...currEvent,
       [name]: value,
     });
   }

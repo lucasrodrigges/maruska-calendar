@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { EventProvider } from './context/EventProvider';
 import { CalendarProvider } from './context/CalendarProvider';
+import { MusiciansProvider } from './context/MusiciansProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,9 @@ root.render(
     <BrowserRouter>
       <CalendarProvider>
         <EventProvider>
-          <App />
+          <MusiciansProvider>
+            <App />
+          </MusiciansProvider>
         </EventProvider>
       </CalendarProvider>
     </BrowserRouter>

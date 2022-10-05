@@ -7,24 +7,24 @@ import { EventContext } from '../context/EventProvider';
 import '../style/Calendar.css';
 
 export default function EventReview() {
-  const { event, members } = useContext(EventContext);
+  const { currEvent, members } = useContext(EventContext);
 
   const navigate = useNavigate();
 
-  async function handleConfirm() {
+  function handleConfirm() {
     const eventToSubmit = {
-      ...event,
+      ...currEvent,
       members,
     };
 
-    await addDoc(collection(db, 'events'), eventToSubmit);
-    navigate('/calendario');
+    addDoc(collection(db, 'events'), eventToSubmit)
+      .then(() => navigate('/calendario'));
   }
 
   return (
     <div className="event-review">
-      <h3 className="event-title">{event.location}</h3>
-      <p className="event-items">{convertDateAndTime(event.date, event.time)}</p>
+      <h3 className="event-title">{currEvent.location}</h3>
+      <p className="event-items">{convertDateAndTime(currEvent.date, currEvent.time)}</p>
       <p className="event-items">Banda:</p>
       <ul className="ul-band">
         {members.map(({ name }) => (

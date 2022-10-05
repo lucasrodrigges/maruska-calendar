@@ -18,7 +18,11 @@ export default function Calendar() {
     setCurrMonth,
   } = useContext(CalendarContext);
 
-  const { setMembers } = useContext(EventContext);
+  const {
+    setMembers,
+    toUpdate,
+    setUpdate,
+  } = useContext(EventContext);
 
   const [isLoading, setLoading] = useState(true);
 
@@ -39,7 +43,10 @@ export default function Calendar() {
     setLoading(false);
   }, []);
 
-  useEffect(() => setMembers([]), []);
+  useEffect(() => {
+    setMembers([]);
+    setUpdate(!toUpdate);
+  }, []);
 
   // function changeMonth({ target: { value } }) {
   //   setCurrMonth(value);

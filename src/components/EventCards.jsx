@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import {
-  collection, query, getDocs, deleteDoc, doc,
-} from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { app, db } from '../services/firebase';
+import React, { useContext, useEffect } from 'react';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import { months } from '../helpers/data';
 import sadUnicorny from '../images/sadUnicorny.png';
+import { EventContext } from '../context/EventProvider';
 
 export default function EventCards() {
-  const [events, setEvents] = useState([]);
-  const [hasClickDel, setOnDelClick] = useState(false);
-
-  const auth = getAuth(app);
-  const q = query(collection(db, 'events'));
-
-  useEffect(() => {
-    const eventArr = [];
-    getDocs(q, auth)
-      .then((querySnapshot) => {
-        querySnapshot.forEach((currDoc) => {
-          const { id } = currDoc;
-          const event = currDoc.data();
-
-          eventArr.push({ event, id });
-        });
-        setEvents(eventArr);
-      });
-  }, [hasClickDel]);
+  const {
+    toUpdate,
+    setUpdate,
+    events,
+    setEvents,
+  } = useContext(EventContext);
 
   useEffect(() => {
     const orderedEvents = events
@@ -43,7 +28,7 @@ export default function EventCards() {
 
   async function handleDelete({ target: { id } }) {
     await deleteDoc(doc(db, 'events', id));
-    setOnDelClick(!hasClickDel);
+    setUpdate(!toUpdate);
   }
 
   return (
