@@ -9,6 +9,9 @@ import { app, db } from '../services/firebase';
 import Header from '../components/Header';
 import EventReview from '../components/EventReview';
 import { EventContext } from '../context/EventProvider';
+// import '../style/App.css';
+import '../style/BandForm.css';
+import Footer from '../components/Footer';
 
 export default function BandForm() {
   const {
@@ -82,9 +85,15 @@ export default function BandForm() {
       return (<span>Você ainda não selecionou nenhum músico...</span>);
     }
     const musicianList = array.map(({ name, instrument }) => (
-      <div key={name}>
+      <div className="musicians-list" key={name}>
         <span>{`${name} (${instrument})`}</span>
-        <button type="button" onClick={() => deleteMusician(name)}>Excluir</button>
+        <button
+          className="fa-solid fa-circle-minus del-button"
+          type="button"
+          onClick={() => deleteMusician(name)}
+        >
+          <i />
+        </button>
       </div>
     ));
     return musicianList;
@@ -100,26 +109,42 @@ export default function BandForm() {
   return (
     <div>
       <Header />
-      <h2>Adicione Músicos</h2>
-      <form action="" onSubmit={() => setReview(true)}>
+      <div className="band-form-container">
+        <h2 className="band-form-title">Adicionar integrantes</h2>
+        <form className="band-form" action="" onSubmit={() => setReview(true)}>
+          <select
+            className="input-1"
+            name="musician"
+            onChange={handleChange}
+          >
+            <option value="">Selecione</option>
+            {createSelects()}
+          </select>
+          <button
+            className="button-1"
+            type="submit"
+            onClick={addMusician}
+          >
+            Adicionar
+          </button>
+          {errorMessage && (
+          <p className="error-message">{errorMessage}</p>
+          )}
+        </form>
         <div>
-          <label htmlFor="musician">
-            Músico
-            <select name="musician" onChange={handleChange}>
-              <option value="">Selecione</option>
-              {createSelects()}
-            </select>
-            <button type="submit" onClick={addMusician}>Adicionar Músico</button>
-          </label>
-          {errorMessage && <p>{errorMessage}</p>}
+          {createMusicianList(members)}
         </div>
-      </form>
-      <div>
-        {createMusicianList(members)}
+        <button
+          className="button-1"
+          type="button"
+          disabled={errorMessage}
+          onClick={() => setReview(true)}
+        >
+          Revisar
+        </button>
+        {showReview && <EventReview members={members} cloneMusicians={cloneMusicians} />}
       </div>
-      <button type="button" disabled={errorMessage} onClick={() => setReview(true)}>Revisar</button>
-      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar um novo músico</button>
-      {showReview && <EventReview members={members} cloneMusicians={cloneMusicians} />}
+      <Footer />
     </div>
   );
 }
