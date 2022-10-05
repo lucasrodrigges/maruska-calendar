@@ -1,39 +1,25 @@
 .event-cards-container {
-  /* height: 70vh; */
-  margin-top: 20px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* .event-cards-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: rgb(130 200 211);
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2em;
-  width: 85vw;
-  border-radius: 25px;
-  height: 55px;
-  box-shadow: 2px 3px rgb(77, 139, 148);
-} */
-
 .event-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 20px;
-  height: 220px;
+  margin-bottom: 30px;
   width: 320px;
   padding: 15px;
   border-radius: 25px;
   background-color: rgb(237, 216, 216);
   box-shadow: -2px 2px 20px;
-  /* box-shadow: 5px 5px 5px; */
+}
+
+.calendar-general-container {
+  margin-bottom: 45px;
 }
 
 .event-title {
@@ -50,14 +36,12 @@
 .ul-band {
   list-style: inside;
   font-size: 1em;
-  /* font-weight: 100; */
 }
 
 .event-buttons-container {
   display: flex;
   justify-content: flex-end;
 }
-
 
 .del-button-event {
   color: rgb(56, 169, 187);

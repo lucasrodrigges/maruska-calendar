@@ -55,7 +55,6 @@ export default function Calendar() {
   return (
     <div>
       {isLoading ? <Loading /> : (
-
         <div>
           <Header currMonth={currMonth} />
           {/* <label htmlFor="month">
@@ -68,7 +67,6 @@ export default function Calendar() {
           </label> */}
           <div className="event-cards-container">
             <EventCards />
-
           </div>
           <Footer />
         </div>

@@ -32,7 +32,7 @@ export default function EventCards() {
   }
 
   return (
-    <div>
+    <div className="calendar-general-container">
       {/* <div>
         <h2 className="event-cards-title">Shows agendados</h2>
       </div> */}
