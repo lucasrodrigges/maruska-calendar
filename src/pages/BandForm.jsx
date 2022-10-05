@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import {
-//   collection, getDocs,
-// } from 'firebase/firestore';
+import {
+  collection, getDocs,
+} from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFromLS } from '../services/localStorage';
-import { app } from '../services/firebase';
+import { app, db } from '../services/firebase';
 import Header from '../components/Header';
 import EventReview from '../components/EventReview';
 import { EventContext } from '../context/EventProvider';
@@ -37,27 +37,28 @@ export default function BandForm() {
     });
   }, []);
 
-  // useEffect(() => async () => {
-  //   const musiciansArr = [];
-  //   const querySnapshot = await getDocs(collection(db, 'musicians'));
-  //   querySnapshot.forEach((doc) => {
-  //     const { id } = doc;
-  //     const musician = doc.data();
-  //     musiciansArr.push({ ...musician, id });
-  //   });
-  //   setMusicians([...musicians, ...musiciansArr]);
-  //   setCloneMusicians([...musicians, ...musiciansArr]);
-  // }, []);
-
   useEffect(() => {
-    fetch('https://maruska-calendar-api.herokuapp.com/getMus')
-      .then((res) => res.json())
-      .then((data) => {
-        setMusicians(data);
-
-        setCloneMusicians(data);
+    const musiciansArr = [];
+    getDocs(collection(db, 'musicians'))
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const { id } = doc;
+          const musician = doc.data();
+          musiciansArr.push({ ...musician, id });
+        });
+        setMusicians([...musicians, ...musiciansArr]);
+        setCloneMusicians([...musicians, ...musiciansArr]);
       });
   }, []);
+
+  // useEffect(() => {
+  //   fetch('https://maruska-calendar-api.herokuapp.com/getMus')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setMusicians(data);
+  //       setCloneMusicians(data);
+  //     });
+  // }, []);
 
   function handleChange({ target: { value } }) {
     if (value === '') {
