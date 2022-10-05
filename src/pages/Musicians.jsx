@@ -37,7 +37,7 @@ export default function Musicians() {
               musicians.map(({ name, instrument }) => (
                 <div className="musician-card" key={name}>
                   <div>
-                    <h3>{`Nome: ${name}`}</h3>
+                    <h3 className="musician-name">{name}</h3>
                     <p>{`Instrumento: ${instrument}`}</p>
                   </div>
                   <i className="fa-solid fa-user musicians-icon" />
