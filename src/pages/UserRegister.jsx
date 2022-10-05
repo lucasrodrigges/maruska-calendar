@@ -79,7 +79,7 @@ export default function UserRegister() {
         placeholder="Confirme sua senha"
         onChange={handleChange}
       />
-      {userError && <p className="login-error">{userError}</p>}
+      {userError && <p className="error-message">{userError}</p>}
       <button
         className="button-1"
         type="submit"

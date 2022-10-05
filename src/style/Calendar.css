@@ -2,7 +2,7 @@
   height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 
@@ -24,11 +24,11 @@
 } */
 
 .event-container {
+  margin-bottom: 20px;
   height: 220px;
   width: 320px;
   padding: 15px;
   border-radius: 25px;
-  margin-bottom: 50px;
   background-color: rgb(237, 216, 216);
   box-shadow: -2px 2px 20px;
   /* box-shadow: 5px 5px 5px; */
@@ -51,11 +51,16 @@
   /* font-weight: 100; */
 }
 
+.event-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 
 .del-button-event {
   color: rgb(56, 169, 187);
   margin-top: 20px;
-  font-size: 1.8em;
+  font-size: 2em;
   border: none;
   outline: none;
   background-color: rgb(237, 216, 216);

@@ -1,4 +1,5 @@
 .band-form-container {
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center
@@ -41,7 +42,7 @@
 
 .event-review {
   margin-top: 10px;
-  height: 220px;
+  height: 230px;
   width: 320px;
   padding: 15px;
   border-radius: 25px;
