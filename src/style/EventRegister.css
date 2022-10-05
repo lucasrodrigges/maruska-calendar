@@ -1,0 +1,17 @@
+.event-register-container {
+  margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-register-title {
+  color: white;
+  margin-bottom: 50px;
+  font-size: 1.5em;
+}

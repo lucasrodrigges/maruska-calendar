@@ -7,10 +7,13 @@ export const CalendarContext = createContext();
 
 export function CalendarProvider({ children }) {
   const [currMonth, setCurrMonth] = useState(null);
+  const [showActions, setShowActions] = useState(false);
 
   const context = useMemo(() => ({
     currMonth,
     setCurrMonth,
+    showActions,
+    setShowActions,
   }));
 
   return (

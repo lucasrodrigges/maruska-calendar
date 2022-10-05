@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { app, db } from '../../services/firebase';
-import Header from '../../components/Header';
-import { getFromLS } from '../../services/localStorage';
+import { app, db } from '../services/firebase';
+import Header from '../components/Header';
+import { getFromLS } from '../services/localStorage';
 
 export default function MusicianRegister() {
   const [musician, setMusician] = useState({

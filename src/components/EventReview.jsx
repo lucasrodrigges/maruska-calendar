@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import { db } from '../services/firebase';
 import { EventContext } from '../context/EventProvider';
+import '../style/Calendar.css';
 
 export default function EventReview() {
   const { event, members } = useContext(EventContext);
@@ -21,17 +22,31 @@ export default function EventReview() {
   }
 
   return (
-    <div>
-      <h3>{event.location}</h3>
-      <p>{convertDateAndTime(event.date, event.time)}</p>
-      <ul>
-        Banda:
+    <div className="event-review">
+      <h3 className="event-title">{event.location}</h3>
+      <p className="event-items">{convertDateAndTime(event.date, event.time)}</p>
+      <p className="event-items">Banda:</p>
+      <ul className="ul-band">
         {members.map(({ name }) => (
-          <li key={name}>{name}</li>
+          <li className="ul-item" key={name}>{name}</li>
         ))}
       </ul>
-      <button type="button" onClick={() => navigate(-1)}>Editar</button>
-      <button type="button" onClick={handleConfirm}>Confirmar</button>
+      <div className="event-review-buttons">
+        <button
+          className="button-3"
+          type="button"
+          onClick={() => navigate(-1)}
+        >
+          Editar
+        </button>
+        <button
+          className="button-3"
+          type="button"
+          onClick={handleConfirm}
+        >
+          Confirmar
+        </button>
+      </div>
     </div>
   );
 }
