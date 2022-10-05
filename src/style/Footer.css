@@ -41,3 +41,7 @@ footer {
   outline: none;
   background-color: rgb(237, 216, 216);
 }
+
+.footer-icons:hover {
+  cursor: pointer;
+}

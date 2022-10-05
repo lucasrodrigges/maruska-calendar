@@ -2,6 +2,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { app, db } from '../services/firebase';
@@ -51,8 +52,14 @@ export default function Musicians() {
           ) : <p>Não há músicos cadastrados</p>}
         </div>
       )}
-      <button type="button" onClick={() => navigate(-1)}>Voltar</button>
-      <button type="button" onClick={() => navigate('/novo-musico')}>Cadastrar Músico</button>
+      <button
+        className="button-1"
+        type="button"
+        onClick={() => navigate('/novo-musico')}
+      >
+        Cadastrar músico
+      </button>
+      <Footer />
     </div>
   );
 }

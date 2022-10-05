@@ -62,7 +62,7 @@ export default function Login() {
         placeholder="Senha"
         onChange={handleChange}
       />
-      {loginError && <p className="login-error">{loginError}</p>}
+      {loginError && <p className="error-message">{loginError}</p>}
       <button
         className="first-button button-1"
         type="submit"

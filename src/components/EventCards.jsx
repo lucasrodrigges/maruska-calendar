@@ -63,12 +63,19 @@ export default function EventCards() {
               </div>
             ))}
           </ul>
-          <button className="del-button-event " type="button" id={id} onClick={handleDelete}>
-            <i className="fa-solid fa-trash" id={id} />
-          </button>
-          <button className="del-button-event " type="button">
-            <i className="fa-solid fa-check-to-slot" />
-          </button>
+          <div className="event-buttons-container">
+            {/* <button className="del-button-event " type="button">
+              <i className="fa-solid fa-check-to-slot" />
+            </button> */}
+            <button
+              className="del-button-event"
+              type="button"
+              id={id}
+              onClick={handleDelete}
+            >
+              <i className="fa-solid fa-trash" id={id} />
+            </button>
+          </div>
         </div>
       )) : (
         <div>
