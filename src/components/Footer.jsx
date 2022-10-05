@@ -15,7 +15,10 @@ export default function Footer() {
         <button
           className="button-2"
           type="button"
-          onClick={() => navigate('/novo-show')}
+          onClick={() => {
+            setShowActions(!showActions);
+            navigate('/novo-show');
+          }}
         >
           Agendar Show
         </button>
@@ -28,7 +31,10 @@ export default function Footer() {
         <button
           className="button-2"
           type="button"
-          onClick={() => navigate('/musicos')}
+          onClick={() => {
+            setShowActions(!showActions);
+            navigate('/musicos');
+          }}
         >
           Músicos Cadastrados
         </button>
@@ -39,7 +45,7 @@ export default function Footer() {
           <i className="fa-solid fa-house icons footer-icons" />
         </Link>
         <button
-          className="reset-button fa-solid fa-circle-plus icons plus-button footer-icons footer-icons"
+          className="plus-footer-button fa-solid fa-circle-plus icons plus-button footer-icons footer-icons"
           type="button"
           onClick={() => setShowActions(!showActions)}
         >

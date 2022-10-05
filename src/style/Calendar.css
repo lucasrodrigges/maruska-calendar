@@ -6,8 +6,57 @@
   align-items: center;
 }
 
-.reset-button {
+
+
+/* .event-cards-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(130 200 211);
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2em;
+  width: 85vw;
+  border-radius: 25px;
+  height: 55px;
+  box-shadow: 2px 3px rgb(77, 139, 148);
+} */
+
+.event-container {
+  height: 220px;
+  width: 320px;
+  padding: 15px;
+  border-radius: 25px;
+  margin-bottom: 50px;
+  background-color: rgb(237, 216, 216);
+  box-shadow: -2px 2px 20px;
+  /* box-shadow: 5px 5px 5px; */
+}
+
+.event-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.event-items {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.ul-band {
+  list-style: inside;
+  font-size: 1em;
+  /* font-weight: 100; */
+}
+
+
+.del-button-event {
+  color: rgb(56, 169, 187);
+  margin-top: 20px;
+  font-size: 1.8em;
   border: none;
   outline: none;
-  background-color: rgb(190 50 90);
+  background-color: rgb(237, 216, 216);
 }
