@@ -14,6 +14,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: -1px 1px 20px;
 }
 
 .footer-icons {
@@ -28,7 +29,7 @@ footer {
 
 .buttons-container {
   position: absolute;
-  bottom: 60px;
+  bottom: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;

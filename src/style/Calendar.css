@@ -60,3 +60,10 @@
   outline: none;
   background-color: rgb(237, 216, 216);
 }
+
+
+.nothing-here {
+  font-size: 1.5em;
+  text-align: center;
+  color: white;
+}

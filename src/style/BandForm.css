@@ -13,7 +13,7 @@
 
 .band-form-title {
   color: white;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 1.5em;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .musicians-list {
-  margin: 15px 0;
+  margin: 5px 0;
   width: 300px;
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@
 }
 
 .event-review {
-  margin-top: 20px;
+  margin-top: 10px;
   height: 220px;
   width: 320px;
   padding: 15px;

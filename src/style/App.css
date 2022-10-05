@@ -38,6 +38,7 @@ a {
   padding: 15px;
   margin-bottom: 15px;
   background-color: white;
+  box-shadow: -0.5px 0.5px 3px;
 }
 
 .input-1:focus {
@@ -55,6 +56,7 @@ a {
   padding: 15px;
   margin-bottom: 15px;
   resize: none;
+  box-shadow: -0.5px 0.5px 3px;
 }
 
 .text-area-1:focus {
@@ -70,6 +72,7 @@ a {
   background-color: rgb(130 200 211);
   color: white;
   margin: 10px 0;
+  box-shadow: -0.5px 0.5px 3px black;
 }
 
 .button-1:disabled {
@@ -96,6 +99,7 @@ a {
   color: white;
   margin: 10px 0;
   font-size: 1em;
+  box-shadow: -0.5px 0.5px 5px black;
 }
 
 .button-3 {
@@ -107,6 +111,7 @@ a {
   color: white;
   margin: 10px 0;
   font-size: 1em;
+  box-shadow: -0.5px 0.5px 5px black;
 }
 
 
