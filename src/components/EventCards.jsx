@@ -43,35 +43,29 @@ export default function EventCards() {
 
   return (
     <div>
-      <h2>Shows marcados</h2>
+      {/* <div>
+        <h2 className="event-cards-title">Shows agendados</h2>
+      </div> */}
       {events.length > 0 ? events.map(({
         id, event: {
           location, date, time, members,
         },
       }) => (
-        <div key={id}>
-          <h2>{location}</h2>
-          <p>{`Dia ${convertDateAndTime(date, time, months)}`}</p>
-          <table>
-            <thead>
-              <tr>
-                <td>Integrante</td>
-                <td>Instrumento</td>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(members).map((el) => (
-                <tr key={members[el].name}>
-                  <td>{members[el].name}</td>
-                  <td>{members[el].instrument}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" id={id} onClick={handleDelete}>
+        <div key={id} className="event-container">
+          <h2 className="event-title">{location}</h2>
+          <p className="event-items">{`Data: ${convertDateAndTime(date, time, months)}`}</p>
+          <p className="event-items">Banda:</p>
+          <ul className="ul-band">
+            {Object.keys(members).map((el) => (
+              <div key={members.name}>
+                <li className="ul-item">{members[el].name}</li>
+              </div>
+            ))}
+          </ul>
+          <button className="del-button-event " type="button" id={id} onClick={handleDelete}>
             <i className="fa-solid fa-trash" id={id} />
           </button>
-          <button type="button">
+          <button className="del-button-event " type="button">
             <i className="fa-solid fa-check-to-slot" />
           </button>
         </div>

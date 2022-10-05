@@ -1,0 +1,42 @@
+footer {
+  background-color: rgb(237, 216, 216);
+}
+
+.footer-container {
+  /* position: absolute; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer {
+  height: 7vmax;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-icons {
+  font-size: 1.8em;
+  margin: 0 10px;
+  margin-bottom: 5px;
+}
+
+/* .plus-button {
+  font-size: 3em;
+} */
+
+.buttons-container {
+  position: absolute;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plus-footer-button {
+  font-size: 2.2em;
+  border: none;
+  outline: none;
+  background-color: rgb(237, 216, 216);
+}

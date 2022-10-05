@@ -8,6 +8,8 @@ import { months } from '../helpers/data';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { CalendarContext } from '../context/CalendarProvider';
+import Footer from '../components/Footer';
+import '../style/Calendar.css';
 
 export default function Calendar() {
   const {
@@ -16,7 +18,6 @@ export default function Calendar() {
   } = useContext(CalendarContext);
 
   const [isLoading, setLoading] = useState(true);
-  const [showActions, setShowActions] = useState(false);
 
   const navigate = useNavigate();
 
@@ -35,9 +36,9 @@ export default function Calendar() {
     setLoading(false);
   }, []);
 
-  function changeMonth({ target: { value } }) {
-    setCurrMonth(value);
-  }
+  // function changeMonth({ target: { value } }) {
+  //   setCurrMonth(value);
+  // }
 
   return (
     <div>
@@ -45,25 +46,19 @@ export default function Calendar() {
 
         <div>
           <Header currMonth={currMonth} />
-          <label htmlFor="month">
+          {/* <label htmlFor="month">
             Meses:
             <select name="currMonth" id="month" value={currMonth} onChange={changeMonth}>
               {months.map(({ name, month }) => (
                 <option key={name} value={month}>{month}</option>
               ))}
             </select>
-          </label>
-          <div>
+          </label> */}
+          <div className="event-cards-container">
             <EventCards />
-            <button type="button" onClick={() => setShowActions(!showActions)}>+</button>
-            {showActions && (
-              <div>
-                <button type="button" onClick={() => navigate('/novo-show')}>Agendar Show</button>
-                <button type="button">Shows Realizados</button>
-                <button type="button" onClick={() => navigate('/musicos')}>Músicos Cadastrados</button>
-              </div>
-            )}
+
           </div>
+          <Footer />
         </div>
       )}
     </div>
