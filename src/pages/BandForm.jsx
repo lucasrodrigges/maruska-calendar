@@ -84,7 +84,7 @@ export default function BandForm() {
 
   function createMusicianList(array) {
     if (members.length === 0) {
-      return (<span>Você ainda não selecionou nenhum músico...</span>);
+      return (<span className="error-message">Você ainda não selecionou nenhum músico...</span>);
     }
     const musicianList = array.map(({ name, instrument }) => (
       <div className="musicians-list" key={name}>

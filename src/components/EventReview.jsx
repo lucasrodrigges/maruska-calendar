@@ -31,6 +31,9 @@ export default function EventReview() {
           <li className="ul-item" key={name}>{name}</li>
         ))}
       </ul>
+      {currEvent.description && (
+      <span className="event-description">{`Observação: ${currEvent.description}`}</span>
+      )}
       <div className="event-review-buttons">
         <button
           className="button-3"
