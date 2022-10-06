@@ -34,7 +34,7 @@ export function EventProvider({ children }) {
 
           eventArr.push({ event, id });
         });
-        setEvents(eventArr);
+        setEvents([...eventArr]);
       });
   }, [toUpdate]);
 

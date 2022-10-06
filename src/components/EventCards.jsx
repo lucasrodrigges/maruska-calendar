@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
@@ -11,8 +11,9 @@ export default function EventCards() {
     toUpdate,
     setUpdate,
     events,
-    setEvents,
   } = useContext(EventContext);
+
+  const [eventsClone, setEventsClone] = useState([]);
 
   useEffect(() => {
     const orderedEvents = events
@@ -20,10 +21,10 @@ export default function EventCards() {
         if (dateA === dateB) {
           return +timeA.split(':').join('') - +timeB.split(':').join('');
         }
-        return new Date(dateA).getTime() - new Date(dateB).getTime();
+        return +dateA.split('-').join('') - +dateB.split('-').join('');
       });
 
-    setEvents(orderedEvents);
+    setEventsClone([...orderedEvents]);
   }, [events]);
 
   async function handleDelete({ target: { id } }) {
@@ -36,9 +37,9 @@ export default function EventCards() {
       {/* <div>
         <h2 className="event-cards-title">Shows agendados</h2>
       </div> */}
-      {events.length > 0 ? events.map(({
+      {eventsClone.length > 0 ? eventsClone.map(({
         id, event: {
-          location, date, time, members,
+          location, date, time, members, description,
         },
       }) => (
         <div key={id} className="event-container">
@@ -52,6 +53,9 @@ export default function EventCards() {
               </div>
             ))}
           </ul>
+          {description && (
+            <span className="event-description">{`Observação: ${description}`}</span>
+          )}
           <div className="event-buttons-container">
             {/* <button className="del-button-event " type="button">
               <i className="fa-solid fa-check-to-slot" />

@@ -38,6 +38,10 @@
   font-size: 1em;
 }
 
+.event-description {
+  margin-top: 20px;
+}
+
 .event-buttons-container {
   display: flex;
   justify-content: flex-end;
