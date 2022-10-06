@@ -51,15 +51,6 @@ export default function BandForm() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   fetch('https://maruska-calendar-api.herokuapp.com/getMus')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setMusicians(data);
-  //       setCloneMusicians(data);
-  //     });
-  // }, []);
-
   function handleChange({ target: { value } }) {
     if (value === '') {
       setThisMusician('');

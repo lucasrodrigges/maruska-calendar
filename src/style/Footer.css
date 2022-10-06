@@ -3,7 +3,6 @@ footer {
 }
 
 .footer-container {
-  /* position: absolute; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,12 +22,8 @@ footer {
   margin-bottom: 5px;
 }
 
-/* .plus-button {
-  font-size: 3em;
-} */
-
 .buttons-container {
-  position: absolute;
+  position: fixed;
   bottom: 80px;
   display: flex;
   flex-direction: column;

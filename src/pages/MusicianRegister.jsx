@@ -5,6 +5,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app, db } from '../services/firebase';
 import Header from '../components/Header';
 import { getFromLS } from '../services/localStorage';
+import '../style/MusicianRegister.css';
+import Footer from '../components/Footer';
 
 export default function MusicianRegister() {
   const [musician, setMusician] = useState({
@@ -27,9 +29,10 @@ export default function MusicianRegister() {
   }, []);
 
   function handleChange({ target: { name, value } }) {
+    const currValue = name === 'phoneNum' ? `55${value}` : value;
     setMusician({
       ...musician,
-      [name]: value,
+      [name]: currValue,
     });
   }
 
@@ -53,23 +56,44 @@ export default function MusicianRegister() {
   return (
     <div>
       <Header />
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
-          Nome:
-          <input type="text" name="name" id="name" onChange={handleChange} />
-        </label>
-        <label htmlFor="instrument">
-          Instrumento
-          <input type="text" name="instrument" id="instrument" onChange={handleChange} />
-        </label>
-        <label htmlFor="phoneNum">
-          Telefone (opcional)
-          <input type="text" name="phoneNum" id="phoneNum" placeholder="Somente números" onChange={handleChange} />
-        </label>
-        {errorMessage && <p>{errorMessage}</p>}
-        <button type="submit">Adicionar</button>
+      <form
+        className="musician-register-form"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="musician-register-title">Informações Pessoais</h1>
+        <input
+          className="input-1"
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Nome ou apelido"
+          onChange={handleChange}
+        />
+        <input
+          className="input-1"
+          type="text"
+          name="instrument"
+          id="instrument"
+          placeholder="Instrumento(s)"
+          onChange={handleChange}
+        />
+        <input
+          className="input-1"
+          type="text"
+          name="phoneNum"
+          id="phoneNum"
+          placeholder="Telefone com 11 dígitos (Opcional)"
+          onChange={handleChange}
+        />
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <button
+          className="button-1"
+          type="submit"
+        >
+          Adicionar
+        </button>
       </form>
-      <button type="button" onClick={() => navigate(-1)}>Voltar</button>
+      <Footer />
     </div>
   );
 }

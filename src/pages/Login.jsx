@@ -70,6 +70,7 @@ export default function Login() {
         Login
       </button>
       <Link
+        className="new-account-link"
         to="/novo-usuario"
       >
         Criar uma conta

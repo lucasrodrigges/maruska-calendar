@@ -1,0 +1,13 @@
+.musician-register-form {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.musician-register-title {
+  color: white;
+  margin-bottom: 50px;
+  font-size: 1.5em;
+}

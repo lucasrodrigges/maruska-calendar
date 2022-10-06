@@ -1,15 +1,13 @@
 .band-form-container {
   margin-top: 40px;
+  margin-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center
 }
 
 .band-form-container span {
-  /* margin: 15px 0; */
-  /* width: 320px; */
   color: white;
-  /* padding-bottom: 20px; */
 }
 
 .band-form-title {
@@ -42,7 +40,6 @@
 
 .event-review {
   margin-top: 10px;
-  height: 230px;
   width: 320px;
   padding: 15px;
   border-radius: 25px;
@@ -68,7 +65,6 @@
 .ul-band {
   list-style: inside;
   font-size: 1em;
-  /* font-weight: 100; */
 }
 
 .event-review-buttons {

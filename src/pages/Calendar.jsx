@@ -18,7 +18,11 @@ export default function Calendar() {
     setCurrMonth,
   } = useContext(CalendarContext);
 
-  const { setMembers } = useContext(EventContext);
+  const {
+    setMembers,
+    toUpdate,
+    setUpdate,
+  } = useContext(EventContext);
 
   const [isLoading, setLoading] = useState(true);
 
@@ -39,7 +43,10 @@ export default function Calendar() {
     setLoading(false);
   }, []);
 
-  useEffect(() => setMembers([]), []);
+  useEffect(() => {
+    setMembers([]);
+    setUpdate(!toUpdate);
+  }, []);
 
   // function changeMonth({ target: { value } }) {
   //   setCurrMonth(value);
@@ -48,7 +55,6 @@ export default function Calendar() {
   return (
     <div>
       {isLoading ? <Loading /> : (
-
         <div>
           <Header currMonth={currMonth} />
           {/* <label htmlFor="month">
@@ -61,7 +67,6 @@ export default function Calendar() {
           </label> */}
           <div className="event-cards-container">
             <EventCards />
-
           </div>
           <Footer />
         </div>
