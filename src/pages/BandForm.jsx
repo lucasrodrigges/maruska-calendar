@@ -12,6 +12,7 @@ import { EventContext } from '../context/EventProvider';
 // import '../style/App.css';
 import '../style/BandForm.css';
 import Footer from '../components/Footer';
+import useCheckLogin from '../context/hooks/useCheckLogin';
 
 export default function BandForm() {
   const {
@@ -28,6 +29,8 @@ export default function BandForm() {
   const navigate = useNavigate();
 
   const auth = getAuth(app);
+
+  useCheckLogin();
 
   useEffect(() => {
     onAuthStateChanged(auth, ({ accessToken }) => {

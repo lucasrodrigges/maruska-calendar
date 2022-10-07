@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { EventContext } from '../context/EventProvider';
+import useCheckLogin from '../context/hooks/useCheckLogin';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import { db } from '../services/firebase';
 
@@ -11,6 +12,8 @@ export default function AdminDashboard() {
     events,
     setEvents,
   } = useContext(EventContext);
+
+  useCheckLogin();
 
   function handleDelete({ target: { id } }) {
     deleteDoc(doc(db, 'events', id))

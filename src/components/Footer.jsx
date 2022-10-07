@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CalendarContext } from '../context/CalendarProvider';
 import '../style/Footer.css';
+import { UserContext } from '../context/UserProvider';
 
 export default function Footer() {
+  const { isAdmin } = useContext(UserContext);
   const { showActions, setShowActions } = useContext(CalendarContext);
 
   const navigate = useNavigate();
@@ -12,16 +14,18 @@ export default function Footer() {
     <div className="footer-container">
       {showActions && (
       <div className="buttons-container">
-        <button
-          className="button-2"
-          type="button"
-          onClick={() => {
-            setShowActions(!showActions);
-            navigate('/novo-show');
-          }}
-        >
-          Agendar Show
-        </button>
+        {isAdmin && (
+          <button
+            className="button-2"
+            type="button"
+            onClick={() => {
+              setShowActions(!showActions);
+              navigate('/novo-show');
+            }}
+          >
+            Agendar Show
+          </button>
+        )}
         <button
           className="button-2"
           type="button"

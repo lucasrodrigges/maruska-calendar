@@ -1,8 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { app } from '../services/firebase';
-import { getFromLS } from '../services/localStorage';
 import EventCards from '../components/EventCards';
 import { months } from '../helpers/data';
 import Header from '../components/Header';
@@ -11,6 +7,7 @@ import { CalendarContext } from '../context/CalendarProvider';
 import Footer from '../components/Footer';
 import '../style/Calendar.css';
 import { EventContext } from '../context/EventProvider';
+import useCheckLogin from '../context/hooks/useCheckLogin';
 
 export default function Calendar() {
   const {
@@ -26,17 +23,9 @@ export default function Calendar() {
 
   const [isLoading, setLoading] = useState(true);
 
-  const navigate = useNavigate();
-
-  const auth = getAuth(app);
+  useCheckLogin();
 
   useEffect(() => {
-    onAuthStateChanged(auth, ({ accessToken }) => {
-      const currAccessToken = getFromLS('session').accessToken;
-
-      if (!currAccessToken || accessToken !== currAccessToken) navigate('/');
-    });
-
     const date = new Date();
 
     setCurrMonth(months[date.getMonth()].month);

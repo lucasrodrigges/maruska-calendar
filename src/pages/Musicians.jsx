@@ -1,12 +1,10 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import useCheckLogin from '../context/hooks/useCheckLogin';
 import { MusiciansContext } from '../context/MusiciansProvider';
-import { app } from '../services/firebase';
-import { getFromLS } from '../services/localStorage';
 import '../style/Musicians.css';
 
 export default function Musicians() {
@@ -17,15 +15,7 @@ export default function Musicians() {
 
   const navigate = useNavigate();
 
-  const auth = getAuth(app);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, ({ accessToken }) => {
-      const currAccessToken = getFromLS('session').accessToken;
-
-      if (accessToken !== currAccessToken) navigate('/');
-    });
-  }, []);
+  useCheckLogin();
 
   return (
     <div>
