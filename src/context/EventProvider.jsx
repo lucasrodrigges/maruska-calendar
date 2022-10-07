@@ -26,6 +26,7 @@ export function EventProvider({ children }) {
 
   useEffect(() => {
     const eventArr = [];
+
     getDocs(q, auth)
       .then((querySnapshot) => {
         querySnapshot.forEach((currDoc) => {
@@ -34,7 +35,25 @@ export function EventProvider({ children }) {
 
           eventArr.push({ event, id });
         });
-        setEvents([...eventArr]);
+
+        const orderedEvents = eventArr
+          .sort(({
+            event: {
+              date: dateA,
+              time: timeA,
+            },
+          }, {
+            event: {
+              date: dateB,
+              time: timeB,
+            },
+          }) => {
+            if (dateA === dateB) {
+              return +timeA.split(':').join('') - +timeB.split(':').join('');
+            }
+            return +dateA.split('-').join('') - +dateB.split('-').join('');
+          });
+        setEvents([...orderedEvents]);
       });
   }, [toUpdate]);
 
