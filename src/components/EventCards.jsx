@@ -27,9 +27,9 @@ export default function EventCards() {
     setEventsClone([...orderedEvents]);
   }, [events]);
 
-  async function handleDelete({ target: { id } }) {
-    await deleteDoc(doc(db, 'events', id));
-    setUpdate(!toUpdate);
+  function handleDelete({ target: { id } }) {
+    deleteDoc(doc(db, 'events', id))
+      .then(() => setUpdate(!toUpdate));
   }
 
   return (
