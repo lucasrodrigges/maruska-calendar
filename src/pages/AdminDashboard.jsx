@@ -24,16 +24,21 @@ export default function AdminDashboard() {
       <Header />
       {events.length > 0 && (
         events.map(({ id, event: { location, date, time } }) => (
-          <div>
+          <div key={id}>
             <p>{`${location} (${convertDateAndTime(date, time)})`}</p>
-            <button
-              className="del-button-event"
-              type="button"
-              id={id}
-              onClick={handleDelete}
-            >
-              <i className="fa-solid fa-trash" id={id} />
-            </button>
+            <div className="event-buttons-container">
+              <button className="del-button-event " type="button">
+                <i className="fa-regular fa-pen-to-square" />
+              </button>
+              <button
+                className="del-button-event"
+                type="button"
+                id={id}
+                onClick={handleDelete}
+              >
+                <i className="fa-solid fa-trash" id={id} />
+              </button>
+            </div>
           </div>
         ))
       ) }

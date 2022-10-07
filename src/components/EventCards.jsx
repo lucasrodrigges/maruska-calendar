@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../services/firebase';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import { months } from '../helpers/data';
 import sadUnicorny from '../images/sadUnicorny.png';
@@ -8,8 +6,6 @@ import { EventContext } from '../context/EventProvider';
 
 export default function EventCards() {
   const {
-    toUpdate,
-    setUpdate,
     events,
   } = useContext(EventContext);
 
@@ -26,11 +22,6 @@ export default function EventCards() {
 
     setEventsClone([...orderedEvents]);
   }, [events]);
-
-  function handleDelete({ target: { id } }) {
-    deleteDoc(doc(db, 'events', id))
-      .then(() => setUpdate(!toUpdate));
-  }
 
   return (
     <div className="calendar-general-container">
@@ -56,19 +47,6 @@ export default function EventCards() {
           {description && (
             <span className="event-description">{`Observação: ${description}`}</span>
           )}
-          <div className="event-buttons-container">
-            {/* <button className="del-button-event " type="button">
-              <i className="fa-solid fa-check-to-slot" />
-            </button> */}
-            <button
-              className="del-button-event"
-              type="button"
-              id={id}
-              onClick={handleDelete}
-            >
-              <i className="fa-solid fa-trash" id={id} />
-            </button>
-          </div>
         </div>
       )) : (
         <div>
