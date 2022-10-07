@@ -10,11 +10,15 @@ import UserRegister from './pages/UserRegister';
 import Musicians from './pages/Musicians';
 import './style/Reset.css';
 import './style/App.css';
+import Profile from './pages/Profile';
+import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
   return (
     <Routes>
       <Route path="" element={<Login />} />
+      <Route path="perfil" element={<Profile />} />
+      <Route path="painel-de-controle" element={<AdminDashboard />} />
       <Route path="novo-usuario" element={<UserRegister />} />
       <Route path="calendario" element={<Calendar />} />
       <Route path="novo-show" element={<EventRegister />} />
