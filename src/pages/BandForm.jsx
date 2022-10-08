@@ -30,9 +30,11 @@ export default function BandForm() {
 
   const navigate = useNavigate();
 
-  useEffect(() => (!ADMIN_UID_ARR.includes(UID)
-    ? navigate('/calendario')
-    : setLoading(false)), []);
+  useEffect(() => {
+    const isAdmin = ADMIN_UID_ARR.includes(UID);
+    if (!isAdmin) navigate('/calendario');
+    else setLoading(false);
+  }, []);
 
   useEffect(() => {
     const musiciansArr = [];

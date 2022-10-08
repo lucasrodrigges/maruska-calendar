@@ -21,7 +21,11 @@ export default function AdminDashboard() {
 
   const navigate = useNavigate();
 
-  useEffect(() => !ADMIN_UID_ARR.includes(UID) && navigate('/calendario'), []);
+  useEffect(() => {
+    const isAdmin = ADMIN_UID_ARR.includes(UID);
+
+    if (!isAdmin) navigate('/calendario');
+  }, []);
 
   useEffect(() => events && setLoading(false), [events]);
 

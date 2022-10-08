@@ -18,7 +18,10 @@ export default function EventRegister() {
 
   const navigate = useNavigate();
 
-  useEffect(() => !ADMIN_UID_ARR.includes(UID) && navigate('/calendario'), []);
+  useEffect(() => {
+    const isAdmin = ADMIN_UID_ARR.includes(UID);
+    if (!isAdmin) navigate('/calendario');
+  }, []);
 
   useEffect(() => {
     const { location, date, time } = currEvent;
