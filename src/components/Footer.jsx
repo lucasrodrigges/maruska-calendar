@@ -49,8 +49,8 @@ export default function Footer() {
           <i />
           {/* <i className="fa-solid fa-circle-plus icons plus-button footer-icons" /> */}
         </button>
-        <Link to="/">
-          <i className="fa-solid fa-right-from-bracket icons footer-icons" />
+        <Link to="/perfil">
+          <i className="fa-solid fa-user icons footer-icons" />
         </Link>
       </footer>
     </div>

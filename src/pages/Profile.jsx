@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import Loading from '../components/Loading';
 import useLogin from '../hooks/useLogin';
 
@@ -11,7 +13,10 @@ export default function Profile() {
   return (
     <div>
       {isLoaging ? <Loading /> : (
-        <p>PROFILE</p>
+        <div>
+          <Header />
+          <Footer />
+        </div>
       )}
     </div>
   );
