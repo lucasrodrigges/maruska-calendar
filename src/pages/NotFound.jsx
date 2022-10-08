@@ -1,12 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../style/NotFound.css';
-import { createBrowserHistory } from 'history';
 
 function NotFound() {
-  function returnToLastPage() {
-    const history = createBrowserHistory();
-    history.back();
-  }
+  const navigate = useNavigate();
 
   return (
     <div className="notfound">
@@ -16,7 +13,7 @@ function NotFound() {
       </section>
       <button
         type="button"
-        onClick={returnToLastPage}
+        onClick={() => navigate(-1)}
       >
         Voltar
       </button>
