@@ -9,6 +9,8 @@ export const UserContext = createContext();
 
 export function UserProvider({ children }) {
   const [UID, setUID] = useState(false);
+  const [userEdit, setUserEdit] = useState({});
+  const [toUpdateProfile, setUpdateProfile] = useState(false);
 
   const auth = getAuth(app);
 
@@ -20,6 +22,10 @@ export function UserProvider({ children }) {
 
   const context = useMemo(() => ({
     UID,
+    userEdit,
+    setUserEdit,
+    toUpdateProfile,
+    setUpdateProfile,
   }));
 
   return (
