@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style/NotFound.css';
 
-function NotFound() {
+export default function NotFound() {
   const navigate = useNavigate();
 
   return (
@@ -20,5 +20,3 @@ function NotFound() {
     </div>
   );
 }
-
-export default NotFound;
