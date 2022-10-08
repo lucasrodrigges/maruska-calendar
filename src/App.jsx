@@ -11,7 +11,9 @@ import Musicians from './pages/Musicians';
 import './style/Reset.css';
 import './style/App.css';
 import Profile from './pages/Profile';
+import ProfileEdit from './pages/ProfileEdit';
 import AdminDashboard from './pages/AdminDashboard';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
