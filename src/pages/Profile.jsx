@@ -1,6 +1,7 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AdminButtons from '../components/AdminButtons';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -68,13 +69,7 @@ export default function Profile() {
           >
             Editar Perfil
           </button>
-          <button
-            className="button-1"
-            type="button"
-            onClick={() => navigate('/painel-de-controle')}
-          >
-            Painel de Controle
-          </button>
+          <AdminButtons type="dashboard" />
           <button
             className="button-1"
             type="button"

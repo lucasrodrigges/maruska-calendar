@@ -12,6 +12,7 @@ export default function NotFound() {
         Desculpe, mas a página que você tentou acessar não existe ou é limitada à administradores.
       </section>
       <button
+        className="button-2"
         type="button"
         onClick={() => navigate(-1)}
       >

@@ -37,7 +37,18 @@ export default function AdminButtons({ type }) {
         Agendar Show
       </button>
     );
-  } return '';
+  } if (type === 'dashboard' && isAdmin) {
+    return (
+      <button
+        className="button-1"
+        type="button"
+        onClick={() => navigate('/painel-de-controle')}
+      >
+        Painel de Controle
+      </button>
+    );
+  }
+  return '';
 }
 
 AdminButtons.propTypes = {
