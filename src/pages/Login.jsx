@@ -52,6 +52,7 @@ export default function Login() {
         name="email"
         id="email"
         placeholder="Email"
+        data-testid="email-input"
         onChange={handleChange}
       />
       <input
@@ -60,6 +61,7 @@ export default function Login() {
         name="pass"
         id="pass"
         placeholder="Senha"
+        data-testid="pass-input"
         onChange={handleChange}
       />
       {loginError && <p className="error-message">{loginError}</p>}
