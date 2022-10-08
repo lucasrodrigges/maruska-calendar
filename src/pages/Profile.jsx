@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -61,9 +61,28 @@ export default function Profile() {
               {`Email: ${user.email ? user.email : 'Não definido'}`}
             </p>
           </div>
-          <button type="button" onClick={goToProfileEdit}>Editar Perfil</button>
-          <Link to="/painel-de-controle">Painel de Controle</Link>
-          <Link to="/">Sair</Link>
+          <button
+            className="button-1"
+            type="button"
+            onClick={goToProfileEdit}
+          >
+            Editar Perfil
+          </button>
+          <button
+            className="button-1"
+            type="button"
+            onClick={() => navigate('/painel-de-controle')}
+          >
+            Painel de Controle
+          </button>
+          <button
+            className="button-1"
+            type="button"
+            onClick={() => navigate('/')}
+          >
+            Sair
+
+          </button>
           <Footer />
         </div>
       )}
