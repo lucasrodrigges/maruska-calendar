@@ -22,3 +22,5 @@ export const weekDays = [
   { name: 'Fri', day: 'Sexta' },
   { name: 'Sat', day: 'Sábado' },
 ];
+
+export const ADMIN_UID_ARR = [process.env.REACT_APP_MARUSKA_UID, process.env.REACT_APP_LUCAS_R_UID];

@@ -17,7 +17,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setToLS('session', { accessToken: '' });
+    localStorage.clear();
   }, []);
 
   function handleChange({ target: { name, value } }) {

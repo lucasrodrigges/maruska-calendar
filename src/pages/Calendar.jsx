@@ -1,8 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { app } from '../services/firebase';
-import { getFromLS } from '../services/localStorage';
 import EventCards from '../components/EventCards';
 import { months } from '../helpers/data';
 import Header from '../components/Header';
@@ -11,6 +7,7 @@ import { CalendarContext } from '../context/CalendarProvider';
 import Footer from '../components/Footer';
 import '../style/Calendar.css';
 import { EventContext } from '../context/EventProvider';
+import useLogin from '../hooks/useLogin';
 
 export default function Calendar() {
   const {
@@ -26,24 +23,14 @@ export default function Calendar() {
 
   const [isLoading, setLoading] = useState(true);
 
-  const navigate = useNavigate();
+  const isLogged = useLogin();
 
-  const auth = getAuth(app);
+  useEffect(() => isLogged && setLoading(false), [isLogged]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, ({ accessToken }) => {
-      const currAccessToken = getFromLS('session').accessToken;
-
-      if (!currAccessToken || accessToken !== currAccessToken) navigate('/');
-    });
-
     const date = new Date();
 
     setCurrMonth(months[date.getMonth()].month);
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
     setMembers([]);
     setUpdate(!toUpdate);
   }, []);
@@ -52,12 +39,10 @@ export default function Calendar() {
   //   setCurrMonth(value);
   // }
 
-  return (
+  return isLoading ? <Loading /> : (
     <div>
-      {isLoading ? <Loading /> : (
-        <div>
-          <Header currMonth={currMonth} />
-          {/* <label htmlFor="month">
+      <Header currMonth={currMonth} />
+      {/* <label htmlFor="month">
             Meses:
             <select name="currMonth" id="month" value={currMonth} onChange={changeMonth}>
               {months.map(({ name, month }) => (
@@ -65,12 +50,10 @@ export default function Calendar() {
               ))}
             </select>
           </label> */}
-          <div className="event-cards-container">
-            <EventCards />
-          </div>
-          <Footer />
-        </div>
-      )}
+      <div className="event-cards-container">
+        <EventCards />
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { app, db } from '../services/firebase';
+import { db } from '../services/firebase';
 import Header from '../components/Header';
-import { getFromLS } from '../services/localStorage';
 import '../style/MusicianRegister.css';
 import Footer from '../components/Footer';
+import { UserContext } from '../context/UserProvider';
+import { ADMIN_UID_ARR } from '../helpers/data';
 
 export default function MusicianRegister() {
+  const { UID } = useContext(UserContext);
   const [musician, setMusician] = useState({
     name: '',
     instrument: '',
@@ -18,15 +19,7 @@ export default function MusicianRegister() {
 
   const navigate = useNavigate();
 
-  const auth = getAuth(app);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, ({ accessToken }) => {
-      const currAccessToken = getFromLS('session').accessToken;
-
-      if (accessToken !== currAccessToken) navigate('/');
-    });
-  }, []);
+  useEffect(() => !ADMIN_UID_ARR.includes(UID) && navigate('/calendario'), []);
 
   function handleChange({ target: { name, value } }) {
     const currValue = name === 'phoneNum' ? `55${value}` : value;

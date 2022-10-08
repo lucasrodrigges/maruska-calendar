@@ -1,12 +1,10 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import useLogin from '../hooks/useLogin';
 import { MusiciansContext } from '../context/MusiciansProvider';
-import { app } from '../services/firebase';
-import { getFromLS } from '../services/localStorage';
+import AdminButtons from '../components/AdminButtons';
 import '../style/Musicians.css';
 
 export default function Musicians() {
@@ -15,17 +13,7 @@ export default function Musicians() {
     isLoading,
   } = useContext(MusiciansContext);
 
-  const navigate = useNavigate();
-
-  const auth = getAuth(app);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, ({ accessToken }) => {
-      const currAccessToken = getFromLS('session').accessToken;
-
-      if (accessToken !== currAccessToken) navigate('/');
-    });
-  }, []);
+  useLogin();
 
   return (
     <div>
@@ -44,13 +32,7 @@ export default function Musicians() {
                 </div>
               ))
             ) : <p>Não há músicos cadastrados</p>}
-            <button
-              className="button-1"
-              type="button"
-              onClick={() => navigate('/novo-musico')}
-            >
-              Cadastrar músico
-            </button>
+            <AdminButtons type="newMus" />
           </div>
           <Footer />
         </div>

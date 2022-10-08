@@ -1,16 +1,33 @@
 import { deleteDoc, doc } from 'firebase/firestore';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import { EventContext } from '../context/EventProvider';
+import { UserContext } from '../context/UserProvider';
 import convertDateAndTime from '../helpers/convertDateAndTime';
+import { ADMIN_UID_ARR } from '../helpers/data';
 import { db } from '../services/firebase';
 
 export default function AdminDashboard() {
+  const { UID } = useContext(UserContext);
   const {
     events,
     setEvents,
   } = useContext(EventContext);
+
+  const [isLoaging, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAdmin = ADMIN_UID_ARR.includes(UID);
+
+    if (!isAdmin) navigate('/calendario');
+  }, []);
+
+  useEffect(() => events && setLoading(false), [events]);
 
   function handleDelete({ target: { id } }) {
     deleteDoc(doc(db, 'events', id))
@@ -19,7 +36,7 @@ export default function AdminDashboard() {
       });
   }
 
-  return (
+  return isLoaging ? <Loading /> : (
     <div>
       <Header />
       {events.length > 0 && (
