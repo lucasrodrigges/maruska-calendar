@@ -14,6 +14,10 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import AdminDashboard from './pages/AdminDashboard';
 import NotFound from './pages/NotFound';
+<<<<<<< HEAD
+=======
+import ProfileEdit from './pages/ProfileEdit';
+>>>>>>> 67ff4a8 (✨ introducing the notfound page, wip)
 
 export default function App() {
   return (
