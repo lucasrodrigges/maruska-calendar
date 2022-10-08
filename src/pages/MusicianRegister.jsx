@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../services/firebase';
 import Header from '../components/Header';
 import '../style/MusicianRegister.css';
 import Footer from '../components/Footer';
-import useCheckLogin from '../context/hooks/useCheckLogin';
+import { UserContext } from '../context/UserProvider';
+import { ADMIN_UID_ARR } from '../helpers/data';
 
 export default function MusicianRegister() {
+  const { UID } = useContext(UserContext);
   const [musician, setMusician] = useState({
     name: '',
     instrument: '',
@@ -17,7 +19,7 @@ export default function MusicianRegister() {
 
   const navigate = useNavigate();
 
-  useCheckLogin();
+  useEffect(() => !ADMIN_UID_ARR.includes(UID) && navigate('/calendario'), []);
 
   function handleChange({ target: { name, value } }) {
     const currValue = name === 'phoneNum' ? `55${value}` : value;

@@ -7,7 +7,7 @@ import { CalendarContext } from '../context/CalendarProvider';
 import Footer from '../components/Footer';
 import '../style/Calendar.css';
 import { EventContext } from '../context/EventProvider';
-import useCheckLogin from '../context/hooks/useCheckLogin';
+import useLogin from '../hooks/useLogin';
 
 export default function Calendar() {
   const {
@@ -23,16 +23,14 @@ export default function Calendar() {
 
   const [isLoading, setLoading] = useState(true);
 
-  useCheckLogin();
+  const isLogged = useLogin();
+
+  useEffect(() => isLogged && setLoading(false), [isLogged]);
 
   useEffect(() => {
     const date = new Date();
 
     setCurrMonth(months[date.getMonth()].month);
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
     setMembers([]);
     setUpdate(!toUpdate);
   }, []);
@@ -41,12 +39,10 @@ export default function Calendar() {
   //   setCurrMonth(value);
   // }
 
-  return (
+  return isLoading ? <Loading /> : (
     <div>
-      {isLoading ? <Loading /> : (
-        <div>
-          <Header currMonth={currMonth} />
-          {/* <label htmlFor="month">
+      <Header currMonth={currMonth} />
+      {/* <label htmlFor="month">
             Meses:
             <select name="currMonth" id="month" value={currMonth} onChange={changeMonth}>
               {months.map(({ name, month }) => (
@@ -54,12 +50,10 @@ export default function Calendar() {
               ))}
             </select>
           </label> */}
-          <div className="event-cards-container">
-            <EventCards />
-          </div>
-          <Footer />
-        </div>
-      )}
+      <div className="event-cards-container">
+        <EventCards />
+      </div>
+      <Footer />
     </div>
   );
 }

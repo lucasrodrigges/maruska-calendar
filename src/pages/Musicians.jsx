@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import useCheckLogin from '../context/hooks/useCheckLogin';
+import useLogin from '../hooks/useLogin';
 import { MusiciansContext } from '../context/MusiciansProvider';
+import AdminButtons from '../components/AdminButtons';
 import '../style/Musicians.css';
 
 export default function Musicians() {
@@ -13,9 +13,7 @@ export default function Musicians() {
     isLoading,
   } = useContext(MusiciansContext);
 
-  const navigate = useNavigate();
-
-  useCheckLogin();
+  useLogin();
 
   return (
     <div>
@@ -34,13 +32,7 @@ export default function Musicians() {
                 </div>
               ))
             ) : <p>Não há músicos cadastrados</p>}
-            <button
-              className="button-1"
-              type="button"
-              onClick={() => navigate('/novo-musico')}
-            >
-              Cadastrar músico
-            </button>
+            <AdminButtons type="newMus" />
           </div>
           <Footer />
         </div>

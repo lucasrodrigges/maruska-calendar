@@ -1,20 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   collection, getDocs,
 } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFromLS } from '../services/localStorage';
-import { app, db } from '../services/firebase';
+import { useNavigate } from 'react-router-dom';
+import { db } from '../services/firebase';
 import Header from '../components/Header';
 import EventReview from '../components/EventReview';
 import { EventContext } from '../context/EventProvider';
 // import '../style/App.css';
 import '../style/BandForm.css';
 import Footer from '../components/Footer';
-import useCheckLogin from '../context/hooks/useCheckLogin';
+import Loading from '../components/Loading';
+import { UserContext } from '../context/UserProvider';
+import { ADMIN_UID_ARR } from '../helpers/data';
 
 export default function BandForm() {
+  const { UID } = useContext(UserContext);
   const {
     members,
     setMembers,
@@ -25,20 +26,13 @@ export default function BandForm() {
   const [cloneMusicians, setCloneMusicians] = useState([]);
   const [errorMessage, setError] = useState('');
   const [showReview, setReview] = useState(false);
+  const [isLoaging, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
-  const auth = getAuth(app);
-
-  useCheckLogin();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, ({ accessToken }) => {
-      const currAccessToken = getFromLS('session').accessToken;
-
-      if (accessToken !== currAccessToken) navigate('/');
-    });
-  }, []);
+  useEffect(() => (!ADMIN_UID_ARR.includes(UID)
+    ? navigate('/calendario')
+    : setLoading(false)), []);
 
   useEffect(() => {
     const musiciansArr = [];
@@ -59,6 +53,7 @@ export default function BandForm() {
       setThisMusician('');
       return;
     }
+
     const findMusician = musicians.find((each) => (each.name === value));
     setThisMusician(findMusician);
     setError('');
@@ -111,7 +106,7 @@ export default function BandForm() {
     return musicians.map(({ name }) => (<option key={name} value={name}>{name}</option>));
   }
 
-  return (
+  return isLoaging ? <Loading /> : (
     <div>
       <Header />
       <div className="band-form-container">

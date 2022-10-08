@@ -8,19 +8,18 @@ import { app } from '../services/firebase';
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [isAdmin, setAdmin] = useState(false);
+  const [UID, setUID] = useState(false);
 
   const auth = getAuth(app);
 
   useEffect(() => {
     onAuthStateChanged(auth, ({ uid }) => {
-      if (process.env.REACT_APP_ADMIN_UIDS.includes(uid)) setAdmin(true);
+      setUID(uid);
     });
   }, []);
 
   const context = useMemo(() => ({
-    isAdmin,
-    setAdmin,
+    UID,
   }));
 
   return (

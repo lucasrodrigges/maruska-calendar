@@ -1,31 +1,24 @@
-import React, { useContext } from 'react';
+import React, {
+  useContext, useEffect,
+  // useState,
+} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CalendarContext } from '../context/CalendarProvider';
 import '../style/Footer.css';
-import { UserContext } from '../context/UserProvider';
+import AdminButtons from './AdminButtons';
 
 export default function Footer() {
-  const { isAdmin } = useContext(UserContext);
   const { showActions, setShowActions } = useContext(CalendarContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => setShowActions(false), []);
 
   return (
     <div className="footer-container">
       {showActions && (
       <div className="buttons-container">
-        {isAdmin && (
-          <button
-            className="button-2"
-            type="button"
-            onClick={() => {
-              setShowActions(!showActions);
-              navigate('/novo-show');
-            }}
-          >
-            Agendar Show
-          </button>
-        )}
+        <AdminButtons type="addEvent" />
         <button
           className="button-2"
           type="button"
