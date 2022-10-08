@@ -12,6 +12,7 @@ import './style/Reset.css';
 import './style/App.css';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
       <Route path="banda" element={<BandForm />} />
       <Route path="novo-musico" element={<MusicianRegister />} />
       <Route path="musicos" element={<Musicians />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
