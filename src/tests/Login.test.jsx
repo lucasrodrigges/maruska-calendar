@@ -5,39 +5,47 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import { testEmail, testPass } from './helpers/utilData';
-import Login from '../pages/Login';
 
 describe('Testa elementos da página de login', () => {
-  // beforeEach(() => {
-  //   const { history } = renderWithRouter(<App />);
-  //   currHistory = history;
-  // });
+  beforeEach(() => {
+    renderWithRouter(<App />);
+  });
 
-  test('Testa existência dos inputs e se possível digitar neles', () => {
-    const { history } = renderWithRouter(<App />);
-
-    expect(history.location.pathname).toBe('/');
-
-    const emailInput = screen.getByTestId('email-input');
-    const passInput = screen.getByTestId('pass-input');
+  test('Testa existência dos inputs e se é possível digitar neles', () => {
+    const emailInput = screen.getByPlaceholderText('Email');
+    const passInput = screen.getByPlaceholderText('Senha');
+    const loginBtn = screen.getByRole('button', { name: 'Login' });
 
     userEvent.type(emailInput, testEmail);
     userEvent.type(passInput, testPass);
 
     expect(emailInput).toBeInTheDocument();
     expect(passInput).toBeInTheDocument();
+    expect(loginBtn).toBeInTheDocument();
     expect(emailInput.value).toBe(testEmail);
     expect(passInput.value).toBe(testPass);
   });
 
-  test('Testa link para `UserRegister page`', async () => {
-    const { history } = renderWithRouter(<Login />);
+  // test('Testa se é possível fazer login', async () => {
+  //   const emailInput = screen.getByTestId('email-input');
+  //   const passInput = screen.getByTestId('pass-input');
+  //   const loginBtn = screen.getByRole('button', { name: 'Login' });
 
+  //   userEvent.type(emailInput, testEmail);
+  //   userEvent.type(passInput, testPass);
+  //   userEvent.click(loginBtn);
+
+  //   await waitFor(() => {
+  //     expect(window.location.href.includes('calendario')).toBeTruthy();
+  //   });
+  // });
+
+  test('Testa link para `UserRegister page`', async () => {
     const linkToRegister = screen.getByRole('link');
 
     userEvent.click(linkToRegister);
 
     expect(linkToRegister.innerHTML).toBe('Criar uma conta');
-    expect(history.location.pathname).toBe('/novo-usuario');
+    expect(window.location.href.includes('novo-usuario')).toBeTruthy();
   });
 });
