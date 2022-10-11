@@ -10,6 +10,7 @@ import { ADMIN_UID_ARR } from '../helpers/data';
 
 export default function MusicianRegister() {
   const { UID } = useContext(UserContext);
+
   const [musician, setMusician] = useState({
     name: '',
     instrument: '',
@@ -19,7 +20,10 @@ export default function MusicianRegister() {
 
   const navigate = useNavigate();
 
-  useEffect(() => !ADMIN_UID_ARR.includes(UID) && navigate('/calendario'), []);
+  useEffect(() => {
+    const isAdmin = ADMIN_UID_ARR.includes(UID);
+    if (!isAdmin) navigate('/calendario');
+  }, []);
 
   function handleChange({ target: { name, value } }) {
     const currValue = name === 'phoneNum' ? `55${value}` : value;
