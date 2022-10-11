@@ -65,6 +65,7 @@ export default function Login() {
       {loginError && <p className="error-message">{loginError}</p>}
       <button
         className="first-button button-1"
+        name="login-button"
         type="submit"
       >
         Login
