@@ -5,12 +5,13 @@ import {
 } from 'firebase/storage';
 
 import { useNavigate } from 'react-router-dom';
-import { v4 } from 'uuid';
+// import { v4 } from 'uuid';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { EMAIL_RGX } from '../helpers/data';
 import { app, storage } from '../services/firebase';
 import { UserContext } from '../context/UserProvider';
+import '../style/ProfileEdit.css';
 
 export default function ProfileEdit() {
   const {
@@ -53,27 +54,27 @@ export default function ProfileEdit() {
     }
   }
 
-  function getImage({ target: { files } }) {
-    const imageRef = ref(storage, `userImages/${userEdit.uid + v4()}`);
-    uploadBytes(imageRef, files[0])
-      .then(() => {
-        listAll(imagesListRef).then((res) => {
-          res.items.forEach((item) => {
-            getDownloadURL(item).then((url) => {
-              setUrlList([...urlList, url]);
-            });
-          });
-        });
-      });
-  }
+  // function getImage({ target: { files } }) {
+  //   const imageRef = ref(storage, `userImages/${userEdit.uid + v4()}`);
+  //   uploadBytes(imageRef, files[0])
+  //     .then(() => {
+  //       listAll(imagesListRef).then((res) => {
+  //         res.items.forEach((item) => {
+  //           getDownloadURL(item).then((url) => {
+  //             setUrlList([...urlList, url]);
+  //           });
+  //         });
+  //       });
+  //     });
+  // }
 
-  function delProfileImage() {
-    updateProfile(auth.currentUser, { photoURL: '' })
-      .then(() => setUserEdit({
-        ...userEdit,
-        photoURL: '',
-      }));
-  }
+  // function delProfileImage() {
+  //   updateProfile(auth.currentUser, { photoURL: '' })
+  //     .then(() => setUserEdit({
+  //       ...userEdit,
+  //       photoURL: '',
+  //     }));
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -106,40 +107,43 @@ export default function ProfileEdit() {
   return (
     <div>
       <Header />
-
-      <form action="profileEdit" onSubmit={handleSubmit}>
-        {userEdit?.photoURL && (
-          <div>
-            <img src={userEdit.photoURL} alt="Foto do usuário" width="100px" />
-            <button type="button" onClick={delProfileImage}>Remover foto</button>
-          </div>
-        )}
-        <input
+      <div className="pofile-edit-form-container">
+        <form className="profile-edit-form" action="profileEdit" onSubmit={handleSubmit}>
+          {/* <input
           type="file"
           name="photoURL"
           onChange={getImage}
-        />
-        <input
-          className="input-1"
-          type="text"
-          name="displayName"
-          placeholder={userEdit?.displayName || 'Nome'}
-          onChange={handleChange}
-        />
-        <input
-          className="input-1"
-          type="text"
-          name="email"
-          placeholder={userEdit?.email || 'Email'}
-          onChange={handleChange}
-        />
-        <button
-          className="button-1"
-          type="submit"
-        >
-          Editar
-        </button>
-      </form>
+        /> */}
+          <input
+            className="input-1"
+            type="text"
+            name="displayName"
+            placeholder={userEdit?.displayName || 'Nome'}
+            onChange={handleChange}
+          />
+          <input
+            className="input-1"
+            type="text"
+            name="email"
+            placeholder={userEdit?.email || 'Email'}
+            onChange={handleChange}
+          />
+          <button
+            className="button-1"
+            type="submit"
+          >
+            Editar
+          </button>
+          <button
+            className="button-1"
+            type="button"
+            onClick={() => navigate(-1)}
+          >
+            Voltar
+
+          </button>
+        </form>
+      </div>
       <Footer />
     </div>
   );

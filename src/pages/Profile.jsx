@@ -8,6 +8,7 @@ import Loading from '../components/Loading';
 import { UserContext } from '../context/UserProvider';
 import useLogin from '../hooks/useLogin';
 import { app } from '../services/firebase';
+import '../style/Profile.css';
 
 export default function Profile() {
   const { setUserEdit, toUpdateProfile, setUpdateProfile } = useContext(UserContext);
@@ -47,37 +48,32 @@ export default function Profile() {
       {isLoaging ? <Loading /> : (
         <div>
           <Header />
-          <div>
-            {user.photoURL && (
-              <img
-                src={user.photoURL}
-                alt="Imagem de Perfil"
-                width="100px"
-              />
-            )}
-            <p>
-              {`Nome: ${user.displayName ? user.displayName : 'Não definido'}`}
-            </p>
-            <p>
-              {`Email: ${user.email ? user.email : 'Não definido'}`}
-            </p>
-          </div>
-          <button
-            className="button-1"
-            type="button"
-            onClick={goToProfileEdit}
-          >
-            Editar Perfil
-          </button>
-          <AdminButtons type="dashboard" />
-          <button
-            className="button-1"
-            type="button"
-            onClick={() => navigate('/')}
-          >
-            Sair
+          <div className="profile-container">
+            <div className="user-card">
+              <p>
+                {`Nome: ${user.displayName ? user.displayName : 'Não definido'}`}
+              </p>
+              <p>
+                {`Email: ${user.email ? user.email : 'Não definido'}`}
+              </p>
+            </div>
+            <button
+              className="button-1"
+              type="button"
+              onClick={goToProfileEdit}
+            >
+              Editar Perfil
+            </button>
+            <AdminButtons type="dashboard" />
+            <button
+              className="button-1"
+              type="button"
+              onClick={() => navigate('/')}
+            >
+              Sair
 
-          </button>
+            </button>
+          </div>
           <Footer />
         </div>
       )}

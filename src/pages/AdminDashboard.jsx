@@ -9,6 +9,7 @@ import { UserContext } from '../context/UserProvider';
 import convertDateAndTime from '../helpers/convertDateAndTime';
 import { ADMIN_UID_ARR } from '../helpers/data';
 import { db } from '../services/firebase';
+import '../style/Dashboard.css';
 
 export default function AdminDashboard() {
   const { UID } = useContext(UserContext);
@@ -39,26 +40,28 @@ export default function AdminDashboard() {
   return isLoaging ? <Loading /> : (
     <div>
       <Header />
-      {events.length > 0 && (
-        events.map(({ id, event: { location, date, time } }) => (
-          <div key={id}>
-            <p>{`${location} (${convertDateAndTime(date, time)})`}</p>
-            <div className="event-buttons-container">
-              <button className="del-button-event " type="button">
-                <i className="fa-regular fa-pen-to-square" />
-              </button>
-              <button
-                className="del-button-event"
-                type="button"
-                id={id}
-                onClick={handleDelete}
-              >
-                <i className="fa-solid fa-trash" id={id} />
-              </button>
+      <div className="dashboard-container">
+        {events.length > 0 && (
+          events.map(({ id, event: { location, date, time } }) => (
+            <div className="event-container" key={id}>
+              <p>{`${location} (${convertDateAndTime(date, time)})`}</p>
+              <div className="event-buttons-container">
+                <button className="del-button-event " type="button">
+                  <i className="fa-regular fa-pen-to-square" />
+                </button>
+                <button
+                  className="del-button-event"
+                  type="button"
+                  id={id}
+                  onClick={handleDelete}
+                >
+                  <i className="fa-solid fa-trash" id={id} />
+                </button>
+              </div>
             </div>
-          </div>
-        ))
-      ) }
+          ))
+        ) }
+      </div>
       <Footer />
     </div>
   );
