@@ -6,4 +6,10 @@ module.exports = {
 
     res.status(200).json(musicians);
   },
+
+  createMusician: async (req, res) => {
+    const newMusician = await musicianService.createMusician(req.body);
+
+    res.status(201).json(newMusician);
+  },
 };

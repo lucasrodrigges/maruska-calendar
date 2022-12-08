@@ -35,4 +35,12 @@ module.exports = {
 
     return next();
   },
+
+  newMusician: async (req, _res, next) => {
+    const { error } = schemas.newMusician.validate(req.body);
+
+    if (error) throw new HttpError(formatError(error).error, formatError(error).message);
+
+    return next();
+  },
 };
