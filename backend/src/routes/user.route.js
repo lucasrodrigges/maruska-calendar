@@ -5,8 +5,14 @@ const validations = require('../middlewares/validations');
 
 route.get(
   '/user',
-  validations.tokenValidation,
+  validations.token,
   userController.getUsers,
+);
+
+route.post(
+  '/user',
+  validations.newUser,
+  userController.createUser,
 );
 
 module.exports = route;
