@@ -7,6 +7,14 @@ module.exports = {
     res.status(200).json(token);
   },
 
+  getMe: async (req, res) => {
+    const { userId } = req.headers;
+
+    const user = await userService.getMe(userId);
+
+    res.status(200).json(user);
+  },
+
   getUsers: async (_req, res) => {
     const users = await userService.getUsers();
 

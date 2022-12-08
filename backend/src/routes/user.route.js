@@ -9,6 +9,12 @@ route.get(
   userController.getUsers,
 );
 
+route.get(
+  '/user/me',
+  validations.token,
+  userController.getMe,
+);
+
 route.post(
   '/login',
   validations.login,

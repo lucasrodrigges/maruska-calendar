@@ -101,7 +101,7 @@ export default function UserRegister() {
       <button
         className="button-1"
         type="submit"
-        onClick={() => navigate('/')}
+        onClick={() => navigate(-1)}
       >
         Voltar
       </button>

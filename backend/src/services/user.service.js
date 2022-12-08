@@ -21,6 +21,16 @@ module.exports = {
     },
   }),
 
+  getMe: async (id) => {
+    const user = await User.findByPk(id, {
+      attributes: { exclude: ['password'] },
+    });
+
+    if (!user) throw new HttpError(404, 'User not foud.');
+
+    return user;
+  },
+
   createUser: async (user) => {
     const [newUser, created] = await User.findOrCreate({
       where: { email: user.email },
