@@ -13,7 +13,7 @@ module.exports = {
 
     const payload = verifyToken(authorization);
 
-    if (payload.error) return '';
+    if (payload.error) throw new HttpError(409, 'Expired or invalid token!');
 
     req.headers.userId = payload.userId;
 

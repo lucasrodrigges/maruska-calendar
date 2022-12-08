@@ -8,6 +8,7 @@ import { app } from '../services/firebase';
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
+  const [userToken, setUserToken] = useState('');
   const [UID, setUID] = useState(false);
   const [userEdit, setUserEdit] = useState({});
   const [toUpdateProfile, setUpdateProfile] = useState(false);
@@ -26,6 +27,8 @@ export function UserProvider({ children }) {
     setUserEdit,
     toUpdateProfile,
     setUpdateProfile,
+    userToken,
+    setUserToken,
   }));
 
   return (

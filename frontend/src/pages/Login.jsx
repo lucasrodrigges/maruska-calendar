@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { setToLS } from '../services/localStorage';
 import '../style/Login.css';
 import maruskaLogo from '../images/maruska-logo.png';
-import fetch from '../services/fetchers/axios';
+import { UserContext } from '../context/UserProvider';
+import UseAxios from '../hooks/UseAxios';
 
 export default function Login() {
+  const { setUserToken } = useContext(UserContext);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -13,6 +15,7 @@ export default function Login() {
   const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
+  const axios = UseAxios();
 
   useEffect(() => {
     localStorage.clear();
@@ -29,9 +32,10 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const result = await fetch.post('/login', user);
+      const result = await axios.post('/login', user);
 
       setToLS('user', result.data.token);
+      setUserToken(result.data.token);
 
       return navigate('/calendario');
     } catch (error) {

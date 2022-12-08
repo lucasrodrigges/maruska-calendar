@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { setToLS } from '../services/localStorage';
 import '../style/UserRegister.css';
 import maruskaLogo from '../images/maruska-logo.png';
-import fetch from '../services/fetchers/axios';
+import UseAxios from '../hooks/UseAxios';
 
 export default function UserRegister() {
   const [user, setUser] = useState({
@@ -15,6 +15,7 @@ export default function UserRegister() {
   const [userError, setCreateError] = useState('');
 
   const navigate = useNavigate();
+  const axios = UseAxios();
 
   useEffect(() => {
 
@@ -34,7 +35,7 @@ export default function UserRegister() {
     } = user;
 
     if (password === confPass) {
-      fetch.post('/user', { name, email, password })
+      axios.post('/user', { name, email, password })
         .then(({ data: { token } }) => {
           setToLS('user', token);
           navigate('/calendario');

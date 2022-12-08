@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { UserContext } from '../context/UserProvider';
-import fetch from '../services/fetchers/axios';
+import UseAxios from '../hooks/UseAxios';
 import '../style/Profile.css';
 
 export default function Profile() {
@@ -17,16 +17,20 @@ export default function Profile() {
   });
 
   const navigate = useNavigate();
+  const axios = UseAxios();
 
   useEffect(() => {
     setUpdateProfile(!toUpdateProfile);
   }, []);
 
   useEffect(() => {
-    fetch.get('/user/me').then(({ data: { name, email } }) => {
+    axios.get('/user/me').then(({ data: { name, email } }) => {
       // console.log(me);
       setUser({ name, email });
       setIsLoading(!isLoaging);
+    }).catch((err) => {
+      console.error('Error => ', err);
+      navigate('/');
     });
   }, []);
 

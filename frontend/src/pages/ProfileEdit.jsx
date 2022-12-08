@@ -5,7 +5,6 @@ import {
 } from 'firebase/storage';
 
 import { useNavigate } from 'react-router-dom';
-// import { v4 } from 'uuid';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { EMAIL_RGX } from '../helpers/data';
