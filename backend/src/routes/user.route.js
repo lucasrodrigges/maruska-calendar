@@ -10,6 +10,12 @@ route.get(
 );
 
 route.post(
+  '/login',
+  validations.login,
+  userController.login,
+);
+
+route.post(
   '/user',
   validations.newUser,
   userController.createUser,

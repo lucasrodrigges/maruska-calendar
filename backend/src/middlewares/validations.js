@@ -20,8 +20,16 @@ module.exports = {
     return next();
   },
 
+  login: async (req, _res, next) => {
+    const { error } = schemas.login.validate(req.body);
+
+    if (error) throw new HttpError(formatError(error).error, formatError(error).message);
+
+    return next();
+  },
+
   newUser: async (req, _res, next) => {
-    const { error } = schemas.newUserSchema.validate(req.body);
+    const { error } = schemas.newUser.validate(req.body);
 
     if (error) throw new HttpError(formatError(error).error, formatError(error).message);
 
