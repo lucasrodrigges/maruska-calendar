@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migration": "npx sequelize db:create && npx sequelize db:migrate",
+    "seed": "npx sequelize db:seed:all",
+    "drop": "npx sequelize db:drop",
+    "test": "mocha tests/**/*test.js --exit",
+    "debug": "nodemon src/"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +18,10 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
-    "joi": "^17.7.0"
+    "joi": "^17.7.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.26.0",
+    "sequelize-cli": "^6.5.2"
   },
   "devDependencies": {
     "chai": "^4.3.7",
