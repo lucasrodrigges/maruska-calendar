@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import { app } from '../services/firebase';
 import { setToLS } from '../services/localStorage';
 import '../style/Login.css';
 import maruskaLogo from '../images/maruska-logo.png';
+import fetch from '../services/fetchers/axios';
 
 export default function Login() {
   const [user, setUser] = useState({
     email: '',
-    pass: '',
+    password: '',
   });
   const [loginError, setLoginError] = useState('');
 
-  const auth = getAuth(app);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,16 +25,18 @@ export default function Login() {
     });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const { email, pass } = user;
 
-    signInWithEmailAndPassword(auth, email, pass)
-      .then((currUser) => {
-        setToLS('session', { accessToken: currUser.user.accessToken });
-        navigate('/calendario');
-      })
-      .catch(() => setLoginError('Usuário não cadastrado ou campo de email e/ou senha incorretos.'));
+    try {
+      const result = await fetch.post('/login', user);
+
+      setToLS('user', result.data.token);
+
+      return navigate('/calendario');
+    } catch (error) {
+      return setLoginError('Email ou senha inválidos');
+    }
   }
 
   return (
@@ -57,8 +57,8 @@ export default function Login() {
       <input
         className="input-1"
         type="password"
-        name="pass"
-        id="pass"
+        name="password"
+        id="password"
         placeholder="Senha"
         onChange={handleChange}
       />

@@ -7,7 +7,6 @@ import { CalendarContext } from '../context/CalendarProvider';
 import Footer from '../components/Footer';
 import '../style/Calendar.css';
 import { EventContext } from '../context/EventProvider';
-import useLogin from '../hooks/useLogin';
 
 export default function Calendar() {
   const {
@@ -23,16 +22,13 @@ export default function Calendar() {
 
   const [isLoading, setLoading] = useState(true);
 
-  const isLogged = useLogin();
-
-  useEffect(() => isLogged && setLoading(false), [isLogged]);
-
   useEffect(() => {
     const date = new Date();
 
     setCurrMonth(months[date.getMonth()].month);
     setMembers([]);
     setUpdate(!toUpdate);
+    setLoading(!isLoading);
   }, []);
 
   // function changeMonth({ target: { value } }) {

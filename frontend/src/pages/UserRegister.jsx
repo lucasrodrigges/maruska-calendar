@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../services/firebase';
 import { setToLS } from '../services/localStorage';
 import '../style/UserRegister.css';
 import maruskaLogo from '../images/maruska-logo.png';
+import fetch from '../services/fetchers/axios';
 
 export default function UserRegister() {
   const [user, setUser] = useState({
+    name: '',
     email: '',
-    pass: '',
+    password: '',
     confPass: '',
   });
   const [userError, setCreateError] = useState('');
 
-  const auth = getAuth(app);
   const navigate = useNavigate();
+
+  useEffect(() => {
+
+  }, [user.confPass]);
 
   function handleChange({ target: { name, value } }) {
     setUser({
@@ -26,18 +29,19 @@ export default function UserRegister() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const { email, pass, confPass } = user;
+    const {
+      name, email, password, confPass,
+    } = user;
 
-    if (pass === confPass) {
-      createUserWithEmailAndPassword(auth, email, pass)
-        .then((userCredential) => {
-          setToLS('session', { accessToke: userCredential.user.accessToken });
+    if (password === confPass) {
+      fetch.post('/user', { name, email, password })
+        .then(({ data: { token } }) => {
+          setToLS('user', token);
           navigate('/calendario');
         })
-        .catch((error) => {
-          if (error.code === 'auth/email-already-in-use') {
-            setCreateError('Este e-mail já existe em nossa base, você esqueceu a sua senha?');
-          }
+        .catch((err) => {
+          console.error('ERROR => ', err);
+          setCreateError('Algo de errado aconteceu, tente novamente mais tarde.');
         });
     } else {
       setCreateError('As senhas estão diferentes, favor verifique.');
@@ -57,6 +61,14 @@ export default function UserRegister() {
       />
       <input
         className="input-1"
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Seu nome"
+        onChange={handleChange}
+      />
+      <input
+        className="input-1"
         type="email"
         name="email"
         id="email"
@@ -66,8 +78,8 @@ export default function UserRegister() {
       <input
         className="input-1"
         type="password"
-        name="pass"
-        id="pass"
+        name="password"
+        id="password"
         placeholder="Crie uma senha"
         onChange={handleChange}
       />
@@ -88,7 +100,7 @@ export default function UserRegister() {
       </button>
       <button
         className="button-1"
-        type="button"
+        type="submit"
         onClick={() => navigate('/')}
       >
         Voltar
