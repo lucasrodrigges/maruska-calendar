@@ -26,4 +26,12 @@ module.exports = {
 
     res.status(201).json(token);
   },
+
+  updateUser: async (req, res) => {
+    const { userId } = req.headers;
+
+    const user = await userService.updateUser(userId, req.body);
+
+    res.status(200).json(user);
+  },
 };

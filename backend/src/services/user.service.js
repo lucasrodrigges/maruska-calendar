@@ -44,4 +44,16 @@ module.exports = {
     return { token };
   },
 
+  updateUser: async (id, userFields) => {
+    const user = await User.findByPk(id, {
+      attributes: { exclude: ['password'] },
+    });
+
+    if (!user) throw new HttpError(404, 'User not found.');
+
+    user.update(userFields);
+
+    return user;
+  },
+
 };

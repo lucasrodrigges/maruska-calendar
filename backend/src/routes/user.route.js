@@ -27,4 +27,10 @@ route.post(
   userController.createUser,
 );
 
+route.put(
+  '/user',
+  validations.token,
+  userController.updateUser,
+);
+
 module.exports = route;
