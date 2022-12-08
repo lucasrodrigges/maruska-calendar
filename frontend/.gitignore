@@ -11,18 +11,3 @@ package-lock.json
 
 # production
 /build
-
-# misc
-./maruska-calendar-firebase-adminsdk-d6wj5-728d1af28d
-.env
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-.vercel
