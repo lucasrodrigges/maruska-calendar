@@ -1,0 +1,14 @@
+.notfound {
+  height: 95vh;
+  width: 40vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notfound-text {
+  color: white;
+  text-align: center;
+}

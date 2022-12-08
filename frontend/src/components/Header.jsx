@@ -23,6 +23,8 @@ export default function Header() {
       H2 = (<h2 className="header-items header-subtitle">Músicos Cadastrados</h2>);
     } if (pathname.includes('novo-musico')) {
       H2 = (<h2 className="header-items header-subtitle">Cadastro de músico</h2>);
+    } if (pathname.includes('perfil')) {
+      H2 = (<h2 className="header-items header-subtitle">Perfil</h2>);
     }
     return H2;
   }

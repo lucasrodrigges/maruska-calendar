@@ -22,3 +22,11 @@ export const weekDays = [
   { name: 'Fri', day: 'Sexta' },
   { name: 'Sat', day: 'Sábado' },
 ];
+
+export const EMAIL_RGX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+export const ADMIN_UID_ARR = [
+  process.env.REACT_APP_MARUSKA_UID,
+  process.env.REACT_APP_LUCAS_R_UID,
+  process.env.REACT_APP_GUILHERME_P_UID,
+];
