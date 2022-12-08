@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import useLogin from '../hooks/useLogin';
 import { MusiciansContext } from '../context/MusiciansProvider';
 import AdminButtons from '../components/AdminButtons';
 import '../style/Musicians.css';
@@ -12,8 +11,6 @@ export default function Musicians() {
     musicians,
     isLoading,
   } = useContext(MusiciansContext);
-
-  useLogin();
 
   return (
     <div>

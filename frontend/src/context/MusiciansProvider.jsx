@@ -1,10 +1,8 @@
 import React, {
   useEffect, useState, createContext, useMemo,
 } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
 import PropTypes from 'prop-types';
-
-import { db } from '../services/firebase';
+import UseAxios from '../hooks/UseAxios';
 
 export const MusiciansContext = createContext();
 
@@ -12,18 +10,13 @@ export function MusiciansProvider({ children }) {
   const [musicians, setMusicians] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
+  const axios = UseAxios();
+
   useEffect(() => {
-    const musiciansArr = [];
-    getDocs(collection(db, 'musicians'))
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          const { id } = doc;
-          const musician = doc.data();
-          musiciansArr.push({ ...musician, id });
-        });
-        setMusicians([...musicians, ...musiciansArr]);
-        setLoading(false);
-      });
+    axios.get('/musician').then(({ data }) => {
+      setMusicians([...musicians, ...data]);
+      setLoading(false);
+    }).catch((err) => console.error('ERROR => ', err));
   }, []);
 
   const context = useMemo(() => ({

@@ -9,6 +9,7 @@ module.exports = class Musician extends Model {
       name: DataTypes.STRING,
       instrument: DataTypes.STRING,
       picture: DataTypes.STRING,
+      phoneNumber: DataTypes.STRING,
       createdAt: {
         defaultValue: DataTypes.NOW,
         type: DataTypes.DATE,

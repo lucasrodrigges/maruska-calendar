@@ -1,27 +1,23 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../services/firebase';
 import Header from '../components/Header';
 import '../style/MusicianRegister.css';
 import Footer from '../components/Footer';
-import { UserContext } from '../context/UserProvider';
-import { ADMIN_UID_ARR } from '../helpers/data';
+import UseAxios from '../hooks/UseAxios';
 
 export default function MusicianRegister() {
-  const { UID } = useContext(UserContext);
-
   const [musician, setMusician] = useState({
     name: '',
     instrument: '',
-    phoneNum: '',
+    phoneNumber: '',
   });
   const [errorMessage, setError] = useState('');
 
   const navigate = useNavigate();
+  const axios = UseAxios();
 
   useEffect(() => {
-    const isAdmin = ADMIN_UID_ARR.includes(UID);
+    const isAdmin = axios.get('/user/me').then(({ data }) => data.isAdmin);
     if (!isAdmin) navigate('/calendario');
   }, []);
 
@@ -35,18 +31,18 @@ export default function MusicianRegister() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { phoneNum } = musician;
+    const { phoneNumber } = musician;
     const minLength = 13;
 
-    if (phoneNum.length < minLength && !Number(phoneNum)) {
+    if (phoneNumber.length < minLength && !Number(phoneNumber)) {
       setError('O número precisa estar no formato válido!');
     } else {
-      try {
-        await addDoc(collection(db, 'musicians'), musician);
+      axios.post('/musician', musician).then(() => {
         navigate(-1);
-      } catch (err) {
+      }).catch((err) => {
+        console.error('ERROR => ', err);
         setError('Não foi possível adicionar músico ao banco de dados. Estamos tentando resolver o problema o mais rápido possível. Tente novamente mais tarde!');
-      }
+      });
     }
   }
 
@@ -77,8 +73,8 @@ export default function MusicianRegister() {
         <input
           className="input-1"
           type="text"
-          name="phoneNum"
-          id="phoneNum"
+          name="phoneNumber"
+          id="phoneNumber"
           placeholder="Telefone com 11 dígitos (Opcional)"
           onChange={handleChange}
         />

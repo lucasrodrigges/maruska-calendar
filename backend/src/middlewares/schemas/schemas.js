@@ -17,5 +17,6 @@ module.exports = {
   newMusician: Joi.object({
     name: Joi.string().min(1).required(),
     instrument: Joi.string().min(1).required(),
+    phoneNumber: Joi.string().min(13),
   }),
 };

@@ -1,18 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { UserContext } from '../context/UserProvider';
-import { ADMIN_UID_ARR } from '../helpers/data';
 import '../style/Musicians.css';
 import { CalendarContext } from '../context/CalendarProvider';
+import UseAxios from '../hooks/UseAxios';
 
 export default function AdminButtons({ type }) {
-  const { UID } = useContext(UserContext);
   const { showActions, setShowActions } = useContext(CalendarContext);
 
-  const isAdmin = ADMIN_UID_ARR.includes(UID);
+  const [isAdmin, setAdmin] = useState(false);
 
   const navigate = useNavigate();
+  const axios = UseAxios();
+
+  useEffect(() => {
+    axios.get('/user/me').then(({ data }) => {
+      setAdmin(data.isAdmin);
+    }).catch((err) => console.error('ERROR => ', err));
+  }, []);
 
   if (type === 'newMus' && isAdmin) {
     return (
