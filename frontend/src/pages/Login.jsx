@@ -34,7 +34,7 @@ export default function Login() {
     try {
       const result = await axios.post('/login', user);
 
-      setToLS('user', result.data.token);
+      setToLS('token', result.data.token);
       setUserToken(result.data.token);
 
       return navigate('/calendario');

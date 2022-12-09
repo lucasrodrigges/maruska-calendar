@@ -10,7 +10,7 @@ function UseAxios() {
     baseURL: `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_BASE_URL}/`,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: userToken || getFromLS('user'),
+      Authorization: userToken || getFromLS('token'),
     },
   });
 }
