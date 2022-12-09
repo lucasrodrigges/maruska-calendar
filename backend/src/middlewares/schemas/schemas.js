@@ -19,4 +19,12 @@ module.exports = {
     instrument: Joi.string().min(1).required(),
     phoneNumber: Joi.string().min(13),
   }),
+
+  newEvent: Joi.object({
+    title: Joi.string().min(1).required(),
+    when: Joi.string().min(1).required(),
+    location: Joi.string().min(1).required(),
+    musicians: Joi.array().items(Joi.number()).min(1),
+    description: Joi.string(),
+  }),
 };

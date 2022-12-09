@@ -43,4 +43,12 @@ module.exports = {
 
     return next();
   },
+
+  newEvent: async (req, _res, next) => {
+    const { error } = schemas.newEvent.validate(req.body);
+
+    if (error) throw new HttpError(formatError(error).error, formatError(error).message);
+
+    return next();
+  },
 };

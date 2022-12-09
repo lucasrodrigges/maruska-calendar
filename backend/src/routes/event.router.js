@@ -6,6 +6,7 @@ const validations = require('../middlewares/validations');
 route.post(
   '/event',
   validations.token,
+  validations.newEvent,
   eventController.createEvent,
 );
 
