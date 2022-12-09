@@ -20,7 +20,6 @@ module.exports = class Musician extends Model {
       },
     }, {
       sequelize,
-      modelName: 'Musician',
       underscored: true,
     });
   }
