@@ -9,6 +9,12 @@ route.get(
   eventController.getEvents,
 );
 
+route.get(
+  '/event/:id',
+  validations.token,
+  eventController.getEventById,
+);
+
 route.post(
   '/event',
   validations.token,

@@ -13,6 +13,21 @@ module.exports = {
     },
   }),
 
+  getEventById: async (id) => {
+    const event = await Event.findByPk(id, {
+      include: {
+        model: Musician,
+        as: 'musicians',
+        attributes: ['id', 'name', 'instrument'],
+        through: { attributes: [] },
+      },
+    });
+
+    if (!event) throw new HttpError(404, 'Event not found.');
+
+    return event;
+  },
+
   createEvent: async ({ musicians, ...eventFields }) => {
     const musiciansCheck = await Musician.findAll({
       where: {
