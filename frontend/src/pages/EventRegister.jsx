@@ -16,9 +16,9 @@ export default function EventRegister() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const { location, date, time } = currEvent;
+    const { title, date, time } = currEvent;
 
-    if ([location, date, time].every((el) => el.length)) {
+    if ([title, date, time].every((el) => el.length)) {
       setDisabled(false);
     } else setDisabled(true);
   }, [currEvent]);
@@ -42,7 +42,7 @@ export default function EventRegister() {
         >
           <input
             className="input-1"
-            name="location"
+            name="title"
             id="eventLocation"
             type="text"
             placeholder="Nome do bar ou evento"

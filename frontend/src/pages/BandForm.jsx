@@ -1,25 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
-import {
-  collection, getDocs,
-} from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../services/firebase';
 import Header from '../components/Header';
 import EventReview from '../components/EventReview';
 import { EventContext } from '../context/EventProvider';
-// import '../style/App.css';
 import '../style/BandForm.css';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
+import { MusiciansContext } from '../context/MusiciansProvider';
 
 export default function BandForm() {
   const {
     members,
     setMembers,
   } = useContext(EventContext);
+  const { musicians, setMusicians } = useContext(MusiciansContext);
 
   const [thisMusician, setThisMusician] = useState('');
-  const [musicians, setMusicians] = useState([]);
   const [cloneMusicians, setCloneMusicians] = useState([]);
   const [errorMessage, setError] = useState('');
   const [showReview, setReview] = useState(false);
@@ -34,17 +30,7 @@ export default function BandForm() {
   }, []);
 
   useEffect(() => {
-    const musiciansArr = [];
-    getDocs(collection(db, 'musicians'))
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          const { id } = doc;
-          const musician = doc.data();
-          musiciansArr.push({ ...musician, id });
-        });
-        setMusicians([...musicians, ...musiciansArr]);
-        setCloneMusicians([...musicians, ...musiciansArr]);
-      });
+    setCloneMusicians([...musicians]);
   }, []);
 
   function handleChange({ target: { value } }) {

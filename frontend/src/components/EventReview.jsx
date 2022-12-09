@@ -1,30 +1,38 @@
 import React, { useContext } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import convertDateAndTime from '../helpers/convertDateAndTime';
-import { db } from '../services/firebase';
 import { EventContext } from '../context/EventProvider';
+import UseAxios from '../hooks/UseAxios';
 import '../style/Calendar.css';
 
 export default function EventReview() {
   const { currEvent, members } = useContext(EventContext);
 
   const navigate = useNavigate();
+  const axios = UseAxios();
 
-  function handleConfirm() {
+  function handleConfirm(e) {
+    e.preventDefault();
+
+    const musicianIds = members.reduce((acc, el) => [el.id, ...acc], []);
+    const when = `${currEvent.date} ${currEvent.time}`;
+    const { title, description } = currEvent;
+
     const eventToSubmit = {
-      ...currEvent,
-      members,
+      title,
+      description,
+      when,
+      musicianIds,
     };
 
-    addDoc(collection(db, 'events'), eventToSubmit)
-      .then(() => navigate('/calendario'));
+    axios.post('/event', eventToSubmit)
+      .then(() => navigate('/calendario'))
+      .catch((err) => console.error('ERROR => ', err));
   }
 
   return (
     <div className="event-review">
       <h3 className="event-title">{currEvent.location}</h3>
-      <p className="event-items">{convertDateAndTime(currEvent.date, currEvent.time)}</p>
+      {/* <p className="event-items">{createDate}</p> */}
       <p className="event-items">Banda:</p>
       <ul className="ul-band">
         {members.map(({ name }) => (

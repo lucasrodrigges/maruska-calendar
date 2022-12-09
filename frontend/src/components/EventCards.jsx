@@ -13,10 +13,11 @@ export default function EventCards() {
     <div className="calendar-general-container">
 
       {events.length > 0 ? events.map(({
-        id, title, location, musicians, description, when,
+        id, title, musicians, description, when,
       }) => (
         <div key={id} className="event-container">
           <h2 className="event-title">{title}</h2>
+          <p className="event-items">{`Data: ${createDate(when)}`}</p>
           <p className="event-items">Banda:</p>
           <ul className="ul-band">
             {musicians.map((el) => (
@@ -28,8 +29,7 @@ export default function EventCards() {
           {description && (
             <span className="event-description">{`Observação: ${description}`}</span>
           )}
-          <p className="event-description">{`Data: ${createDate(when)}`}</p>
-          <p className="event-description">{`Endereço: ${location}`}</p>
+
         </div>
       )) : (
         <div>

@@ -9,7 +9,7 @@ export const EventContext = createContext();
 export function EventProvider({ children }) {
   const [events, setEvents] = useState([]);
   const [currEvent, setCurrEvent] = useState({
-    location: '',
+    title: '',
     date: '',
     time: '',
     description: '',
