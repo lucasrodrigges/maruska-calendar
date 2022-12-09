@@ -4,6 +4,13 @@ const Musician = require('../database/models/Musician');
 const HttpError = require('../utils/HttpError');
 
 module.exports = {
+  getEvents: async () => Event.findAll({
+    include: {
+      model: Musician,
+      as: 'musicians',
+    },
+  }),
+
   createEvent: async ({ musicians, ...eventFields }) => {
     const musiciansCheck = await Musician.findAll({
       where: {
