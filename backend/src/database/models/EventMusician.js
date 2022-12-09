@@ -6,6 +6,7 @@ class EventMusician extends Model {
   static init(sequelize) {
     super.init({}, {
       sequelize,
+      tableName: 'events_musicians',
       underscored: true,
     });
   }

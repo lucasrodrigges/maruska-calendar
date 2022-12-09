@@ -24,7 +24,9 @@ module.exports = class Musician extends Model {
     });
   }
 
-  // static associate(models) {
-  //   // define association here
-  // }
+  static associate({ EventMusician }) {
+    this.hasMany(EventMusician, {
+      foreignKey: 'musician_id',
+    });
+  }
 };

@@ -13,6 +13,7 @@ app.use(express.json());
 
 app.use(routes.userRoute);
 app.use(routes.musicianRoute);
+app.use(routes.eventRoute);
 
 app.use(errorHandler);
 

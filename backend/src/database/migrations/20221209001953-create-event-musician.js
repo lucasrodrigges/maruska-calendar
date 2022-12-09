@@ -5,14 +5,14 @@ module.exports = {
       event_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Event',
+          model: 'events',
           key: 'id',
         },
       },
       musician_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Musician',
+          model: 'musicians',
           key: 'id',
         },
       },
