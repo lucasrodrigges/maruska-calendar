@@ -1,15 +1,17 @@
-const { hashSync, genSaltSync } = require('bcrypt');
+const { hashSync, genSaltSync, compareSync } = require('bcrypt');
 const { createToken } = require('../auth/auth');
 const User = require('../database/models/User');
 const HttpError = require('../utils/HttpError');
 
 module.exports = {
-  login: async (userFields) => {
+  login: async ({ password, email }) => {
     const user = await User.findOne({
-      where: userFields,
+      where: { email },
     });
 
-    if (!user) throw new HttpError(409, 'User not found or wrong password.');
+    if (!user || !compareSync(password, user.password)) {
+      throw new HttpError(409, 'User not found or wrong password.');
+    }
 
     const token = createToken({ userId: user.id });
 
