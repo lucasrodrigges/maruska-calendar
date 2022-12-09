@@ -11,14 +11,8 @@ module.exports = class User extends Model {
       password: DataTypes.STRING,
       picture: DataTypes.STRING,
       isAdmin: DataTypes.BOOLEAN,
-      createdAt: {
-        defaultValue: DataTypes.NOW,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        defaultValue: DataTypes.NOW,
-        type: DataTypes.DATE,
-      },
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     }, {
       sequelize,
       underscored: true,
