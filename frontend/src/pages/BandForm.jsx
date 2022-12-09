@@ -7,6 +7,7 @@ import '../style/BandForm.css';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
 import { MusiciansContext } from '../context/MusiciansProvider';
+import UseAxios from '../hooks/UseAxios';
 
 export default function BandForm() {
   const {
@@ -22,6 +23,7 @@ export default function BandForm() {
   const [isLoaging, setLoading] = useState(true);
 
   const navigate = useNavigate();
+  const axios = UseAxios();
 
   useEffect(() => {
     const isAdmin = true;
@@ -30,7 +32,11 @@ export default function BandForm() {
   }, []);
 
   useEffect(() => {
-    setCloneMusicians([...musicians]);
+    axios.get('/musician')
+      .then(({ data }) => {
+        setMusicians(data);
+        setCloneMusicians(data);
+      }).catch((err) => console.error('ERROR => ', err));
   }, []);
 
   function handleChange({ target: { value } }) {

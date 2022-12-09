@@ -1,13 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import sadUnicorny from '../images/sadUnicorny.png';
 import { EventContext } from '../context/EventProvider';
 import createDate from '../helpers/createDate';
+import UseAxios from '../hooks/UseAxios';
 
 export default function EventCards() {
   const {
     events,
+    setEvents,
   } = useContext(EventContext);
+
+  const axios = UseAxios();
+
+  useEffect(() => {
+    axios.get('/event')
+      .then(({ data }) => setEvents(data))
+      .catch((err) => console.error('ERROR => ', err));
+  });
 
   return (
     <div className="calendar-general-container">

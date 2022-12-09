@@ -13,7 +13,7 @@ export default function EventReview() {
   function handleConfirm(e) {
     e.preventDefault();
 
-    const musicianIds = members.reduce((acc, el) => [el.id, ...acc], []);
+    const musicianIds = members.reduce((acc, el) => [Number(el.id), ...acc], []);
     const when = `${currEvent.date} ${currEvent.time}`;
     const { title, description } = currEvent;
 
@@ -23,6 +23,8 @@ export default function EventReview() {
       when,
       musicianIds,
     };
+
+    // console.log(musicianIds, eventToSubmit);
 
     axios.post('/event', eventToSubmit)
       .then(() => navigate('/calendario'))

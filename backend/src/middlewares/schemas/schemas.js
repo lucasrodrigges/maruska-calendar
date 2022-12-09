@@ -23,7 +23,7 @@ module.exports = {
   newEvent: Joi.object({
     title: Joi.string().min(1).required(),
     when: Joi.string().min(1).required(),
-    musicianIds: Joi.array().items(Joi.number()).min(1),
+    musicianIds: Joi.array().min(1).items(Joi.number().integer()).required(),
     description: Joi.string(),
   }),
 };

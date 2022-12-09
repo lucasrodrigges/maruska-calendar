@@ -1,8 +1,8 @@
 import React, {
-  createContext, useState, useMemo, useEffect,
+  createContext, useState, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
-import UseAxios from '../hooks/UseAxios';
+// import UseAxios from '../hooks/UseAxios';
 
 export const EventContext = createContext();
 
@@ -17,13 +17,13 @@ export function EventProvider({ children }) {
   const [members, setMembers] = useState([]);
   const [toUpdate, setUpdate] = useState(false);
 
-  const axios = UseAxios();
+  // const axios = UseAxios();
 
-  useEffect(() => {
-    axios.get('/event')
-      .then(({ data }) => setEvents(data))
-      .catch((err) => console.error('ERROR => ', err));
-  }, [toUpdate]);
+  // useEffect(() => {
+  //   axios.get('/event')
+  //     .then(({ data }) => setEvents(data))
+  //     .catch((err) => console.error('ERROR => ', err));
+  // }, [toUpdate]);
 
   const context = useMemo(() => ({
     currEvent,

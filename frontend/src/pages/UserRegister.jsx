@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setToLS } from '../services/localStorage';
 import '../style/UserRegister.css';
 import maruskaLogo from '../images/maruska-logo.png';
 import UseAxios from '../hooks/UseAxios';
+import { UserContext } from '../context/UserProvider';
 
 export default function UserRegister() {
+  const { setUserToken } = useContext(UserContext);
+
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -38,6 +41,7 @@ export default function UserRegister() {
       axios.post('/user', { name, email, password })
         .then(({ data: { token } }) => {
           setToLS('user', token);
+          setUserToken(token);
           navigate('/calendario');
         })
         .catch((err) => {
