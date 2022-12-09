@@ -3,12 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { EventContext } from '../context/EventProvider';
-import { UserContext } from '../context/UserProvider';
-import { ADMIN_UID_ARR } from '../helpers/data';
 import '../style/EventRegister.css';
 
 export default function EventRegister() {
-  const { UID } = useContext(UserContext);
   const {
     currEvent,
     setCurrEvent,
@@ -19,7 +16,7 @@ export default function EventRegister() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAdmin = ADMIN_UID_ARR.includes(UID);
+    const isAdmin = true;
     if (!isAdmin) navigate('/calendario');
   }, []);
 

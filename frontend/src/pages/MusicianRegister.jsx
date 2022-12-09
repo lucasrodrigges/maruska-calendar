@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import '../style/MusicianRegister.css';
 import Footer from '../components/Footer';
 import UseAxios from '../hooks/UseAxios';
+import { MusiciansContext } from '../context/MusiciansProvider';
 
 export default function MusicianRegister() {
+  const { musicians, setMusicians } = useContext(MusiciansContext);
   const [musician, setMusician] = useState({
     name: '',
     instrument: '',
@@ -38,6 +40,7 @@ export default function MusicianRegister() {
       setError('O número precisa estar no formato válido!');
     } else {
       axios.post('/musician', musician).then(() => {
+        setMusicians([musician, ...musicians]);
         navigate(-1);
       }).catch((err) => {
         console.error('ERROR => ', err);

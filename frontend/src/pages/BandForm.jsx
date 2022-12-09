@@ -11,11 +11,8 @@ import { EventContext } from '../context/EventProvider';
 import '../style/BandForm.css';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
-import { UserContext } from '../context/UserProvider';
-import { ADMIN_UID_ARR } from '../helpers/data';
 
 export default function BandForm() {
-  const { UID } = useContext(UserContext);
   const {
     members,
     setMembers,
@@ -31,7 +28,7 @@ export default function BandForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAdmin = ADMIN_UID_ARR.includes(UID);
+    const isAdmin = true;
     if (!isAdmin) navigate('/calendario');
     else setLoading(false);
   }, []);

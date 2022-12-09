@@ -8,6 +8,10 @@ import { app } from '../services/firebase';
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+  });
   const [userToken, setUserToken] = useState('');
   const [UID, setUID] = useState(false);
   const [userEdit, setUserEdit] = useState({});
@@ -22,6 +26,8 @@ export function UserProvider({ children }) {
   }, []);
 
   const context = useMemo(() => ({
+    user,
+    setUser,
     UID,
     userEdit,
     setUserEdit,

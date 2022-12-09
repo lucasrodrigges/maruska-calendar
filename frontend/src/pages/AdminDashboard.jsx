@@ -5,14 +5,11 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { EventContext } from '../context/EventProvider';
-import { UserContext } from '../context/UserProvider';
 import convertDateAndTime from '../helpers/convertDateAndTime';
-import { ADMIN_UID_ARR } from '../helpers/data';
 import { db } from '../services/firebase';
 import '../style/Dashboard.css';
 
 export default function AdminDashboard() {
-  const { UID } = useContext(UserContext);
   const {
     events,
     setEvents,
@@ -23,7 +20,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAdmin = ADMIN_UID_ARR.includes(UID);
+    const isAdmin = true;
 
     if (!isAdmin) navigate('/calendario');
   }, []);

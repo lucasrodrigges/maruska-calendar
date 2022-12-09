@@ -9,12 +9,10 @@ import UseAxios from '../hooks/UseAxios';
 import '../style/Profile.css';
 
 export default function Profile() {
-  const { setUserEdit, toUpdateProfile, setUpdateProfile } = useContext(UserContext);
+  const {
+    user, setUser, setUserEdit, toUpdateProfile, setUpdateProfile,
+  } = useContext(UserContext);
   const [isLoaging, setIsLoading] = useState(true);
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-  });
 
   const navigate = useNavigate();
   const axios = UseAxios();
