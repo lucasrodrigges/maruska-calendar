@@ -1,3 +1,4 @@
+const { hashSync, genSaltSync } = require('bcrypt');
 const { createToken } = require('../auth/auth');
 const User = require('../database/models/User');
 const HttpError = require('../utils/HttpError');
@@ -31,10 +32,13 @@ module.exports = {
     return user;
   },
 
-  createUser: async (user) => {
+  createUser: async ({ password, ...user }) => {
     const [newUser, created] = await User.findOrCreate({
       where: { email: user.email },
-      defaults: { ...user },
+      defaults: {
+        password: hashSync(password, genSaltSync(10)),
+        ...user,
+      },
     });
 
     if (!created) throw new HttpError(409, 'User already registered.');
