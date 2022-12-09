@@ -8,6 +8,8 @@ module.exports = {
     include: {
       model: Musician,
       as: 'musicians',
+      attributes: ['id', 'name', 'instrument'],
+      through: { attributes: [] },
     },
   }),
 
