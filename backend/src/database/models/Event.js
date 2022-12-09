@@ -7,8 +7,7 @@ class Event extends Model {
   static init(sequelize) {
     super.init({
       title: DataTypes.STRING,
-      description: DataTypes.DATE,
-      location: DataTypes.STRING,
+      description: DataTypes.TEXT,
       when: DataTypes.DATE,
     }, {
       sequelize,

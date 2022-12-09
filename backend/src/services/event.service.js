@@ -28,14 +28,14 @@ module.exports = {
     return event;
   },
 
-  createEvent: async ({ musicians, ...eventFields }) => {
+  createEvent: async ({ musicianIds, ...eventFields }) => {
     const musiciansCheck = await Musician.findAll({
       where: {
-        id: { [or]: musicians },
+        id: { [or]: musicianIds },
       },
     });
 
-    if (musicians.length !== musiciansCheck.length) {
+    if (musicianIds.length !== musiciansCheck.length) {
       throw new HttpError(409, 'One or more musicians are not registered.');
     }
 
@@ -43,7 +43,7 @@ module.exports = {
 
     if (!event) throw new HttpError(409, 'Unable to create event.');
 
-    await event.addMusician(musicians);
+    await event.addMusician(musicianIds);
 
     const eventCreated = await Event.findOne({
       where: { id: event.id },
