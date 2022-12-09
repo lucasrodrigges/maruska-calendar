@@ -10,14 +10,8 @@ module.exports = class Musician extends Model {
       instrument: DataTypes.STRING,
       picture: DataTypes.STRING,
       phoneNumber: DataTypes.STRING,
-      createdAt: {
-        defaultValue: DataTypes.NOW,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        defaultValue: DataTypes.NOW,
-        type: DataTypes.DATE,
-      },
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     }, {
       sequelize,
       underscored: true,
