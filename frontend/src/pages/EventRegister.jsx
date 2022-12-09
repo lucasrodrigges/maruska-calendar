@@ -16,11 +16,6 @@ export default function EventRegister() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAdmin = true;
-    if (!isAdmin) navigate('/calendario');
-  }, []);
-
-  useEffect(() => {
     const { location, date, time } = currEvent;
 
     if ([location, date, time].every((el) => el.length)) {

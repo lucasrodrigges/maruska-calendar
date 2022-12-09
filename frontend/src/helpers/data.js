@@ -1,17 +1,17 @@
-export const months = [
-  { name: 'Jan', month: 'Janeiro' },
-  { name: 'Feb', month: 'Fevereiro' },
-  { name: 'Mar', month: 'Março' },
-  { name: 'Apr', month: 'Abril' },
-  { name: 'May', month: 'Maio' },
-  { name: 'June', month: 'Junho' },
-  { name: 'July', month: 'Julho' },
-  { name: 'Aug', month: 'Agosto' },
-  { name: 'Sept', month: 'Setembro' },
-  { name: 'Oct', month: 'Outubro' },
-  { name: 'Nov', month: 'Novembro' },
-  { name: 'Dec', month: 'Dezembro' },
-];
+export const months = {
+  Jan: 'Jan',
+  Feb: 'Fev',
+  Mar: 'Mar',
+  Apr: 'Abr',
+  May: 'Mai',
+  June: 'Jun',
+  July: 'Jul',
+  Aug: 'Ago',
+  Sept: 'Set',
+  Oct: 'Out',
+  Nov: 'Nov',
+  Dec: 'Dez',
+};
 
 export const weekDays = [
   { name: 'Sun', day: 'Domingo' },

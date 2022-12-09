@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import convertDateAndTime from '../helpers/convertDateAndTime';
-import { months } from '../helpers/data';
+
 import sadUnicorny from '../images/sadUnicorny.png';
 import { EventContext } from '../context/EventProvider';
+import createDate from '../helpers/createDate';
 
 export default function EventCards() {
   const {
@@ -13,24 +13,23 @@ export default function EventCards() {
     <div className="calendar-general-container">
 
       {events.length > 0 ? events.map(({
-        id, event: {
-          location, date, time, members, description,
-        },
+        id, title, location, musicians, description, when,
       }) => (
         <div key={id} className="event-container">
-          <h2 className="event-title">{location}</h2>
-          <p className="event-items">{`Data: ${convertDateAndTime(date, time, months)}`}</p>
+          <h2 className="event-title">{title}</h2>
           <p className="event-items">Banda:</p>
           <ul className="ul-band">
-            {Object.keys(members).map((el) => (
-              <div key={members[el].name}>
-                <li className="ul-item">{members[el].name}</li>
+            {musicians.map((el) => (
+              <div key={el.id}>
+                <li className="ul-item">{el.name}</li>
               </div>
             ))}
           </ul>
           {description && (
             <span className="event-description">{`Observação: ${description}`}</span>
           )}
+          <p className="event-description">{`Data: ${createDate(when)}`}</p>
+          <p className="event-description">{`Endereço: ${location}`}</p>
         </div>
       )) : (
         <div>
