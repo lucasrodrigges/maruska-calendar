@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { setToLS } from '../services/localStorage';
 import '../style/UserRegister.css';
 import maruskaLogo from '../images/maruska-logo.png';
-import { createUser } from '../api/user';
 import { GlobalContext } from '../context/GlobalProvider';
+import UserRoute from '../hooks/axios/routes/UserRoute';
 
 export default function UserRegister() {
   const { setUserToken } = useContext(GlobalContext);
@@ -18,6 +18,7 @@ export default function UserRegister() {
   const [userError, setCreateError] = useState('');
 
   const navigate = useNavigate();
+  const route = UserRoute();
 
   useEffect(() => {
 
@@ -37,14 +38,15 @@ export default function UserRegister() {
     } = user;
 
     if (password === confPass) {
-      const { status, data, message } = await createUser({ name, email, password });
-
-      if (status !== 204) {
-        setCreateError(message);
-      }
-
-      setToLS('token', { token: data.token });
-      setUserToken(data.token);
+      route.createUser({ name, email, password }).then(({ status, data }) => {
+        if (status === 204) {
+          setUserToken(data.token);
+          setToLS('token', data.token);
+          navigate('/calendario');
+        } else {
+          setCreateError(data.message);
+        }
+      });
     } else {
       setCreateError('As senhas estão diferentes, favor verifique.');
     }

@@ -21,5 +21,13 @@ export default function UserRoute() {
       .catch(({ response: { status, data } }) => ({ status, data }))
   );
 
-  return { login, getMe, editUser };
+  const createUser = (body) => (
+    axios.put('/user', body)
+      .then(({ status, data }) => ({ status, data }))
+      .catch(({ response: { status, data } }) => ({ status, data }))
+  );
+
+  return {
+    login, getMe, editUser, createUser,
+  };
 }
