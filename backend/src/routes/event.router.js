@@ -22,4 +22,10 @@ route.post(
   eventController.createEvent,
 );
 
+route.delete(
+  '/event/:id',
+  validations.token,
+  eventController.deleteEvent,
+);
+
 module.exports = route;

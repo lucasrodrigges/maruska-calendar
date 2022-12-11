@@ -18,4 +18,13 @@ module.exports = {
 
     res.status(201).json(event);
   },
+
+  deleteEvent: async (req, res) => {
+    const { userId } = req.headers;
+    const { id } = req.params;
+
+    await eventService.deleteEvent(userId, id);
+
+    res.status(204).end();
+  },
 };

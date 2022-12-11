@@ -1,6 +1,7 @@
 const { or } = require('sequelize').Op;
 const Event = require('../database/models/Event');
 const Musician = require('../database/models/Musician');
+const User = require('../database/models/User');
 const HttpError = require('../utils/HttpError');
 
 module.exports = {
@@ -54,5 +55,17 @@ module.exports = {
     });
 
     return eventCreated;
+  },
+
+  deleteEvent: async (userId, id) => {
+    const user = await User.findByPk(userId);
+
+    if (!user.isAdmin) throw new HttpError(409, 'User not authorized');
+
+    const event = await Event.findByPk(id);
+
+    if (!event) throw new HttpError(404, 'Event not found.');
+
+    event.destroy();
   },
 };

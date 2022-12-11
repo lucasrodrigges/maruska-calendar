@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "migseed": "npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all",
     "migration": "npx sequelize db:create && npx sequelize db:migrate",
     "seed": "npx sequelize db:seed:all",
     "drop": "npx sequelize db:drop",

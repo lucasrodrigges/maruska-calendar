@@ -8,6 +8,8 @@ module.exports = {
           model: 'events',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       musician_id: {
         type: Sequelize.INTEGER,
@@ -15,6 +17,8 @@ module.exports = {
           model: 'musicians',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       created_at: {
         allowNull: false,
