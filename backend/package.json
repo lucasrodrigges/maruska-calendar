@@ -9,7 +9,9 @@
     "seed": "npx sequelize db:seed:all",
     "drop": "npx sequelize db:drop",
     "test": "mocha tests/**/*test.js --exit",
-    "dev": "nodemon src/"
+    "dev": "nodemon src/",
+    "prestart": "npx sequelize db:create && npx sequelize db:migrate",
+    "start": "node src/"
   },
   "keywords": [],
   "author": "",
