@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import '../style/MusicianRegister.css';
 import Footer from '../components/Footer';
-import { getMe } from '../api/user';
-import { createMusician } from '../api/musician';
 import { GlobalContext } from '../context/GlobalProvider';
+import MusicianRoute from '../hooks/axios/routes/MusicianRoute';
 
 export default function MusicianRegister() {
   const { musicians, setMusicians } = useContext(GlobalContext);
@@ -17,11 +16,7 @@ export default function MusicianRegister() {
   const [errorMessage, setError] = useState('');
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const isAdmin = getMe().then(({ data }) => data.isAdmin);
-    if (!isAdmin) navigate('/calendario');
-  }, []);
+  const route = MusicianRoute();
 
   function handleChange({ target: { name, value } }) {
     const currValue = name === 'phoneNum' ? `55${value}` : value;
@@ -39,14 +34,12 @@ export default function MusicianRegister() {
     if (phoneNumber.length < minLength && !Number(phoneNumber)) {
       setError('O número precisa estar no formato válido!');
     } else {
-      const { status, data, message } = await createMusician(musician);
-
-      if (status !== 201) {
-        setError(message);
-      }
-
-      setMusicians([data, ...musicians]);
-      navigate(-1);
+      route.createMusician(musician).then(({ status, data }) => {
+        if (status === 201) {
+          setMusicians([data, ...musicians]);
+          navigate(-1);
+        } else setError(data.message);
+      });
     }
   }
 

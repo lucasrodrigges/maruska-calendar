@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalProvider';
-import EventRouter from '../hooks/axios/routes/EventRouter';
+import EventRouter from '../hooks/axios/routes/EventRoute';
 import '../style/Calendar.css';
 
 export default function EventReview() {

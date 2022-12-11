@@ -20,9 +20,6 @@ export default function Calendar() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const date = new Date();
-
-    // setCurrMonth(months[date.getMonth()].month);
     setMembers([]);
     setLoading(!isLoading);
   }, []);

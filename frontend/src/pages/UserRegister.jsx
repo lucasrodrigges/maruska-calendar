@@ -39,7 +39,7 @@ export default function UserRegister() {
 
     if (password === confPass) {
       route.createUser({ name, email, password }).then(({ status, data }) => {
-        if (status === 204) {
+        if (status === 201) {
           setUserToken(data.token);
           setToLS('token', data.token);
           navigate('/calendario');

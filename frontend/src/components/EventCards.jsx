@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import sadUnicorny from '../images/sadUnicorny.png';
 import createDate from '../helpers/createDate';
 import { GlobalContext } from '../context/GlobalProvider';
-import EventRouter from '../hooks/axios/routes/EventRouter';
+import EventRouter from '../hooks/axios/routes/EventRoute';
 
 export default function EventCards() {
   const {

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { GlobalContext } from '../context/GlobalProvider';
 import createDate from '../helpers/createDate';
-import EventRouter from '../hooks/axios/routes/EventRouter';
+import EventRouter from '../hooks/axios/routes/EventRoute';
 import '../style/Dashboard.css';
 
 export default function AdminDashboard() {
@@ -16,7 +16,7 @@ export default function AdminDashboard() {
 
   const [isLoaging, setLoading] = useState(true);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const route = EventRouter();
 
   useEffect(() => events && setLoading(false), [events]);
@@ -31,7 +31,7 @@ export default function AdminDashboard() {
 
   function handleDelete({ target: { id } }) {
     route.deleteEvent(id).then(({ status }) => {
-      if (status === 204) navigate('/calendario');
+      if (status === 204) setEvents(events.filter((el) => !el.id !== id));
       else alert('Desculpe, não foi possível excluir o evento. Atualize a página e tente novamente!');
     });
   }

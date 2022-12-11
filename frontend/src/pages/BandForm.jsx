@@ -4,8 +4,8 @@ import EventReview from '../components/EventReview';
 import '../style/BandForm.css';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
-import { getMusician } from '../api/musician';
 import { GlobalContext } from '../context/GlobalProvider';
+import MusicianRoute from '../hooks/axios/routes/MusicianRoute';
 
 export default function BandForm() {
   const {
@@ -20,14 +20,16 @@ export default function BandForm() {
   const [showReview, setReview] = useState(false);
   const [isLoaging, setLoading] = useState(true);
 
+  const route = MusicianRoute();
+
   useEffect(() => {
     setLoading(false);
   }, []);
 
   useEffect(() => {
-    getMusician()
-      .then(({ data }) => {
-        if (data) {
+    route.getMusicians()
+      .then(({ status, data }) => {
+        if (status === 200) {
           setMusicians(data);
           setCloneMusicians(data);
         }

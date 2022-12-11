@@ -1,16 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import AdminButtons from '../components/AdminButtons';
 import '../style/Musicians.css';
 import { GlobalContext } from '../context/GlobalProvider';
+import MusicianRoute from '../hooks/axios/routes/MusicianRoute';
 
 export default function Musicians() {
   const {
     musicians,
+    setMusicians,
     isLoading,
   } = useContext(GlobalContext);
+
+  const route = MusicianRoute();
+
+  useEffect(() => {
+    route.getMusicians().then(({ status, data }) => {
+      if (status === 200) setMusicians(data);
+      else setMusicians([]);
+    });
+  }, []);
 
   return (
     <div>
