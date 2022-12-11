@@ -9,7 +9,7 @@ import UserRoute from '../hooks/axios/routes/UserRoute';
 export default function UserRegister() {
   const { setUserToken } = useContext(GlobalContext);
 
-  const [user, setUser] = useState({
+  const [currUser, setCurrUser] = useState({
     name: '',
     email: '',
     password: '',
@@ -22,11 +22,11 @@ export default function UserRegister() {
 
   useEffect(() => {
 
-  }, [user.confPass]);
+  }, [currUser.confPass]);
 
   function handleChange({ target: { name, value } }) {
-    setUser({
-      ...user,
+    setCurrUser({
+      ...currUser,
       [name]: value,
     });
   }
@@ -35,7 +35,7 @@ export default function UserRegister() {
     e.preventDefault();
     const {
       name, email, password, confPass,
-    } = user;
+    } = currUser;
 
     if (password === confPass) {
       route.createUser({ name, email, password }).then(({ status, data }) => {
