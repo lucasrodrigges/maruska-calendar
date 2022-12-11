@@ -17,4 +17,6 @@ app.use(routes.eventRoute);
 
 app.use(errorHandler);
 
+app.get('/', (_req, res) => res.status(200).json('MARUSKA-CALENDAR API'));
+
 module.exports = app;
