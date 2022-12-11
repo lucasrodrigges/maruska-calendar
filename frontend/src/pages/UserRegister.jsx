@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { setToLS } from '../services/localStorage';
 import '../style/UserRegister.css';
 import maruskaLogo from '../images/maruska-logo.png';
-import UseAxios from '../hooks/UseAxios';
-import { UserContext } from '../context/UserProvider';
+import { createUser } from '../api/user';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function UserRegister() {
-  const { setUserToken } = useContext(UserContext);
+  const { setUserToken } = useContext(GlobalContext);
 
   const [user, setUser] = useState({
     name: '',
@@ -18,7 +18,6 @@ export default function UserRegister() {
   const [userError, setCreateError] = useState('');
 
   const navigate = useNavigate();
-  const axios = UseAxios();
 
   useEffect(() => {
 
@@ -31,27 +30,25 @@ export default function UserRegister() {
     });
   }
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const {
       name, email, password, confPass,
     } = user;
 
     if (password === confPass) {
-      axios.post('/user', { name, email, password })
-        .then(({ data: { token } }) => {
-          setToLS('user', token);
-          setUserToken(token);
-          navigate('/calendario');
-        })
-        .catch((err) => {
-          console.error('ERROR => ', err);
-          setCreateError('Algo de errado aconteceu, tente novamente mais tarde.');
-        });
+      const { status, data, message } = await createUser({ name, email, password });
+
+      if (status !== 204) {
+        setCreateError(message);
+      }
+
+      setToLS('token', { token: data.token });
+      setUserToken(data.token);
     } else {
       setCreateError('As senhas estão diferentes, favor verifique.');
     }
-  }
+  };
 
   return (
     <form

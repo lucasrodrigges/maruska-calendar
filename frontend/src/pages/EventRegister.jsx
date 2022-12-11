@@ -2,14 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { EventContext } from '../context/EventProvider';
+import { GlobalContext } from '../context/GlobalProvider';
 import '../style/EventRegister.css';
 
 export default function EventRegister() {
   const {
     currEvent,
     setCurrEvent,
-  } = useContext(EventContext);
+  } = useContext(GlobalContext);
 
   const [isDisabled, setDisabled] = useState(true);
 

@@ -4,31 +4,29 @@ import AdminButtons from '../components/AdminButtons';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import { UserContext } from '../context/UserProvider';
-import UseAxios from '../hooks/UseAxios';
+import { GlobalContext } from '../context/GlobalProvider';
+import UserRoute from '../hooks/axios/routes/UserRoute';
 import '../style/Profile.css';
 
 export default function Profile() {
   const {
-    user, setUser, setUserEdit, toUpdateProfile, setUpdateProfile,
-  } = useContext(UserContext);
+    user, setUser, setUserEdit,
+  } = useContext(GlobalContext);
+
   const [isLoaging, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
-  const axios = UseAxios();
+
+  const route = UserRoute();
 
   useEffect(() => {
-    setUpdateProfile(!toUpdateProfile);
-  }, []);
-
-  useEffect(() => {
-    axios.get('/user/me').then(({ data: { name, email } }) => {
-      // console.log(me);
-      setUser({ name, email });
-      setIsLoading(!isLoaging);
-    }).catch((err) => {
-      console.error('Error => ', err);
-      navigate('/');
+    route.getMe().then(({ status, data }) => {
+      if (status === 200) {
+        setUser({ id: data.id, name: data.name, email: data.email });
+        setIsLoading(!isLoaging);
+      } else {
+        navigate('/perfil');
+      }
     });
   }, []);
 

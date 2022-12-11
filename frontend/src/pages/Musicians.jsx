@@ -2,15 +2,15 @@ import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import { MusiciansContext } from '../context/MusiciansProvider';
 import AdminButtons from '../components/AdminButtons';
 import '../style/Musicians.css';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function Musicians() {
   const {
     musicians,
     isLoading,
-  } = useContext(MusiciansContext);
+  } = useContext(GlobalContext);
 
   return (
     <div>

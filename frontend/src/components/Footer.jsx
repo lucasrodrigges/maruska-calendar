@@ -1,15 +1,11 @@
-import React, {
-  useContext, useEffect,
-  // useState,
-} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CalendarContext } from '../context/CalendarProvider';
+import { GlobalContext } from '../context/GlobalProvider';
 import '../style/Footer.css';
 import AdminButtons from './AdminButtons';
 
 export default function Footer() {
-  const { showActions, setShowActions } = useContext(CalendarContext);
-
+  const { showActions, setShowActions } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   useEffect(() => setShowActions(false), []);

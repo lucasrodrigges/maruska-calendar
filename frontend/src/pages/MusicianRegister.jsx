@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import '../style/MusicianRegister.css';
 import Footer from '../components/Footer';
-import UseAxios from '../hooks/UseAxios';
-import { MusiciansContext } from '../context/MusiciansProvider';
+import { getMe } from '../api/user';
+import { createMusician } from '../api/musician';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function MusicianRegister() {
-  const { musicians, setMusicians } = useContext(MusiciansContext);
+  const { musicians, setMusicians } = useContext(GlobalContext);
   const [musician, setMusician] = useState({
     name: '',
     instrument: '',
@@ -16,10 +17,9 @@ export default function MusicianRegister() {
   const [errorMessage, setError] = useState('');
 
   const navigate = useNavigate();
-  const axios = UseAxios();
 
   useEffect(() => {
-    const isAdmin = axios.get('/user/me').then(({ data }) => data.isAdmin);
+    const isAdmin = getMe().then(({ data }) => data.isAdmin);
     if (!isAdmin) navigate('/calendario');
   }, []);
 
@@ -39,13 +39,14 @@ export default function MusicianRegister() {
     if (phoneNumber.length < minLength && !Number(phoneNumber)) {
       setError('O número precisa estar no formato válido!');
     } else {
-      axios.post('/musician', musician).then(() => {
-        setMusicians([musician, ...musicians]);
-        navigate(-1);
-      }).catch((err) => {
-        console.error('ERROR => ', err);
-        setError('Não foi possível adicionar músico ao banco de dados. Estamos tentando resolver o problema o mais rápido possível. Tente novamente mais tarde!');
-      });
+      const { status, data, message } = await createMusician(musician);
+
+      if (status !== 201) {
+        setError(message);
+      }
+
+      setMusicians([data, ...musicians]);
+      navigate(-1);
     }
   }
 

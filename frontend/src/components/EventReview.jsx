@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EventContext } from '../context/EventProvider';
-import UseAxios from '../hooks/UseAxios';
+import { GlobalContext } from '../context/GlobalProvider';
+import EventRouter from '../hooks/axios/routes/EventRouter';
 import '../style/Calendar.css';
 
 export default function EventReview() {
-  const { currEvent, members } = useContext(EventContext);
+  const { currEvent, members } = useContext(GlobalContext);
 
   const navigate = useNavigate();
-  const axios = UseAxios();
+  const route = EventRouter();
 
   function handleConfirm(e) {
     e.preventDefault();
@@ -24,11 +24,10 @@ export default function EventReview() {
       musicianIds,
     };
 
-    // console.log(musicianIds, eventToSubmit);
-
-    axios.post('/event', eventToSubmit)
-      .then(() => navigate('/calendario'))
-      .catch((err) => console.error('ERROR => ', err));
+    route.createEvent(eventToSubmit).then(({ status }) => {
+      if (status === 201) navigate('/calendario');
+      else alert('Não foi possível cadastrar evento, tente novamente');
+    });
   }
 
   return (

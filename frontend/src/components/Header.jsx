@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CalendarContext } from '../context/CalendarProvider';
 import '../style/Header.css';
 import maruskaLogo2 from '../images/maruska-logo-2.png';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function Header() {
-  const { currMonth } = useContext(CalendarContext);
+  const { currMonth } = useContext(GlobalContext);
 
   const location = useLocation();
   const { pathname } = location;

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useContext } from 'react';
-import { UserContext } from '../context/UserProvider';
-import { getFromLS } from '../services/localStorage';
+import { GlobalContext } from '../../context/GlobalProvider';
+import { getFromLS } from '../../services/localStorage';
 
-function UseAxios() {
-  const { userToken } = useContext(UserContext);
+export default function UseAxios() {
+  const { userToken } = useContext(GlobalContext);
 
   return axios.create({
     baseURL: `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_BASE_URL}/`,
@@ -14,5 +14,3 @@ function UseAxios() {
     },
   });
 }
-
-export default UseAxios;

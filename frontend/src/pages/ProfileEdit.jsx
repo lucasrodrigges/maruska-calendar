@@ -4,39 +4,38 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { EMAIL_RGX } from '../helpers/data';
-import { UserContext } from '../context/UserProvider';
 import '../style/ProfileEdit.css';
-import UseAxios from '../hooks/UseAxios';
+import { GlobalContext } from '../context/GlobalProvider';
+import UserRoute from '../hooks/axios/routes/UserRoute';
 
 export default function ProfileEdit() {
   const {
     user, setUser,
-  } = useContext(UserContext);
+  } = useContext(GlobalContext);
 
   const navigate = useNavigate();
-  const axios = UseAxios();
+  const route = UserRoute();
 
   function handleChange({ target: { name, value } }) {
     if (name === 'email' && EMAIL_RGX.test(value)) {
-      return setUser({
+      setUser({
+        ...user,
+        [name]: value,
+      });
+    } else {
+      setUser({
         ...user,
         [name]: value,
       });
     }
-
-    return setUser({
-      ...user,
-      [name]: value,
-    });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    axios.put('/user', user).then(() => {
-      navigate(-1);
-    }).catch((err) => {
-      console.error('ERROR => ', err);
+    route.editUser(user).then(({ status, data }) => {
+      if (status === 200) navigate(-1);
+      else console.log(data);
     });
 
     // const { displayName, email, photoURL } = userEdit;

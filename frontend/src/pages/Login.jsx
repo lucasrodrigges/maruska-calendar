@@ -3,44 +3,43 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setToLS } from '../services/localStorage';
 import '../style/Login.css';
 import maruskaLogo from '../images/maruska-logo.png';
-import { UserContext } from '../context/UserProvider';
-import UseAxios from '../hooks/UseAxios';
+import UserRoute from '../hooks/axios/routes/UserRoute';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function Login() {
-  const { setUserToken } = useContext(UserContext);
-  const [user, setUser] = useState({
+  const { setUser, setUserToken } = useContext(GlobalContext);
+  const [currUser, setCurrUser] = useState({
     email: '',
     password: '',
   });
   const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
-  const axios = UseAxios();
+  const route = UserRoute();
 
   useEffect(() => {
     localStorage.clear();
   }, []);
 
   function handleChange({ target: { name, value } }) {
-    setUser({
-      ...user,
+    setCurrUser({
+      ...currUser,
       [name]: value,
     });
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-
-    try {
-      const result = await axios.post('/login', user);
-
-      setToLS('token', result.data.token);
-      setUserToken(result.data.token);
-
-      return navigate('/calendario');
-    } catch (error) {
-      return setLoginError('Email ou senha inválidos');
-    }
+    route.login(currUser).then(({ status, data }) => {
+      if (status === 200) {
+        setUser({ email: currUser.email });
+        setUserToken(data.token);
+        setToLS('token', data.token);
+        navigate('/calendario');
+      } else {
+        setLoginError('Email ou senha inválidos.');
+      }
+    });
   }
 
   return (

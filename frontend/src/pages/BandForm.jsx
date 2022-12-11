@@ -1,20 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import EventReview from '../components/EventReview';
-import { EventContext } from '../context/EventProvider';
 import '../style/BandForm.css';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
-import { MusiciansContext } from '../context/MusiciansProvider';
-import UseAxios from '../hooks/UseAxios';
+import { getMusician } from '../api/musician';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function BandForm() {
   const {
     members,
     setMembers,
-  } = useContext(EventContext);
-  const { musicians, setMusicians } = useContext(MusiciansContext);
+  } = useContext(GlobalContext);
+  const { musicians, setMusicians } = useContext(GlobalContext);
 
   const [thisMusician, setThisMusician] = useState('');
   const [cloneMusicians, setCloneMusicians] = useState([]);
@@ -22,21 +20,18 @@ export default function BandForm() {
   const [showReview, setReview] = useState(false);
   const [isLoaging, setLoading] = useState(true);
 
-  const navigate = useNavigate();
-  const axios = UseAxios();
-
   useEffect(() => {
-    const isAdmin = true;
-    if (!isAdmin) navigate('/calendario');
-    else setLoading(false);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    axios.get('/musician')
+    getMusician()
       .then(({ data }) => {
-        setMusicians(data);
-        setCloneMusicians(data);
-      }).catch((err) => console.error('ERROR => ', err));
+        if (data) {
+          setMusicians(data);
+          setCloneMusicians(data);
+        }
+      });
   }, []);
 
   function handleChange({ target: { value } }) {

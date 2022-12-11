@@ -3,22 +3,19 @@ import EventCards from '../components/EventCards';
 // import { months } from '../helpers/data';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import { CalendarContext } from '../context/CalendarProvider';
 import Footer from '../components/Footer';
 import '../style/Calendar.css';
-import { EventContext } from '../context/EventProvider';
+import { GlobalContext } from '../context/GlobalProvider';
 
 export default function Calendar() {
   const {
     currMonth,
     // setCurrMonth,
-  } = useContext(CalendarContext);
+  } = useContext(GlobalContext);
 
   const {
     setMembers,
-    toUpdate,
-    setUpdate,
-  } = useContext(EventContext);
+  } = useContext(GlobalContext);
 
   const [isLoading, setLoading] = useState(true);
 
@@ -27,7 +24,6 @@ export default function Calendar() {
 
     // setCurrMonth(months[date.getMonth()].month);
     setMembers([]);
-    setUpdate(!toUpdate);
     setLoading(!isLoading);
   }, []);
 
