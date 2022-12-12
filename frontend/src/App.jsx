@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import AdminDashboard from './pages/AdminDashboard';
 import NotFound from './pages/NotFound';
+import ThisEvent from './pages/ThisEvent';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
       <Route path="painel-de-controle" element={<AdminDashboard />} />
       <Route path="novo-usuario" element={<UserRegister />} />
       <Route path="calendario" element={<Calendar />} />
+      <Route path="evento/:id" element={<ThisEvent />} />
       <Route path="novo-show" element={<EventRegister />} />
       <Route path="banda" element={<BandForm />} />
       <Route path="novo-musico" element={<MusicianRegister />} />

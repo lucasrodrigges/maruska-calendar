@@ -1,10 +1,16 @@
 import UseAxios from '../UseAxios';
 
-export default function EventRouter() {
+export default function EventRoute() {
   const axios = UseAxios();
 
   const getEvents = () => (
     axios.get('/event')
+      .then(({ status, data }) => ({ status, data }))
+      .catch(({ response: { status, data } }) => ({ status, data }))
+  );
+
+  const getEventById = (id) => (
+    axios.get(`/event/${id}`)
       .then(({ status, data }) => ({ status, data }))
       .catch(({ response: { status, data } }) => ({ status, data }))
   );
@@ -21,5 +27,7 @@ export default function EventRouter() {
       .catch(({ response: { status, data } }) => ({ status, data }))
   );
 
-  return { getEvents, createEvent, deleteEvent };
+  return {
+    getEvents, getEventById, createEvent, deleteEvent,
+  };
 }

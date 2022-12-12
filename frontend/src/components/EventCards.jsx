@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
+import { Link } from 'react-router-dom';
 import sadUnicorny from '../images/sadUnicorny.png';
 import createDate from '../helpers/createDate';
 import { GlobalContext } from '../context/GlobalProvider';
@@ -25,7 +26,7 @@ export default function EventCards() {
       {events.length > 0 ? events.map(({
         id, title, musicians, description, when,
       }) => (
-        <div key={id} className="event-container">
+        <Link to={`/evento/${id}`} key={id} className="event-container">
           <h2 className="event-title">{title}</h2>
           <p className="event-items">{`Data: ${createDate(when)}`}</p>
           <p className="event-items">Banda:</p>
@@ -40,7 +41,7 @@ export default function EventCards() {
             <span className="event-description">{`Observação: ${description}`}</span>
           )}
 
-        </div>
+        </Link>
       )) : (
         <div>
           <img
