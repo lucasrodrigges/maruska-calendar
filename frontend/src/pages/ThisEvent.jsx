@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { deleteEvent, getEventById } from '../api/routes/eventRoute';
 import AlertConfirm from '../components/AlertConfirm';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { GlobalContext } from '../context/GlobalProvider';
 import createDate from '../helpers/createDate';
-import EventRoute from '../hooks/axios/routes/EventRoute';
 import '../style/Calendar.css';
 
 export default function ThisEvent() {
@@ -22,20 +22,19 @@ export default function ThisEvent() {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const route = EventRoute();
 
   useEffect(() => {
     const path = location.pathname;
     const id = path.split('/')[2];
 
-    route.getEventById(id).then(({ status, data }) => {
+    getEventById(id).then(({ status, data }) => {
       if (status === 200) setThisEvent(data);
       else alert('Algo de errado aconteceu.');
     });
   }, []);
 
   const handleDelete = () => {
-    route.deleteEvent(thisEvent.id).then(({ status }) => {
+    deleteEvent(thisEvent.id).then(({ status }) => {
       if (status === 204) navigate(-1);
       else alert('Não foi possível exluir o evento, tente novamente mais tarde.');
     });

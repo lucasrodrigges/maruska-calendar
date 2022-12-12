@@ -4,7 +4,7 @@ import { setToLS } from '../services/localStorage';
 import '../style/UserRegister.css';
 import maruskaLogo from '../images/maruska-logo.png';
 import { GlobalContext } from '../context/GlobalProvider';
-import UserRoute from '../hooks/axios/routes/UserRoute';
+import { createUser } from '../api/routes/userRoute';
 
 export default function UserRegister() {
   const { setUserToken } = useContext(GlobalContext);
@@ -18,7 +18,6 @@ export default function UserRegister() {
   const [userError, setCreateError] = useState('');
 
   const navigate = useNavigate();
-  const route = UserRoute();
 
   useEffect(() => {
 
@@ -38,7 +37,7 @@ export default function UserRegister() {
     } = currUser;
 
     if (password === confPass) {
-      route.createUser({ name, email, password }).then(({ status, data }) => {
+      createUser({ name, email, password }).then(({ status, data }) => {
         if (status === 201) {
           setUserToken(data.token);
           setToLS('token', data.token);

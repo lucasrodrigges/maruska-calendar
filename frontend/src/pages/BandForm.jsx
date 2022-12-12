@@ -5,7 +5,7 @@ import '../style/BandForm.css';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
 import { GlobalContext } from '../context/GlobalProvider';
-import MusicianRoute from '../hooks/axios/routes/MusicianRoute';
+import { getMusicians } from '../api/routes/musicianRoute';
 
 export default function BandForm() {
   const {
@@ -20,14 +20,12 @@ export default function BandForm() {
   const [showReview, setReview] = useState(false);
   const [isLoaging, setLoading] = useState(true);
 
-  const route = MusicianRoute();
-
   useEffect(() => {
     setLoading(false);
   }, []);
 
   useEffect(() => {
-    route.getMusicians()
+    getMusicians()
       .then(({ status, data }) => {
         if (status === 200) {
           setMusicians(data);

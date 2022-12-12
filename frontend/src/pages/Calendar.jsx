@@ -6,7 +6,8 @@ import Loading from '../components/Loading';
 import Footer from '../components/Footer';
 import '../style/Calendar.css';
 import { GlobalContext } from '../context/GlobalProvider';
-import UserRoute from '../hooks/axios/routes/UserRoute';
+// import UserRoute from '../hooks/axios/routes/UserRoute';
+import { getMe } from '../api/routes/userRoute';
 
 export default function Calendar() {
   const {
@@ -21,10 +22,10 @@ export default function Calendar() {
 
   const [isLoading, setLoading] = useState(true);
 
-  const route = UserRoute();
+  // const route = UserRoute();
 
   useEffect(() => {
-    route.getMe().then(({ status, data }) => {
+    getMe().then(({ status, data }) => {
       if (status === 200) setUser(data);
     });
     setMembers([]);

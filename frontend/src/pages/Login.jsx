@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setToLS } from '../services/localStorage';
 import '../style/Login.css';
 import maruskaLogo from '../images/maruska-logo.png';
-import UserRoute from '../hooks/axios/routes/UserRoute';
 import { GlobalContext } from '../context/GlobalProvider';
+import { login } from '../api/routes/userRoute';
 
 export default function Login() {
   const { setUser, setUserToken } = useContext(GlobalContext);
@@ -15,7 +15,6 @@ export default function Login() {
   const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
-  const route = UserRoute();
 
   useEffect(() => {
     localStorage.clear();
@@ -30,7 +29,7 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    route.login(currUser).then(({ status, data }) => {
+    login(currUser).then(({ status, data }) => {
       if (status === 200) {
         setUser({ email: currUser.email });
         setUserToken(data.token);

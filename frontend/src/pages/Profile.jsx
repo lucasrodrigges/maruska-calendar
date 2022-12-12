@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getMe } from '../api/routes/userRoute';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { GlobalContext } from '../context/GlobalProvider';
-import UserRoute from '../hooks/axios/routes/UserRoute';
 import '../style/Profile.css';
 
 export default function Profile() {
@@ -16,10 +16,8 @@ export default function Profile() {
 
   const navigate = useNavigate();
 
-  const route = UserRoute();
-
   useEffect(() => {
-    route.getMe().then(({ status, data }) => {
+    getMe().then(({ status, data }) => {
       if (status === 200) {
         setUser({
           id: data.id, name: data.name, email: data.email, isAdmin: data.isAdmin,

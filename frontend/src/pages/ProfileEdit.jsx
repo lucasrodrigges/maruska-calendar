@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import { EMAIL_RGX } from '../helpers/data';
 import '../style/ProfileEdit.css';
 import { GlobalContext } from '../context/GlobalProvider';
-import UserRoute from '../hooks/axios/routes/UserRoute';
+import { editUser } from '../api/routes/userRoute';
 
 export default function ProfileEdit() {
   const {
@@ -14,7 +14,6 @@ export default function ProfileEdit() {
   } = useContext(GlobalContext);
 
   const navigate = useNavigate();
-  const route = UserRoute();
 
   function handleChange({ target: { name, value } }) {
     if (name === 'email' && EMAIL_RGX.test(value)) {
@@ -33,7 +32,7 @@ export default function ProfileEdit() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    route.editUser(user).then(({ status, data }) => {
+    editUser(user).then(({ status, data }) => {
       if (status === 200) navigate(-1);
       else console.log(data);
     });

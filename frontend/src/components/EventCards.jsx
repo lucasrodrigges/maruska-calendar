@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import sadUnicorny from '../images/sadUnicorny.png';
 import createDate from '../helpers/createDate';
 import { GlobalContext } from '../context/GlobalProvider';
-import EventRouter from '../hooks/axios/routes/EventRoute';
+import '../style/Calendar.css';
+import { getEvents } from '../api/routes/eventRoute';
 
 export default function EventCards() {
   const {
@@ -12,10 +13,8 @@ export default function EventCards() {
     setEvents,
   } = useContext(GlobalContext);
 
-  const route = EventRouter();
-
   useEffect(() => {
-    route.getEvents().then(({ data }) => {
+    getEvents().then(({ data }) => {
       setEvents(data);
     });
   }, []);

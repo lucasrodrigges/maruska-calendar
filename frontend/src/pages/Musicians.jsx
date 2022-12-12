@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import AdminButtons from '../components/AdminButtons';
 import '../style/Musicians.css';
 import { GlobalContext } from '../context/GlobalProvider';
-import MusicianRoute from '../hooks/axios/routes/MusicianRoute';
+import { getMusicians } from '../api/routes/musicianRoute';
 
 export default function Musicians() {
   const {
@@ -14,10 +14,8 @@ export default function Musicians() {
     isLoading,
   } = useContext(GlobalContext);
 
-  const route = MusicianRoute();
-
   useEffect(() => {
-    route.getMusicians().then(({ status, data }) => {
+    getMusicians().then(({ status, data }) => {
       if (status === 200) setMusicians(data);
       else setMusicians([]);
     });

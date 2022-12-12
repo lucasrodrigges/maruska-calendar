@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import '../style/MusicianRegister.css';
 import Footer from '../components/Footer';
 import { GlobalContext } from '../context/GlobalProvider';
-import MusicianRoute from '../hooks/axios/routes/MusicianRoute';
+import { createMusician } from '../api/routes/musicianRoute';
 
 export default function MusicianRegister() {
   const { musicians, setMusicians } = useContext(GlobalContext);
@@ -16,7 +16,6 @@ export default function MusicianRegister() {
   const [errorMessage, setError] = useState('');
 
   const navigate = useNavigate();
-  const route = MusicianRoute();
 
   function handleChange({ target: { name, value } }) {
     const currValue = name === 'phoneNum' ? `55${value}` : value;
@@ -34,7 +33,7 @@ export default function MusicianRegister() {
     if (phoneNumber.length < minLength && !Number(phoneNumber)) {
       setError('O número precisa estar no formato válido!');
     } else {
-      route.createMusician(musician).then(({ status, data }) => {
+      createMusician(musician).then(({ status, data }) => {
         if (status === 201) {
           setMusicians([data, ...musicians]);
           navigate(-1);
