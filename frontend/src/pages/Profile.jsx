@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdminButtons from '../components/AdminButtons';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -22,7 +21,9 @@ export default function Profile() {
   useEffect(() => {
     route.getMe().then(({ status, data }) => {
       if (status === 200) {
-        setUser({ id: data.id, name: data.name, email: data.email });
+        setUser({
+          id: data.id, name: data.name, email: data.email, isAdmin: data.isAdmin,
+        });
         setIsLoading(!isLoaging);
       } else {
         navigate('/perfil');
@@ -56,7 +57,6 @@ export default function Profile() {
             >
               Editar Perfil
             </button>
-            <AdminButtons type="dashboard" />
             <button
               className="button-1"
               type="button"

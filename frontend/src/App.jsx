@@ -12,7 +12,6 @@ import './style/Reset.css';
 import './style/App.css';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
-import AdminDashboard from './pages/AdminDashboard';
 import NotFound from './pages/NotFound';
 import ThisEvent from './pages/ThisEvent';
 
@@ -22,7 +21,6 @@ export default function App() {
       <Route path="" element={<Login />} />
       <Route path="perfil" element={<Profile />} />
       <Route path="editar-perfil" element={<ProfileEdit />} />
-      <Route path="painel-de-controle" element={<AdminDashboard />} />
       <Route path="novo-usuario" element={<UserRegister />} />
       <Route path="calendario" element={<Calendar />} />
       <Route path="evento/:id" element={<ThisEvent />} />

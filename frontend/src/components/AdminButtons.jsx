@@ -1,24 +1,13 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../style/Musicians.css';
 import { GlobalContext } from '../context/GlobalProvider';
-import UserRoute from '../hooks/axios/routes/UserRoute';
 
 export default function AdminButtons({ type }) {
-  const { showActions, setShowActions } = useContext(GlobalContext);
-
-  const [isAdmin, setAdmin] = useState(false);
+  const { showActions, setShowActions, user: { isAdmin } } = useContext(GlobalContext);
 
   const navigate = useNavigate();
-  const route = UserRoute();
-
-  useEffect(() => {
-    route.getMe().then(({ status, data }) => {
-      if (status === 200) setAdmin(data.isAdmin);
-      else setAdmin(false);
-    });
-  }, []);
 
   if (type === 'newMus' && isAdmin) {
     return (

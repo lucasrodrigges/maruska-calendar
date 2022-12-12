@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AlertConfirm from '../components/AlertConfirm';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { GlobalContext } from '../context/GlobalProvider';
 import createDate from '../helpers/createDate';
 import EventRoute from '../hooks/axios/routes/EventRoute';
 import '../style/Calendar.css';
 
 export default function ThisEvent() {
+  const { user: { isAdmin } } = useContext(GlobalContext);
+
   const [thisEvent, setThisEvent] = useState({
     id: '',
     title: '',
@@ -57,19 +60,21 @@ export default function ThisEvent() {
             {thisEvent.description && (
             <span className="event-description">{`Observação: ${thisEvent.description}`}</span>
             )}
-            <div className="event-buttons-container">
-              <button className="del-button-event " type="button">
-                <i className="fa-regular fa-pen-to-square" />
-              </button>
-              <button
-                className="del-button-event"
-                type="button"
-                id={thisEvent.id}
-                onClick={() => setShowAlert(!showAlert)}
-              >
-                <i className="fa-solid fa-trash" id={thisEvent.id} />
-              </button>
-            </div>
+            {isAdmin && (
+              <div className="event-buttons-container">
+                <button className="del-button-event " type="button">
+                  <i className="fa-regular fa-pen-to-square" />
+                </button>
+                <button
+                  className="del-button-event"
+                  type="button"
+                  id={thisEvent.id}
+                  onClick={() => setShowAlert(!showAlert)}
+                >
+                  <i className="fa-solid fa-trash" id={thisEvent.id} />
+                </button>
+              </div>
+            )}
 
           </div>
         </div>
