@@ -77,7 +77,6 @@ export default function EventRegister() {
             disabled={isDisabled}
           >
             Continuar
-
           </button>
         </form>
       </div>

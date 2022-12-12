@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { deleteEvent, getEventById } from '../api/routes/eventRoute';
 import AlertConfirm from '../components/AlertConfirm';
 import Footer from '../components/Footer';
@@ -9,7 +9,7 @@ import createDate from '../helpers/createDate';
 import '../style/Calendar.css';
 
 export default function ThisEvent() {
-  const { user: { isAdmin } } = useContext(GlobalContext);
+  const { user: { isAdmin }, setIdToEdit } = useContext(GlobalContext);
 
   const [thisEvent, setThisEvent] = useState({
     id: '',
@@ -61,9 +61,9 @@ export default function ThisEvent() {
             )}
             {isAdmin && (
               <div className="event-buttons-container">
-                <button className="del-button-event " type="button">
+                <Link to="/novo-show" className="del-button-event " type="button" onClick={() => setIdToEdit(thisEvent.id)}>
                   <i className="fa-regular fa-pen-to-square" />
-                </button>
+                </Link>
                 <button
                   className="del-button-event"
                   type="button"

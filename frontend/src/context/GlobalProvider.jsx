@@ -21,6 +21,7 @@ export function GlobalProvider({ children }) {
   const [members, setMembers] = useState([]);
   const [showActions, setShowActions] = useState(false);
   const [currMonth, setCurrMonth] = useState('');
+  const [idToEdit, setIdToEdit] = useState('');
 
   useEffect(() => {
     const index = new Date().getMonth();
@@ -48,6 +49,8 @@ export function GlobalProvider({ children }) {
     setUserToken,
     currMonth,
     setCurrMonth,
+    idToEdit,
+    setIdToEdit,
   }));
 
   useEffect(() => {

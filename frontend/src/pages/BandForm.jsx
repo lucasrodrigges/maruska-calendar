@@ -8,10 +8,7 @@ import { GlobalContext } from '../context/GlobalProvider';
 import { getMusicians } from '../api/routes/musicianRoute';
 
 export default function BandForm() {
-  const {
-    members,
-    setMembers,
-  } = useContext(GlobalContext);
+  const { members, setMembers } = useContext(GlobalContext);
   const { musicians, setMusicians } = useContext(GlobalContext);
 
   const [thisMusician, setThisMusician] = useState('');
@@ -21,15 +18,12 @@ export default function BandForm() {
   const [isLoaging, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
     getMusicians()
       .then(({ status, data }) => {
         if (status === 200) {
           setMusicians(data);
           setCloneMusicians(data);
+          setLoading(false);
         }
       });
   }, []);

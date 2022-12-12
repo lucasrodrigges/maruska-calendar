@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createEvent } from '../api/routes/eventRoute';
+import { createEvent, updateEvent } from '../api/routes/eventRoute';
 import { GlobalContext } from '../context/GlobalProvider';
 import '../style/Calendar.css';
 
 export default function EventReview() {
-  const { currEvent, members } = useContext(GlobalContext);
+  const {
+    currEvent, members, idToEdit, setIdToEdit,
+  } = useContext(GlobalContext);
 
   const navigate = useNavigate();
 
@@ -23,10 +25,19 @@ export default function EventReview() {
       musicianIds,
     };
 
-    createEvent(eventToSubmit).then(({ status }) => {
-      if (status === 201) navigate('/calendario');
-      else alert('Não foi possível cadastrar evento, tente novamente');
-    });
+    if (!idToEdit) {
+      createEvent(eventToSubmit).then(({ status }) => {
+        if (status === 201) navigate('/calendario');
+        else alert('Não foi possível cadastrar evento, tente novamente');
+      });
+    } else {
+      updateEvent(idToEdit, eventToSubmit).then(({ status }) => {
+        if (status === 200) {
+          setIdToEdit('');
+          navigate(`/evento/${idToEdit}`);
+        } else alert('Não foi possível cadastrar evento, tente novamente');
+      });
+    }
   }
 
   return (
