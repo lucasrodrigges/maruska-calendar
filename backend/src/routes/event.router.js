@@ -22,6 +22,12 @@ route.post(
   eventController.createEvent,
 );
 
+route.put(
+  '/event/:id',
+  validations.token,
+  eventController.editEvent,
+);
+
 route.delete(
   '/event/:id',
   validations.token,

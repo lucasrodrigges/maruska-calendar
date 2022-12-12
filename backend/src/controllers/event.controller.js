@@ -13,6 +13,12 @@ module.exports = {
     res.status(200).json(event);
   },
 
+  editEvent: async (req, res) => {
+    const event = await eventService.editEvent(req.params.id, req.body);
+
+    res.status(200).json(event);
+  },
+
   createEvent: async (req, res) => {
     const event = await eventService.createEvent(req.body);
 

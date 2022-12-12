@@ -29,6 +29,35 @@ module.exports = {
     return event;
   },
 
+  editEvent: async (id, { musicianIds, ...eventFields }) => {
+    const event = await Event.findByPk(id, {
+      include: {
+        model: Musician,
+        as: 'musicians',
+        attributes: ['id', 'name', 'instrument'],
+        through: { attributes: [] },
+      },
+    });
+
+    if (!event) throw new HttpError(404, 'Event not found.');
+
+    const musiciansCheck = await Musician.findAll({
+      where: {
+        id: { [or]: musicianIds },
+      },
+    });
+
+    if (musicianIds.length !== musiciansCheck.length) {
+      throw new HttpError(409, 'One or more musicians are not registered.');
+    }
+
+    await event.update(eventFields);
+    await event.removeMusician(event.dataValues.musicians);
+    await event.addMusician(musicianIds);
+
+    return event;
+  },
+
   createEvent: async ({ musicianIds, ...eventFields }) => {
     const musiciansCheck = await Musician.findAll({
       where: {
