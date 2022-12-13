@@ -34,4 +34,12 @@ module.exports = {
 
     res.status(200).json(user);
   },
+
+  deleteMe: async (req, res) => {
+    const { userId } = req.headers;
+
+    await userService.deleteMe(userId);
+
+    res.status(204).end();
+  },
 };

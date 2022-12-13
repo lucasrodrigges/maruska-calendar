@@ -62,4 +62,12 @@ module.exports = {
     return user;
   },
 
+  deleteMe: async (userId) => {
+    const user = await User.findByPk(userId);
+
+    if (!user) throw new HttpError(404, 'User not found.');
+
+    await user.destroy();
+  },
+
 };

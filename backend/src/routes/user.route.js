@@ -33,4 +33,10 @@ route.put(
   userController.updateUser,
 );
 
+route.delete(
+  '/user/me',
+  validations.token,
+  userController.deleteMe,
+);
+
 module.exports = route;
