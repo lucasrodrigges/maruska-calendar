@@ -6,6 +6,7 @@ const HttpError = require('../utils/HttpError');
 
 module.exports = {
   getEvents: async () => Event.findAll({
+    order: [['when', 'ASC']],
     include: {
       model: Musician,
       as: 'musicians',
