@@ -7,7 +7,7 @@ module.exports = {
   host: process.env.MYSQLHOST,
   port: process.env.MYSQLPORT,
   dialect: 'mysql',
-  timezone: '-03:00',
+  timezone: '00:00',
   dialectOptions: {
     useUTC: false,
     timezone: 'Z',
