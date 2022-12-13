@@ -15,7 +15,7 @@ export default function EventReview() {
     e.preventDefault();
 
     const musicianIds = members.reduce((acc, el) => [Number(el.id), ...acc], []);
-    const when = new Date(`${currEvent.date} ${currEvent.time}`).toUTCString();
+    const when = new Date(`${currEvent.date} ${currEvent.time}`).toUTCString(); // VALEU WAN
     const { title, description } = currEvent;
 
     const eventToSubmit = {
