@@ -10,6 +10,7 @@ module.exports = {
   timezone: '+03:00',
   dialectOptions: {
     useUTC: false,
+    timezone: 'Z',
   },
   define: {
     timestamps: true,
