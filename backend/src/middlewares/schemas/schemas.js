@@ -24,6 +24,6 @@ module.exports = {
     title: Joi.string().min(1).required(),
     when: Joi.string().min(1).required(),
     musicianIds: Joi.array().min(1).items(Joi.number().integer()).required(),
-    description: Joi.string(),
+    description: Joi.string().min(0),
   }),
 };
