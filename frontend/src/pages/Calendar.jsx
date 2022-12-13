@@ -17,6 +17,7 @@ export default function Calendar() {
   const {
     setUser,
     setMembers,
+    setCurrEvent,
   } = useContext(GlobalContext);
 
   const [isLoading, setLoading] = useState(true);
@@ -24,6 +25,11 @@ export default function Calendar() {
   useEffect(() => {
     getMe().then(({ status, data }) => {
       if (status === 200) setUser(data);
+    });
+    setCurrEvent({
+      title: '',
+      date: '',
+      time: '',
     });
     setMembers([]);
     setLoading(!isLoading);
