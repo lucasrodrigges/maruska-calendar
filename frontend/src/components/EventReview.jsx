@@ -15,7 +15,7 @@ export default function EventReview() {
     e.preventDefault();
 
     const musicianIds = members.reduce((acc, el) => [Number(el.id), ...acc], []);
-    const when = `${currEvent.date} ${currEvent.time}`;
+    const when = new Date(`${currEvent.date} ${currEvent.time}.000+00:00`);
     const { title, description } = currEvent;
 
     const eventToSubmit = {
