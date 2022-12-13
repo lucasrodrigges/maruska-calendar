@@ -20,7 +20,7 @@ export default function EventReview() {
 
     const eventToSubmit = {
       title,
-      description,
+      description: description || '',
       when,
       musicianIds,
     };
