@@ -14,11 +14,12 @@ footer {
   align-items: center;
   justify-content: space-between;
   box-shadow: -1px 1px 20px;
+  width: 100vw;
 }
 
 .footer-icons {
   font-size: 1.8em;
-  margin: 0 10px;
+  margin: 0 25px;
   margin-bottom: 5px;
 }
 

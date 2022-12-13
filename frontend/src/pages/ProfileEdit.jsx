@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
-
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { EMAIL_RGX } from '../helpers/data';
 import '../style/ProfileEdit.css';
 import { GlobalContext } from '../context/GlobalProvider';
-import { editUser } from '../api/routes/userRoute';
+import { deleteMe, editUser } from '../api/routes/userRoute';
+import AlertConfirm from '../components/AlertConfirm';
 
 export default function ProfileEdit() {
   const {
     user, setUser,
   } = useContext(GlobalContext);
+
+  const [showAlert, setShowAlert] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,14 +38,19 @@ export default function ProfileEdit() {
       if (status === 200) navigate(-1);
       else console.log(data);
     });
-
-    // const { displayName, email, photoURL } = userEdit;
   }
+
+  const handleDelete = () => {
+    deleteMe().then(({ status }) => {
+      if (status === 204) navigate('/');
+      else alert('Não foi possível deleter usuário.');
+    });
+  };
 
   return (
     <div>
       <Header />
-      <div className="pofile-edit-form-container">
+      <div className={showAlert ? 'disable' : 'pofile-edit-form-container'}>
         <form className="profile-edit-form" action="profileEdit" onSubmit={handleSubmit}>
           <input
             className="input-1"
@@ -68,13 +75,26 @@ export default function ProfileEdit() {
           <button
             className="button-1"
             type="button"
+            onClick={() => setShowAlert(!showAlert)}
+          >
+            Excluir conta
+          </button>
+          <button
+            className="button-1"
+            type="button"
             onClick={() => navigate(-1)}
           >
             Voltar
-
           </button>
         </form>
       </div>
+      {showAlert && (
+        <AlertConfirm
+          func={handleDelete}
+          setShowAlert={setShowAlert}
+          content="Deseja realmente excluir a conta?"
+        />
+      )}
       <Footer />
     </div>
   );

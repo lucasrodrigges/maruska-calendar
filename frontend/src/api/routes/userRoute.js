@@ -23,3 +23,9 @@ export const createUser = (body) => (
     .then(({ status, data }) => ({ status, data }))
     .catch(({ response: { status, data } }) => ({ status, data }))
 );
+
+export const deleteMe = () => (
+  axios().delete('/user/me')
+    .then(({ status, data }) => ({ status, data }))
+    .catch(({ response: { status, data } }) => ({ status, data }))
+);

@@ -1,17 +1,56 @@
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-5000px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(5000px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .event-cards-container {
+  margin: 0 auto;
   margin-top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 90vw;
+  animation: slideIn 0.3s;
 }
+
+.calendar-general-container {
+  margin-bottom: 45px;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  max-width: 700px;
+}
+
+
 
 .event-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-bottom: 30px;
-  width: 320px;
+  width: 90%;
   padding: 15px;
   border-radius: 25px;
   background-color: rgb(237, 216, 216);
@@ -20,20 +59,41 @@
   text-decoration: none;
 }
 
-.calendar-general-container {
-  margin-bottom: 45px;
-}
-
 .this-event {
-  display: flex;
-  height: 320px;
-  justify-content: center;
+  margin-bottom: 45px;
+  flex-direction: column;
   align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  max-width: 700px;
 }
 
 .alert-confirm {
   display: flex;
   justify-content: center;
+  margin-top: 20%;
+}
+
+.disable {
+  animation: slideOut 0.3s forwards;
+  display: none;
+}
+
+.alert {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 60%;
+  padding: 15px;
+  border-radius: 25px;
+  background-color: rgb(237, 216, 216);
+  box-shadow: -2px 2px 20px;
+  color: black;
+  text-decoration: none;
+  animation: slideIn 0.3s;
 }
 
 .event-title {

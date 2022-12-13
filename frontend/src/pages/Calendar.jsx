@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import EventCards from '../components/EventCards';
-// import { months } from '../helpers/data';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import Footer from '../components/Footer';
-import '../style/Calendar.css';
 import { GlobalContext } from '../context/GlobalProvider';
-// import UserRoute from '../hooks/axios/routes/UserRoute';
 import { getMe } from '../api/routes/userRoute';
+
+import '../style/Calendar.css';
 
 export default function Calendar() {
   const {
@@ -21,8 +20,6 @@ export default function Calendar() {
   } = useContext(GlobalContext);
 
   const [isLoading, setLoading] = useState(true);
-
-  // const route = UserRoute();
 
   useEffect(() => {
     getMe().then(({ status, data }) => {

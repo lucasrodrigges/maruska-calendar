@@ -1,8 +1,37 @@
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-5000px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(5000px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .pofile-edit-form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: calc(100vh - 155px);
+  animation: slideIn 0.3s;
+}
+
+.disable {
+  animation: slideOut 0.3s forwards;
 }
 
 .profile-edit-form {

@@ -61,7 +61,8 @@ a {
 }
 
 .button-1 {
-  width: 325px;
+  width: 90%;
+  max-width: 350px;
   border: none;
   border-radius: 25px;
   padding: 15px;

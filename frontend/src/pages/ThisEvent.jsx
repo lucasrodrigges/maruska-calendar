@@ -44,7 +44,7 @@ export default function ThisEvent() {
     <div>
       <Header />
       {thisEvent.id && (
-        <div className="this-event">
+        <div className={showAlert ? 'disable' : 'event-cards-container'}>
           <div className="event-container">
             <h2 className="event-title">{thisEvent.title}</h2>
             <p className="event-items">{`Data: ${createDate(thisEvent.when)}`}</p>
@@ -78,7 +78,13 @@ export default function ThisEvent() {
           </div>
         </div>
       )}
-      {showAlert && <AlertConfirm func={handleDelete} setShowAlert={setShowAlert} />}
+      {showAlert && (
+        <AlertConfirm
+          func={handleDelete}
+          setShowAlert={setShowAlert}
+          content="Deseja realmente excluir o evento?"
+        />
+      )}
       <Footer />
     </div>
   );
