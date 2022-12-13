@@ -8,6 +8,9 @@ module.exports = {
   port: process.env.MYSQLPORT,
   dialect: 'mysql',
   timezone: '-03:00',
+  dialectOptions: {
+    useUTC: false,
+  },
   define: {
     timestamps: true,
     underscored: true,
