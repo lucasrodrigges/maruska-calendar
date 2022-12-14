@@ -1,8 +1,6 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/interactive-supports-focus */
 import React, { useContext, useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import sadUnicorny from '../images/sadUnicorny.png';
 import createDate from '../helpers/createDate';
 import { GlobalContext } from '../context/GlobalProvider';
@@ -13,8 +11,6 @@ export default function EventCards() {
     events,
     setEvents,
   } = useContext(GlobalContext);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     getEvents().then(({ data }) => {
@@ -31,7 +27,6 @@ export default function EventCards() {
         <div
           key={id}
           className="event-container"
-          onClick={() => navigate(`/evento/${id}`)}
           role="link"
         >
           <h2 className="event-title">{title}</h2>
@@ -47,7 +42,11 @@ export default function EventCards() {
           {description && (
             <span className="event-description">{`Observação: ${description}`}</span>
           )}
-
+          <div className="event-buttons-container">
+            <Link to={`/evento/${id}`} className="del-button-event" type="button">
+              <i className="fa-solid fa-arrow-right-to-bracket" />
+            </Link>
+          </div>
         </div>
       )) : (
         <div>
