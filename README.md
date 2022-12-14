@@ -26,6 +26,4 @@ Além disso, quando a conta é de administrador, botões extras são mostrados n
 
 Telas de cadastro de novos eventos:
 
-<img src='./readme/images/event-form.jpeg'>
-<img src='./readme/images/add-musician-form.jpeg'>
-<img src='./readme/images/event-review.jpeg'>
+<img src='./readme/images/event-form.jpeg'><img src='./readme/images/add-musician-form.jpeg'><img src='./readme/images/event-review.jpeg'>
