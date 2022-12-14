@@ -10,6 +10,7 @@ export default function EventCards() {
   const {
     events,
     setEvents,
+    user,
   } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -42,11 +43,13 @@ export default function EventCards() {
           {description && (
             <span className="event-description">{`Observação: ${description}`}</span>
           )}
-          <div className="event-buttons-container">
-            <Link to={`/evento/${id}`} className="del-button-event" type="button">
-              <i className="fa-solid fa-arrow-right-to-bracket" />
-            </Link>
-          </div>
+          {user.isAdmin && (
+            <div className="event-buttons-container">
+              <Link to={`/evento/${id}`} className="del-button-event" type="button">
+                <i className="fa-solid fa-arrow-right-to-bracket" />
+              </Link>
+            </div>
+          )}
         </div>
       )) : (
         <div>
