@@ -1,6 +1,24 @@
 # Maruska Calendar
 
 Aplicação no estilo "todo list" para agendamento de shows para a cantora Maruska.
+Backend e Banco de Dados hospedado na <a href='https://railway.app/'>Railway</a> e Frontend na <a href='https://vercel.com/'>Vercel</a>.
+
+## Tecnologias Utilizadas
+
+### Frontend:
+  - HTML
+  - CSS
+  - React JS
+  - Context API
+  - Axios
+
+### Backend
+  - NodeJS
+  - Express
+  - Joi
+  - Sequelize ORM
+  - MYSQL
+  - Arquitetura utilizada: MSC (MODEL, SERVICE e CONTROLLER)
 
 ## Funcionalidades
 
