@@ -1,4 +1,4 @@
-# Maruska Calendar
+# Maruska Calendar (Versão para Desktop em construção)
 
 Aplicação no estilo "todo list" para agendamento de shows para a cantora Maruska.
 
