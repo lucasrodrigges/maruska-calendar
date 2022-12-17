@@ -1,6 +1,7 @@
 const {
   Model,
   DataTypes,
+  QueryTypes,
 } = require('sequelize');
 
 class Event extends Model {
@@ -12,6 +13,21 @@ class Event extends Model {
     }, {
       sequelize,
       underscored: true,
+    });
+  }
+
+  static async getFiltered() {
+    return this.sequelize.query(`
+      SELECT e.* ,
+      m.id AS 'musicians.id', m.name AS 'musicians.name', m.instrument AS 'musicians.instrument' 
+      FROM maruska.events AS e 
+        LEFT OUTER JOIN ( events_musicians AS em 
+          INNER JOIN musicians AS m ON m.id = em.musician_id) 
+            ON e.id = em.event_id
+      WHERE e.when > NOW()
+      ORDER BY e.when ASC`, {
+      type: QueryTypes.SELECT,
+      nest: true,
     });
   }
 

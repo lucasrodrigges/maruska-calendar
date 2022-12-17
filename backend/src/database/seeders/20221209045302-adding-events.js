@@ -6,7 +6,7 @@ module.exports = {
       when: new Date(),
     }, {
       title: 'Duna Beach',
-      when: new Date(),
+      when: '2022-12-24 18:00:00',
     }, {
       title: 'Particular',
       when: new Date(),

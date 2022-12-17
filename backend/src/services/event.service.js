@@ -1,4 +1,4 @@
-const { or } = require('sequelize').Op;
+const { or, gt } = require('sequelize').Op;
 const Event = require('../database/models/Event');
 const Musician = require('../database/models/Musician');
 const User = require('../database/models/User');
@@ -6,6 +6,9 @@ const HttpError = require('../utils/HttpError');
 
 module.exports = {
   getEvents: async () => Event.findAll({
+    where: {
+      when: { [gt]: new Date() },
+    },
     order: [['when', 'ASC']],
     include: {
       model: Musician,
