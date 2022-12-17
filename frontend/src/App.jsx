@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 import ThisEvent from './pages/ThisEvent';
+import FinishedEvents from './pages/FinishedEvents';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="editar-perfil" element={<ProfileEdit />} />
       <Route path="novo-usuario" element={<UserRegister />} />
       <Route path="calendario" element={<Calendar />} />
+      <Route path="eventos-finalizados" element={<FinishedEvents />} />
       <Route path="evento/:id" element={<ThisEvent />} />
       <Route path="novo-show" element={<EventRegister />} />
       <Route path="banda" element={<BandForm />} />

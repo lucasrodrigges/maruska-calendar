@@ -1,23 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { Link } from 'react-router-dom';
 import sadUnicorny from '../images/sadUnicorny.png';
 import createDate from '../helpers/createDate';
 import { GlobalContext } from '../context/GlobalProvider';
-import { getEvents } from '../api/routes/eventRoute';
 
 export default function EventCards() {
   const {
     events,
-    setEvents,
     user,
   } = useContext(GlobalContext);
-
-  useEffect(() => {
-    getEvents().then(({ data }) => {
-      setEvents(data);
-    });
-  }, []);
 
   return (
     <div className="calendar-general-container">

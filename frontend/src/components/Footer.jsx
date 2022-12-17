@@ -18,6 +18,7 @@ export default function Footer() {
         <button
           className="button-2"
           type="button"
+          onClick={() => navigate('/eventos-finalizados')}
         >
           Shows Realizados
         </button>

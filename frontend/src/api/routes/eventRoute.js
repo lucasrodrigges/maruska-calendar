@@ -6,6 +6,12 @@ export const getEvents = () => (
     .catch(({ response: { status, data } }) => ({ status, data }))
 );
 
+export const getFinishedEvents = () => (
+  axios().get('/event/finished')
+    .then(({ status, data }) => ({ status, data }))
+    .catch(({ response: { status, data } }) => ({ status, data }))
+);
+
 export const getEventById = (id) => (
   axios().get(`/event/${id}`)
     .then(({ status, data }) => ({ status, data }))

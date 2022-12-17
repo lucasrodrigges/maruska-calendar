@@ -7,10 +7,12 @@ import { GlobalContext } from '../context/GlobalProvider';
 import { getMe } from '../api/routes/userRoute';
 
 import '../style/Calendar.css';
+import { getEvents } from '../api/routes/eventRoute';
 
 export default function Calendar() {
   const {
     currMonth,
+    setEvents,
     // setCurrMonth,
   } = useContext(GlobalContext);
 
@@ -33,6 +35,12 @@ export default function Calendar() {
     });
     setMembers([]);
     setLoading(!isLoading);
+  }, []);
+
+  useEffect(() => {
+    getEvents().then(({ data }) => {
+      setEvents(data);
+    });
   }, []);
 
   return isLoading ? <Loading /> : (
