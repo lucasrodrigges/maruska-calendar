@@ -10,6 +10,12 @@ route.get(
 );
 
 route.get(
+  '/event/finished',
+  validations.token,
+  eventController.getFinishedEvents,
+);
+
+route.get(
   '/event/:id',
   validations.token,
   eventController.getEventById,
