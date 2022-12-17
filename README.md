@@ -4,6 +4,8 @@ Aplicação no estilo "todo list" para agendamento de shows para a cantora Marus
 
 Backend e Banco de Dados hospedado na <a href='https://railway.app/'>Railway</a> e Frontend na <a href='https://vercel.com/'>Vercel</a>.
 
+Ps: Versão para Desktop em construção
+
 ## Tecnologias Utilizadas
 
 ### Frontend:
