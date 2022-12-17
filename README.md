@@ -7,19 +7,21 @@ Backend e Banco de Dados hospedado na <a href='https://railway.app/'>Railway</a>
 ## Tecnologias Utilizadas
 
 ### Frontend:
-  - HTML
-  - CSS
-  - React JS
-  - Context API
-  - Axios
+
+- HTML
+- CSS
+- React JS
+- Context API
+- Axios
 
 ### Backend
-  - NodeJS
-  - Express
-  - Joi
-  - Sequelize ORM
-  - MYSQL
-  - Arquitetura utilizada: MSC (MODEL, SERVICE e CONTROLLER)
+
+- NodeJS
+- Express
+- Joi
+- Sequelize ORM
+- MYSQL
+- Arquitetura utilizada: MSC (MODEL, SERVICE e CONTROLLER)
 
 ## Funcionalidades
 
