@@ -35,7 +35,7 @@ export default function Footer() {
       </div>
       )}
       <footer className="footer">
-        <Link to="/calendario">
+        <Link to="/">
           <i className="fa-solid fa-house icons footer-icons" />
         </Link>
         <button

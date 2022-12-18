@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -13,6 +14,8 @@ export default function Musicians() {
     setMusicians,
     isLoading,
   } = useContext(GlobalContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMusicians().then(({ status, data }) => {
@@ -39,6 +42,13 @@ export default function Musicians() {
               ))
             ) : <p>Não há músicos cadastrados</p>}
             <AdminButtons type="newMus" />
+            <button
+              className="button-1"
+              type="button"
+              onClick={() => navigate(-1)}
+            >
+              Voltar
+            </button>
           </div>
           <Footer />
         </div>

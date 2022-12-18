@@ -34,7 +34,7 @@ export default function Login() {
         setUser({ email: currUser.email });
         setUserToken(data.token);
         setToLS('token', data.token);
-        navigate('/calendario');
+        navigate('/');
       } else {
         setLoginError('Email ou senha inválidos.');
       }

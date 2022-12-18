@@ -41,7 +41,7 @@ export default function UserRegister() {
         if (status === 201) {
           setUserToken(data.token);
           setToLS('token', data.token);
-          navigate('/calendario');
+          navigate('/');
         } else {
           setCreateError(data.message);
         }

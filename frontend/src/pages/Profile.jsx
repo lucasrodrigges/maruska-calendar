@@ -58,7 +58,7 @@ export default function Profile() {
             <button
               className="button-1"
               type="button"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/login')}
             >
               Sair
 
