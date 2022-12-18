@@ -19,11 +19,11 @@ import FinishedEvents from './pages/FinishedEvents';
 export default function App() {
   return (
     <Routes>
-      <Route path="" element={<Login />} />
+      <Route path="/" element={<Calendar />} />
       <Route path="perfil" element={<Profile />} />
       <Route path="editar-perfil" element={<ProfileEdit />} />
       <Route path="novo-usuario" element={<UserRegister />} />
-      <Route path="calendario" element={<Calendar />} />
+      <Route path="login" element={<Login />} />
       <Route path="eventos-finalizados" element={<FinishedEvents />} />
       <Route path="evento/:id" element={<ThisEvent />} />
       <Route path="novo-show" element={<EventRegister />} />
